@@ -132,30 +132,47 @@
   .nav-right { justify-self: end; display: flex; align-items: center; gap: 20px; }
   .menu-toggle { display: none; }
 
-  /* ---------- Hero ---------- */
-  .hero { position: relative; min-height: 100vh; min-height: 100svh; display: grid; align-items: center; padding: calc(var(--header-h) + 40px) 0 72px; overflow: hidden; }
-  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: clamp(40px, 6vw, 112px); align-items: center; }
-  .hero-title { font-size: var(--t-hero); line-height: 1.04; letter-spacing: -0.02em; color: var(--green); }
+  /* ---------- Hero: a Maison mural, framed, with the words Sense and Presence ---------- */
+  .hero { position: relative; overflow: hidden; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; padding: calc(var(--header-h) + 32px) 0 44px; }
+  .hero-words { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .word {
+    position: absolute; font-family: var(--display); font-style: italic; font-weight: 400;
+    font-size: clamp(6rem, 19vw, 19rem); line-height: 0.8; letter-spacing: -0.03em;
+    color: #E3E3DB; white-space: nowrap;
+  }
+  .word-sense { left: -1.5vw; top: calc(var(--header-h) - 8px); }
+  .word-presence { right: -2.5vw; bottom: -0.06em; }
+  .hero-inner { position: relative; z-index: 1; width: 100%; }
+  .hero-head { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(28px, 4vw, 72px); align-items: end; margin-bottom: clamp(26px, 3.2vw, 44px); }
+  .hero-title { font-size: clamp(2.6rem, 5vw, 5rem); line-height: 1.04; letter-spacing: -0.02em; color: var(--green); }
   .hero-title .line { display: block; overflow: hidden; padding-bottom: 0.06em; margin-bottom: -0.03em; }
   .hero-title .line > span { display: inline-block; }
-  .hero-rule { width: 64px; height: 1px; background: var(--gold); margin: 36px 0 28px; border: 0; }
-  .hero-lede { max-width: 27em; font-size: var(--t-md); line-height: 1.6; color: var(--ink); }
-  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 28px; margin-top: 40px; }
+  .hero-lede { max-width: 27em; color: var(--ink); }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 26px; margin-top: 24px; }
 
-  .hero-art { position: relative; justify-self: center; width: min(100%, 420px, calc((100vh - 240px) / 1.5)); min-width: 240px; }
-  .hero-art .arch { position: relative; background: #E6E2D3; }
-  .hero-art .scene { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero-painting { margin: 0; }
+  .painting-frame {
+    position: relative; margin: 0 auto;
+    width: min(100%, calc((100vh - 380px) * 3)); min-width: min(100%, 620px);
+    padding: 10px; background: #FBFAF6;
+    box-shadow: 0 0 0 1px var(--gold), 0 44px 90px -44px rgba(23, 48, 42, 0.55);
+    transform-origin: 50% 50%;
+  }
+  .painting-clip { position: relative; aspect-ratio: 3 / 1; overflow: hidden; background: #C9B79A; }
+  .painting-move { position: absolute; left: 0; right: 0; top: -8%; height: 116%; }
+  .painting-img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; transform-origin: 50% 55%; }
+  .hero-painting figcaption { text-align: center; margin-top: 14px; font-size: var(--t-sm); color: var(--stone); }
+
   .arch-outline {
     position: absolute; inset: -16px -16px 0 -16px; pointer-events: none;
     border: 1px solid var(--gold); border-bottom: 0;
     border-radius: 50% 50% 0 0 / 35% 35% 0 0;
   }
-  .arch-sill { position: absolute; left: -16px; right: -16px; bottom: -1px; height: 1px; background: var(--gold); }
 
   /* Intro guard */
   .intro-pending .hero-title .line > span,
-  .intro-pending .hero-lede, .intro-pending .hero-actions, .intro-pending .hero-rule,
-  .intro-pending .hero-art { visibility: hidden; }
+  .intro-pending .hero-lede, .intro-pending .hero-actions,
+  .intro-pending .painting-frame, .intro-pending .hero-words, .intro-pending .hero-painting figcaption { visibility: hidden; }
 
   /* ---------- Statement ---------- */
   .statement { padding: var(--section-y) 0; text-align: center; }
@@ -342,10 +359,13 @@
     .site-nav ul { flex-direction: column; gap: 0; }
     .site-nav a { display: block; padding: 14px 0; font-family: var(--display); font-size: 1.5rem; border-bottom: 1px solid var(--hair); background: none; }
 
-    .hero { padding-top: calc(var(--header-h) + 36px); align-items: start; }
-    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
-    .hero-art { order: -1; width: min(58vw, 270px); min-width: 0; }
-    .hero-rule { margin: 28px 0 22px; }
+    .hero { padding-top: calc(var(--header-h) + 28px); align-items: start; }
+    .hero-head { grid-template-columns: 1fr; gap: 18px; }
+    .painting-frame { width: 100%; min-width: 0; padding: 8px; }
+    .painting-clip { aspect-ratio: 4 / 3; }
+    .painting-img { object-position: 66% 50%; }
+    .word { font-size: 28vw; }
+    .word-sense { top: calc(var(--header-h) + 4px); }
 
     .statement-body, .section-head, .process-grid, .contact-grid { grid-template-columns: 1fr; }
     .facts { grid-template-columns: 1fr; }
@@ -420,61 +440,37 @@
 
 <main id="main">
 
-  <!-- Hero: an arched window onto a painted scene, layered for depth -->
+  <!-- Hero: one of Maison's painted murals, framed, between the words Sense and Presence -->
   <section class="hero" id="top" aria-labelledby="hero-title">
-    <div class="container hero-grid">
-      <div class="hero-copy">
+    <div class="hero-words" aria-hidden="true">
+      <span class="word word-sense">Sense</span>
+      <span class="word word-presence">Presence</span>
+    </div>
+    <div class="container hero-inner">
+      <div class="hero-head">
         <h1 class="hero-title" id="hero-title">
-          <span class="line"><span>Every wall,</span></span>
-          <span class="line"><span>finished</span></span>
-          <span class="line"><span>by hand.</span></span>
+          <span class="line"><span>Art you can sense.</span></span>
+          <span class="line"><span>Rooms with presence.</span></span>
         </h1>
-        <hr class="hero-rule">
-        <p class="hero-lede">Interior design, special paint effects and artworks for homes, hotels, offices and palaces, from Manama, Doha and Manila since 1994.</p>
-        <div class="hero-actions">
-          <a class="btn" href="#contact">Start a project</a>
-          <a class="text-link" href="#finishes">See the finishes</a>
+        <div class="hero-side">
+          <p class="hero-lede">Interior design, special paint effects and artworks for homes, hotels, offices and palaces, from Manama, Doha and Manila since 1994.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#contact">Start a project</a>
+            <a class="text-link" href="#finishes">See the finishes</a>
+          </div>
         </div>
       </div>
-
-      <div class="hero-art" aria-hidden="true">
-        <div class="arch arch-2x3">
-          <svg class="scene" viewBox="0 0 600 900" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <defs>
-              <linearGradient id="sc-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B4CEC8"/><stop offset="0.56" stop-color="#E7E3D4"/><stop offset="0.66" stop-color="#F1DEB8"/></linearGradient>
-              <linearGradient id="sc-sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7BA69D"/><stop offset="1" stop-color="#1D3D36"/></linearGradient>
-              <radialGradient id="sc-glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#FFF5DA" stop-opacity="0.95"/><stop offset="1" stop-color="#FFF5DA" stop-opacity="0"/></radialGradient>
-              <filter id="sc-paint" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter>
-            </defs>
-            <g class="sc-sky"><rect x="-60" y="-160" width="720" height="840" fill="url(#sc-sky)"/></g>
-            <g class="sc-sun"><circle cx="372" cy="468" r="96" fill="url(#sc-glow)"/><circle cx="372" cy="468" r="30" fill="#F7E8C2"/></g>
-            <g class="sc-shore"><path d="M-60 560 C 40 540, 110 527, 190 535 C 260 542, 300 529, 360 533 C 430 537, 520 547, 660 555 L 660 590 L -60 590 Z" fill="#86A99F"/></g>
-            <g class="sc-sea">
-              <rect x="-60" y="552" width="720" height="460" fill="url(#sc-sea)"/>
-              <g stroke="#F3E6C4" stroke-linecap="round" opacity="0.6"><path d="M352 574 H392" stroke-width="3"/><path d="M342 592 H402" stroke-width="2.4"/><path d="M356 612 H388" stroke-width="2"/><path d="M338 636 H406" stroke-width="1.6"/></g>
-              <g stroke="#E6F0EC" stroke-opacity="0.25" stroke-width="1.2"><path d="M40 664 H140"/><path d="M230 708 H300"/><path d="M430 726 H540"/><path d="M90 770 H170"/></g>
-            </g>
-            <g class="sc-boat">
-              <path d="M150 652 L250 652 L236 668 L164 668 Z" fill="#17302A"/>
-              <path d="M198 650 L198 548 L248 642 Z" fill="#F4EEDF"/>
-              <path d="M192 650 L192 570 L157 642 Z" fill="#E4DAC3"/>
-              <path d="M195 652 V538" stroke="#17302A" stroke-width="2.5"/>
-            </g>
-            <g class="sc-palms" fill="none" stroke="#17302A" stroke-linecap="round" filter="url(#sc-paint)">
-              <path d="M522 990 C 512 830, 490 700, 470 590" stroke-width="13"/>
-              <path d="M470 590 Q 410 545 350 572" stroke-width="8"/><path d="M470 590 Q 430 576 386 626" stroke-width="7"/>
-              <path d="M470 590 Q 520 535 592 552" stroke-width="8"/><path d="M470 590 Q 530 586 576 642" stroke-width="7"/>
-              <path d="M470 590 Q 458 530 488 498" stroke-width="7"/><path d="M470 590 Q 440 548 418 516" stroke-width="6"/>
-              <path d="M58 990 C 68 870, 86 784, 102 722" stroke-width="9"/>
-              <path d="M102 722 Q 60 694 22 716" stroke-width="6"/><path d="M102 722 Q 146 688 190 706" stroke-width="6"/>
-              <path d="M102 722 Q 98 686 120 662" stroke-width="5"/><path d="M102 722 Q 70 708 52 746" stroke-width="5"/>
-            </g>
-            <g class="sc-sill"><rect x="-60" y="862" width="720" height="80" fill="#DAD8CE"/><rect x="-60" y="862" width="720" height="3" fill="#F7F6F1"/></g>
-          </svg>
+      <figure class="hero-painting">
+        <div class="painting-frame">
+          <div class="painting-clip">
+            <div class="painting-move">
+              <img class="painting-img" src="https://maisoninteriors.com/img/art-14.jpg" width="1200" height="400" fetchpriority="high"
+                   alt="Trompe l'oeil mural: a Venetian canal with a gondolier, seen through painted stone arches and a balustrade">
+            </div>
+          </div>
         </div>
-        <span class="arch-outline"></span>
-        <span class="arch-sill"></span>
-      </div>
+        <figcaption>Trompe l'oeil mural, from Maison's Special Art Effects portfolio</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -973,26 +969,48 @@
   root.classList.add('motion-ok');
   gsap.registerPlugin(ScrollTrigger);
 
-  // 3a. The one load moment: the arch opens from the sill up, the scene settles, the words rise
+  // 3a. The one load moment: the mural opens from the centre like curtains, the words drift in, the headline rises
   var intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
   intro
-    .fromTo('.hero-art .arch', { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease: 'power3.inOut' }, 0)
-    .from('.hero-art .scene', { scale: 1.18, transformOrigin: '50% 75%', duration: 2.4 }, 0.15)
-    .from('.hero-art .arch-outline', { autoAlpha: 0, y: 24, duration: 1.4 }, 0.8)
-    .from('.hero-art .arch-sill', { scaleX: 0, duration: 1.2, ease: 'power2.inOut' }, 0.2)
-    .from('.hero-title .line > span', { yPercent: 112, duration: 1.15, stagger: 0.12 }, 0.45)
-    .from('.hero-rule', { scaleX: 0, transformOrigin: 'left center', duration: 1 }, 0.95)
-    .from('.hero-lede, .hero-actions', { y: 16, autoAlpha: 0, duration: 0.9, stagger: 0.1 }, 1.05);
+    .from('.painting-frame', { autoAlpha: 0, scale: 0.97, duration: 0.9 }, 0)
+    .fromTo('.painting-clip', { clipPath: 'inset(0% 50% 0% 50%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease: 'power3.inOut' }, 0.25)
+    .from('.painting-img', { scale: 1.3, duration: 2.6 }, 0.25)
+    .from('.word-sense', { xPercent: -25, autoAlpha: 0, duration: 2 }, 0.3)
+    .from('.word-presence', { xPercent: 25, autoAlpha: 0, duration: 2 }, 0.45)
+    .from('.hero-title .line > span', { yPercent: 112, duration: 1.1, stagger: 0.12 }, 0.55)
+    .from('.hero-lede, .hero-actions, .hero-painting figcaption', { y: 16, autoAlpha: 0, duration: 0.9, stagger: 0.1 }, 1.1);
   root.classList.remove('intro-pending');
 
-  // 3b. Hero parallax: each painted layer at its own depth, far layers slow, near layers fast
-  var heroST = function () { return { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.6 }; };
-  [['.sc-sky', 70], ['.sc-sun', 120], ['.sc-shore', 46], ['.sc-sea', 22], ['.sc-palms', -80]].forEach(function (pair) {
-    gsap.to(pair[0], { y: pair[1], ease: 'none', scrollTrigger: heroST() });
-  });
-  gsap.to('.sc-boat', { x: 60, y: 18, ease: 'none', scrollTrigger: heroST() });
-  gsap.to('.hero-art', { y: -50, ease: 'none', scrollTrigger: heroST() });
-  gsap.to('.hero-copy', { y: -24, ease: 'none', scrollTrigger: heroST() });
+  // 3b. Hero on scroll. Wide screens: the hero holds while the mural grows to the width of the screen,
+  //     the words part to either side and the headline steps back. Narrow screens: a lighter parallax.
+  var frame = document.querySelector('.painting-frame');
+  var heroEl = document.querySelector('.hero');
+  function offsetWithin(el, ancestor) {
+    var y = 0, node = el;
+    while (node && node !== ancestor) { y += node.offsetTop; node = node.offsetParent; }
+    return y;
+  }
+  if (window.matchMedia('(min-width: 901px)').matches) {
+    var heroTl = gsap.timeline({
+      scrollTrigger: { trigger: heroEl, start: 'top top', end: '+=90%', pin: true, scrub: 0.8, anticipatePin: 1, invalidateOnRefresh: true }
+    });
+    heroTl
+      .to('.hero-head', { y: -70, autoAlpha: 0, ease: 'none', duration: 0.6 }, 0)
+      .to('.hero-painting figcaption', { autoAlpha: 0, ease: 'none', duration: 0.3 }, 0)
+      .to('.word-sense', { xPercent: -38, ease: 'none', duration: 1 }, 0)
+      .to('.word-presence', { xPercent: 38, ease: 'none', duration: 1 }, 0)
+      .to(frame, {
+        scale: function () { return Math.min((window.innerWidth * 0.96) / frame.offsetWidth, 1.45); },
+        y: function () { return window.innerHeight / 2 - (offsetWithin(frame, heroEl) + frame.offsetHeight / 2); },
+        ease: 'none', duration: 1
+      }, 0)
+      .to('.painting-move', { yPercent: -6, ease: 'none', duration: 1 }, 0);
+  } else {
+    var lightST = function () { return { trigger: heroEl, start: 'top top', end: 'bottom top', scrub: 0.6 }; };
+    gsap.fromTo('.painting-move', { yPercent: -5 }, { yPercent: 5, ease: 'none', scrollTrigger: lightST() });
+    gsap.to('.word-sense', { xPercent: -20, ease: 'none', scrollTrigger: lightST() });
+    gsap.to('.word-presence', { xPercent: 20, ease: 'none', scrollTrigger: lightST() });
+  }
 
   // 3c. Signature: the finishing wall, pinned; each scroll step trowels a new coat over the last
   var HIDDEN = 'polygon(0% 0%, 0% 0%, -22% 100%, -22% 100%)';
