@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison Interiors | Concept homepage</title>
+<meta name="description" content="Concept homepage for Maison Interiors: interior design, special paint effects and artworks from Manama, Doha and Manila since 1994.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F6F6F3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var d = document.documentElement;
+    d.classList.remove('no-js');
+    d.classList.add('js');
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      d.classList.add('intro-pending');
+      setTimeout(function () { d.classList.remove('intro-pending'); }, 1800);
+    }
+  })();
+</script>
+<style>
+  /* ---------- Tokens ---------- */
+  :root {
+    --porcelain: #F6F6F3;   /* page */
+    --limewash: #ECEDE8;    /* quiet sections */
+    --green: #17302A;       /* ink green: headings, dark sections */
+    --green-2: #22403A;
+    --green-deep: #0F211D;
+    --ink: #1B2420;         /* body text */
+    --stone: #4A514D;       /* secondary text, 7.4:1 on porcelain */
+    --gold: #B8975A;        /* hairlines and ornament only */
+    --gold-text: #73572A;   /* gold for small text, 6:1 on porcelain */
+    --mist: #EEF0EC;
+    --hair: rgba(23, 48, 42, 0.14);
+    --hair-light: rgba(238, 240, 236, 0.2);
+
+    --display: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+    --body: 'Albert Sans', 'Helvetica Neue', Arial, sans-serif;
+
+    --t-sm: 1rem;
+    --t-base: 1.1875rem;
+    --t-md: 1.3125rem;
+    --t-lg: 1.75rem;
+    --t-xl: clamp(2rem, 3.4vw, 2.75rem);
+    --t-2xl: clamp(2.4rem, 4.8vw, 4rem);
+    --t-hero: clamp(3.1rem, 6.2vw, 6.4rem);
+
+    --gutter: clamp(22px, 5vw, 80px);
+    --header-h: 112px;
+    --section-y: clamp(96px, 12vw, 176px);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0; background: var(--porcelain); color: var(--ink);
+    font-family: var(--body); font-size: var(--t-base); line-height: 1.68;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  svg { display: block; }
+  a { color: inherit; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; font-optical-sizing: auto; }
+  p { margin: 0; text-wrap: pretty; }
+  ::selection { background: var(--gold); color: var(--green-deep); }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+
+  .container { width: 100%; max-width: 1320px; margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter); }
+  .skip { position: absolute; left: 16px; top: -60px; z-index: 100; background: var(--green); color: var(--mist); padding: 10px 16px; text-decoration: none; }
+  .skip:focus { top: 16px; }
+
+  /* The two ornaments: an eight-point star and the arch */
+  .star {
+    display: inline-block; width: 0.36em; height: 0.36em; background: var(--gold); flex: none;
+    clip-path: polygon(100% 50%, 85.36% 64.65%, 85.36% 85.36%, 64.65% 85.36%, 50% 100%, 35.35% 85.36%, 14.64% 85.36%, 14.64% 64.65%, 0% 50%, 14.64% 35.35%, 14.64% 14.64%, 35.35% 14.64%, 50% 0%, 64.65% 14.64%, 85.36% 14.64%, 85.36% 35.35%);
+  }
+  .arch-2x3 { aspect-ratio: 2 / 3; border-radius: 50% 50% 0 0 / 33.333% 33.333% 0 0; overflow: hidden; }
+  .arch-3x4 { aspect-ratio: 3 / 4; border-radius: 50% 50% 0 0 / 37.5% 37.5% 0 0; overflow: hidden; }
+
+  /* Buttons and links */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 52px; padding: 0 30px; border-radius: 0;
+    font: 500 var(--t-sm)/1 var(--body); letter-spacing: 0.02em; text-decoration: none;
+    background: var(--green); color: var(--mist); border: 1px solid var(--green);
+    transition: background-color 0.25s, color 0.25s; cursor: pointer;
+  }
+  .btn:hover { background: var(--green-2); }
+  .text-link {
+    font-weight: 500; font-size: var(--t-sm); letter-spacing: 0.02em; color: var(--green);
+    text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 1px; text-underline-offset: 7px;
+    transition: text-underline-offset 0.25s;
+  }
+  .text-link:hover { text-underline-offset: 4px; }
+
+  /* Paint-effect textures (generated in the script; colours are the fallback) */
+  .tex-plaster { background-color: #E7E8E2; background-image: var(--tex-plaster); }
+  .tex-stucco  { background-color: #2D5248; background-image: linear-gradient(118deg, rgba(255,255,255,0.14), rgba(255,255,255,0) 42%), var(--tex-stucco); }
+  .tex-marble  { background-color: #EAE9E3; background-image: var(--tex-marble); }
+  .tex-gold    { background-color: #C2A055; background-image: var(--tex-gold); }
+  .tex-linen   { background-color: #B49B7D; background-image: var(--tex-linen); }
+  .tex-mural   { background-color: #AFCBC4; background-image: var(--tex-mural); }
+  [class*="tex-"] { background-size: cover; background-position: center; background-repeat: no-repeat; }
+
+  /* ---------- Header ---------- */
+  .site-header { position: fixed; inset: 0 0 auto 0; z-index: 50; }
+  .concept-note {
+    background: var(--limewash); color: var(--stone);
+    font-size: 0.875rem; line-height: 1.45; text-align: center; padding: 8px var(--gutter);
+    border-bottom: 1px solid var(--hair);
+  }
+  .nav-bar {
+    position: relative;
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    height: 78px; padding: 0 var(--gutter);
+    transition: background-color 0.35s, box-shadow 0.35s;
+  }
+  .site-header.is-scrolled .nav-bar, .site-header.menu-open .nav-bar {
+    background: rgba(246, 246, 243, 0.94);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 var(--hair);
+  }
+  .site-nav ul { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; }
+  .site-nav a { text-decoration: none; color: var(--green); font-size: var(--t-sm); padding: 6px 0; background: linear-gradient(var(--gold), var(--gold)) left bottom / 0 1px no-repeat; transition: background-size 0.3s; }
+  .site-nav a:hover { background-size: 100% 1px; }
+  .wordmark { justify-self: center; display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--green); line-height: 1; }
+  .wordmark .wm-main { font-family: var(--display); font-size: 1.95rem; font-weight: 500; letter-spacing: 0; }
+  .wordmark .wm-sub { font-size: 0.8125rem; letter-spacing: 0.28em; margin-top: 6px; padding-left: 0.32em; color: var(--gold-text); }
+  .nav-right { justify-self: end; display: flex; align-items: center; gap: 20px; }
+  .menu-toggle { display: none; }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; min-height: 100vh; min-height: 100svh; display: grid; align-items: center; padding: calc(var(--header-h) + 40px) 0 72px; overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: clamp(40px, 6vw, 112px); align-items: center; }
+  .hero-title { font-size: var(--t-hero); line-height: 1.04; letter-spacing: -0.02em; color: var(--green); }
+  .hero-title .line { display: block; overflow: hidden; padding-bottom: 0.06em; margin-bottom: -0.03em; }
+  .hero-title .line > span { display: inline-block; }
+  .hero-rule { width: 64px; height: 1px; background: var(--gold); margin: 36px 0 28px; border: 0; }
+  .hero-lede { max-width: 27em; font-size: var(--t-md); line-height: 1.6; color: var(--ink); }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 28px; margin-top: 40px; }
+
+  .hero-art { position: relative; justify-self: center; width: min(100%, 420px, calc((100vh - 240px) / 1.5)); min-width: 240px; }
+  .hero-art .arch { position: relative; background: #E6E2D3; }
+  .hero-art .scene { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .arch-outline {
+    position: absolute; inset: -16px -16px 0 -16px; pointer-events: none;
+    border: 1px solid var(--gold); border-bottom: 0;
+    border-radius: 50% 50% 0 0 / 35% 35% 0 0;
+  }
+  .arch-sill { position: absolute; left: -16px; right: -16px; bottom: -1px; height: 1px; background: var(--gold); }
+
+  /* Intro guard */
+  .intro-pending .hero-title .line > span,
+  .intro-pending .hero-lede, .intro-pending .hero-actions, .intro-pending .hero-rule,
+  .intro-pending .hero-art { visibility: hidden; }
+
+  /* ---------- Statement ---------- */
+  .statement { padding: var(--section-y) 0; text-align: center; }
+  .statement h2 { font-size: var(--t-2xl); line-height: 1.12; color: var(--green); max-width: 16em; margin: 0 auto; }
+  .statement-body { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 4vw, 64px); max-width: 960px; margin: 56px auto 0; text-align: left; }
+  .pull { margin: clamp(64px, 7vw, 104px) auto 0; max-width: 34em; }
+  .pull blockquote { margin: 0; }
+  .pull blockquote p { font-family: var(--display); font-style: italic; font-size: clamp(1.6rem, 2.8vw, 2.4rem); line-height: 1.3; color: var(--green); text-wrap: balance; }
+  .pull figcaption { margin-top: 18px; font-size: var(--t-sm); color: var(--gold-text); }
+  .pull::before { content: ''; display: block; width: 1px; height: 56px; background: var(--gold); margin: 0 auto 32px; }
+  .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 960px; margin: clamp(64px, 7vw, 104px) auto 0; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+  .facts div { padding: 28px 16px; }
+  .facts div + div { border-left: 1px solid var(--hair); }
+  .facts dt { font-size: var(--t-sm); color: var(--gold-text); margin-bottom: 6px; }
+  .facts dd { margin: 0; font-family: var(--display); font-weight: 500; font-size: var(--t-lg); line-height: 1.2; color: var(--green); }
+
+  /* ---------- Finishing wall (signature) ---------- */
+  .finishes { background: var(--green); color: var(--mist); }
+  .finishes-inner {
+    display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: clamp(36px, 6vw, 112px); align-items: center;
+    padding: var(--section-y) var(--gutter); max-width: 1400px; margin: 0 auto;
+  }
+  .finishes h2 { font-size: var(--t-2xl); line-height: 1.08; }
+  .finishes-intro { margin: 18px 0 44px; max-width: 26em; color: rgba(238, 240, 236, 0.94); }
+  .finish-captions { list-style: none; margin: 0; padding: 0; display: grid; gap: 30px; }
+  .finish-caption h3 { font-size: clamp(1.75rem, 2.5vw, 2.25rem); font-weight: 500; line-height: 1.15; color: var(--mist); margin-bottom: 10px; }
+  .finish-caption p { max-width: 24em; font-size: var(--t-md); line-height: 1.55; color: rgba(238, 240, 236, 0.95); }
+  .finish-meta, .motion-only { display: none; }
+  .finish-stage { position: relative; justify-self: center; }
+  .finish-wall { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 14px; }
+  .coat-wrap { margin: 0; }
+  .coat { position: relative; }
+  .coat-wrap figcaption { font-size: var(--t-sm); margin-top: 8px; color: rgba(238, 240, 236, 0.85); }
+
+  .motion-ok .motion-only { display: inline; }
+  .motion-ok .finishes-inner { min-height: 100vh; padding-top: calc(var(--header-h) + 28px); padding-bottom: 40px; }
+  .motion-ok .finish-captions { grid-template-areas: "stack"; }
+  .motion-ok .finish-caption { grid-area: stack; }
+  .motion-ok .finish-meta { display: flex; align-items: center; gap: 20px; margin-top: 40px; max-width: 26em; }
+  .finish-count { flex: none; font-size: var(--t-sm); color: var(--gold); font-variant-numeric: tabular-nums; }
+  .finish-nav { display: flex; gap: 12px; }
+  .swatch {
+    width: 30px; aspect-ratio: 3 / 4; padding: 0; border: 0; cursor: pointer;
+    border-radius: 50% 50% 0 0 / 37.5% 37.5% 0 0;
+    opacity: 0.5; transition: opacity 0.3s, transform 0.3s;
+  }
+  .swatch:hover { opacity: 0.85; transform: translateY(-2px); }
+  .swatch.is-active { opacity: 1; box-shadow: 0 0 0 1px var(--green), 0 0 0 2px var(--gold); }
+  .swatch:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+  .motion-ok .finish-wall {
+    display: block; position: relative; aspect-ratio: 3 / 4;
+    height: min(calc(100vh - var(--header-h) - 120px), 740px); width: auto;
+    border-radius: 50% 50% 0 0 / 37.5% 37.5% 0 0; overflow: hidden;
+    box-shadow: 0 60px 100px -50px rgba(0, 0, 0, 0.65);
+  }
+  .motion-ok .coat-wrap { position: absolute; inset: 0; }
+  .motion-ok .coat { position: absolute; inset: 0; aspect-ratio: auto; border-radius: 0; }
+  .motion-ok .coat-wrap figcaption { display: none; }
+  .finish-stage .arch-outline { display: none; inset: -18px -18px 0 -18px; border-radius: 50% 50% 0 0 / 39% 39% 0 0; }
+  .motion-ok .finish-stage .arch-outline { display: block; }
+
+  /* ---------- Services ---------- */
+  .services { padding: var(--section-y) 0 calc(var(--section-y) * 0.7); }
+  .section-head { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 96px); align-items: end; margin-bottom: clamp(44px, 5vw, 80px); }
+  .section-head h2 { font-size: var(--t-2xl); line-height: 1.08; color: var(--green); }
+  .section-head p { max-width: 32em; color: var(--stone); }
+  .service-groups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(32px, 4.5vw, 72px); }
+  .service-group { border-top: 1px solid var(--gold); padding-top: 28px; }
+  .service-group > h3 { font-size: var(--t-xl); line-height: 1.1; color: var(--green); }
+  .group-intro { margin-top: 8px; color: var(--gold-text); font-size: var(--t-sm); font-weight: 500; }
+  .service-group ul { list-style: none; margin: 28px 0 0; padding: 0; }
+  .service-group li { padding: 20px 0 22px; border-top: 1px solid var(--hair); }
+  .service-group h4 { font-family: var(--display); font-weight: 500; font-size: 1.4375rem; line-height: 1.2; color: var(--green); margin: 0 0 6px; }
+  .service-group li p { font-size: 1.0625rem; line-height: 1.6; color: var(--stone); max-width: 24em; }
+
+  /* ---------- Process ---------- */
+  .process { background: var(--limewash); padding: var(--section-y) 0; }
+  .process-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 96px); }
+  .process h2 { font-size: var(--t-2xl); line-height: 1.1; color: var(--green); max-width: 10em; }
+  .process-track { position: relative; padding-left: 80px; }
+  .process-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 44px; }
+  .process-line { position: absolute; left: 22px; top: 22px; width: 2px; height: calc(100% - 44px); overflow: visible; }
+  .process-line line { stroke: var(--gold); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+  .motion-ok .process-line line { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .step { position: relative; }
+  .step-n {
+    position: absolute; left: -80px; top: 0; width: 46px; height: 46px; border-radius: 50%;
+    display: grid; place-items: center; font-family: var(--display); font-size: 1.25rem;
+    background: var(--green); color: var(--mist); transition: background-color 0.4s, color 0.4s;
+  }
+  .motion-ok .step .step-n { background: var(--limewash); color: var(--green); box-shadow: inset 0 0 0 1px var(--gold); }
+  .motion-ok .step.is-reached .step-n { background: var(--green); color: var(--mist); box-shadow: none; }
+  .step h3 { font-size: var(--t-lg); font-weight: 500; line-height: 1.2; color: var(--green); margin: 6px 0 8px; }
+  .step p { max-width: 32em; color: var(--stone); }
+
+  /* ---------- Sectors ---------- */
+  .sectors { padding: var(--section-y) 0 calc(var(--section-y) * 0.8); overflow: hidden; }
+  .sectors-head { text-align: center; max-width: 40em; margin: 0 auto clamp(40px, 5vw, 72px); }
+  .sectors-head h2 { font-size: var(--t-xl); color: var(--green); margin-bottom: 14px; }
+  .sectors-head p { color: var(--stone); }
+  .sector-row { display: flex; align-items: center; gap: 0.55em; width: max-content; list-style: none; margin: 0; padding: 0; font-family: var(--display); font-size: clamp(2.4rem, 6vw, 5.4rem); line-height: 1.2; color: var(--green); white-space: nowrap; }
+  .sector-row li { display: flex; align-items: center; gap: 0.55em; }
+  .sector-row--b { font-style: italic; color: var(--gold-text); }
+
+  /* ---------- Clients ---------- */
+  .clients { padding: calc(var(--section-y) * 0.6) 0 var(--section-y); text-align: center; }
+  .clients h2 { font-size: var(--t-xl); color: var(--green); }
+  .clients-note { color: var(--stone); margin-top: 12px; }
+  .client-list { list-style: none; margin: 52px auto 0; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .client-list li { font-family: var(--display); font-size: clamp(1.6rem, 2.6vw, 2.25rem); line-height: 1.25; color: var(--green); display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .client-list li + li::before { content: ''; font-size: 1.75rem; width: 0.32em; height: 0.32em; background: var(--gold); clip-path: polygon(100% 50%, 85.36% 64.65%, 85.36% 85.36%, 64.65% 85.36%, 50% 100%, 35.35% 85.36%, 14.64% 85.36%, 14.64% 64.65%, 0% 50%, 14.64% 35.35%, 14.64% 14.64%, 35.35% 14.64%, 50% 0%, 64.65% 14.64%, 85.36% 14.64%, 85.36% 35.35%); }
+
+  /* ---------- Portfolio ---------- */
+  .portfolio { background: var(--limewash); padding: var(--section-y) 0; }
+  .portfolio .section-head p { color: var(--gold-text); }
+  .frames { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3.4vw, 56px); align-items: start; }
+  .frame { margin: 0; text-align: center; }
+  .frame:nth-child(2) { margin-top: clamp(56px, 9vw, 140px); }
+  .frame-media { position: relative; box-shadow: 0 34px 60px -34px rgba(23, 48, 42, 0.45); }
+  .frame-inner { position: absolute; left: 0; right: 0; top: -12%; height: 124%; }
+  .room { position: absolute; left: 0; bottom: -6%; width: 100%; height: 112%; }
+  .frame figcaption { margin-top: 18px; color: var(--stone); }
+  .frame figcaption strong { display: block; font-family: var(--display); font-weight: 500; font-size: 1.5rem; color: var(--green); margin-bottom: 2px; }
+
+  /* ---------- Offices ---------- */
+  .offices { padding: var(--section-y) 0; }
+  .offices h2 { font-size: var(--t-2xl); line-height: 1.08; color: var(--green); text-align: center; margin-bottom: clamp(48px, 6vw, 88px); }
+  .office-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--hair); }
+  .office { padding: 32px clamp(16px, 2.6vw, 40px) 8px; text-align: center; }
+  .office + .office { border-left: 1px solid var(--hair); }
+  .office h3 { font-size: var(--t-lg); font-weight: 500; color: var(--green); margin-bottom: 4px; }
+  .office .office-role { font-size: var(--t-sm); color: var(--gold-text); margin-bottom: 18px; }
+  .office address { font-style: normal; color: var(--stone); margin-bottom: 18px; }
+  .office a { color: var(--green); text-decoration-color: var(--gold); text-underline-offset: 4px; }
+
+  /* ---------- Contact ---------- */
+  .contact { background: var(--green); color: var(--mist); padding: var(--section-y) 0; }
+  .contact-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(36px, 6vw, 112px); }
+  .contact h2 { font-size: var(--t-2xl); line-height: 1.08; max-width: 9em; }
+  .contact-intro { margin-top: 20px; max-width: 26em; color: rgba(238, 240, 236, 0.94); }
+  .form { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 36px; }
+  .field { display: grid; gap: 8px; }
+  .field--wide { grid-column: 1 / -1; }
+  .field label { font-size: var(--t-sm); font-weight: 500; color: var(--mist); }
+  .field input, .field textarea {
+    font: inherit; color: var(--mist); background: transparent;
+    border: 0; border-bottom: 1px solid rgba(238, 240, 236, 0.4); border-radius: 0; padding: 10px 0; width: 100%;
+  }
+  .field textarea { min-height: 120px; resize: vertical; }
+  .field input:focus, .field textarea:focus { outline: none; border-bottom-color: var(--gold); box-shadow: 0 1px 0 var(--gold); }
+  .form-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }
+  .contact .btn { background: var(--mist); color: var(--green); border-color: var(--mist); }
+  .contact .btn:hover { background: #FFFFFF; }
+  .form-status { font-size: var(--t-sm); color: var(--gold); max-width: 36em; }
+
+  /* ---------- Footer ---------- */
+  .site-footer { background: var(--green-deep); color: rgba(238, 240, 236, 0.88); padding: 64px 0 44px; text-align: center; }
+  .site-footer .wordmark { color: var(--mist); }
+  .site-footer .wordmark .wm-sub { color: var(--gold); }
+  .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 32px; margin-top: 28px; }
+  .footer-links a { text-decoration-color: var(--gold); text-underline-offset: 4px; }
+  .footer-note { margin: 40px auto 0; padding-top: 22px; border-top: 1px solid rgba(238, 240, 236, 0.14); font-size: var(--t-sm); max-width: 52em; color: rgba(238, 240, 236, 0.85); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1080px) {
+    .site-nav ul { gap: 22px; }
+    .service-groups { grid-template-columns: 1fr 1fr; }
+    .service-group:last-child { grid-column: 1 / -1; }
+  }
+
+  @media (max-width: 900px) {
+    :root { --header-h: 124px; }
+    .nav-bar { grid-template-columns: 1fr auto; }
+    .wordmark { justify-self: start; align-items: flex-start; }
+    .nav-cta { display: none; }
+    .menu-toggle {
+      display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px;
+      font: 500 var(--t-sm)/1 var(--body); color: var(--green);
+      background: transparent; border: 1px solid var(--green); border-radius: 0; cursor: pointer;
+    }
+    .site-nav { display: none; position: absolute; left: 0; right: 0; top: 100%; background: var(--porcelain); box-shadow: 0 24px 40px -24px rgba(23, 48, 42, 0.35); padding: 8px var(--gutter) 24px; }
+    .menu-open .site-nav { display: block; }
+    .site-nav ul { flex-direction: column; gap: 0; }
+    .site-nav a { display: block; padding: 14px 0; font-family: var(--display); font-size: 1.5rem; border-bottom: 1px solid var(--hair); background: none; }
+
+    .hero { padding-top: calc(var(--header-h) + 36px); align-items: start; }
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .hero-art { order: -1; width: min(58vw, 270px); min-width: 0; }
+    .hero-rule { margin: 28px 0 22px; }
+
+    .statement-body, .section-head, .process-grid, .contact-grid { grid-template-columns: 1fr; }
+    .facts { grid-template-columns: 1fr; }
+    .facts div + div { border-left: 0; border-top: 1px solid var(--hair); }
+
+    .finishes-inner { grid-template-columns: 1fr; gap: 28px; }
+    .finish-stage { order: -1; }
+    .motion-ok .finishes-inner { align-content: start; padding-top: calc(var(--header-h) + 34px); }
+    .motion-ok .finish-wall { height: 34vh; min-height: 220px; }
+    .finishes-intro { margin: 10px 0 18px; font-size: 1rem; }
+    .motion-ok .finishes h2 { font-size: 1.875rem; }
+    .motion-ok .finish-caption h3 { font-size: 1.5rem; margin-bottom: 6px; }
+    .motion-ok .finish-caption p { font-size: 1.0625rem; }
+    .motion-ok .finish-meta { margin-top: 20px; }
+    .swatch { width: 26px; }
+    .finish-nav { gap: 10px; }
+    .finish-wall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .frames { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .frame:nth-child(2) { margin-top: 56px; }
+    .frame:nth-child(3) { grid-column: 1 / -1; width: 60%; justify-self: center; }
+
+    .office-grid { grid-template-columns: 1fr; }
+    .office + .office { border-left: 0; border-top: 1px solid var(--hair); }
+  }
+
+  @media (max-width: 900px) and (max-height: 760px) {
+    .motion-ok .finish-wall { height: 29vh; min-height: 196px; }
+    .swatch { width: 24px; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-lede { font-size: 1.1875rem; }
+    .service-groups { grid-template-columns: 1fr; }
+    .finishes h2 { font-size: 2rem; }
+    .finish-caption h3 { font-size: 1.5rem; }
+    .frames { grid-template-columns: 1fr; }
+    .frame:nth-child(2) { margin-top: 0; }
+    .frame:nth-child(3) { width: auto; }
+    .frame .frame-media { width: 78%; margin: 0 auto; }
+    .form { grid-template-columns: 1fr; }
+    .process-track { padding-left: 66px; }
+    .step-n { left: -66px; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header" id="site-header">
+  <p class="concept-note">Concept homepage built from public information. Not the official Maison Interiors website.</p>
+  <div class="nav-bar">
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#finishes">Paint effects</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#clients">Clients</a></li>
+        <li><a href="#offices">Offices</a></li>
+      </ul>
+    </nav>
+    <a class="wordmark" href="#top" aria-label="Maison Interiors, back to top">
+      <span class="wm-main">Maison</span>
+      <span class="wm-sub">Interiors</span>
+    </a>
+    <div class="nav-right">
+      <a class="text-link nav-cta" href="#contact">Start a project</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Hero: an arched window onto a painted scene, layered for depth -->
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <h1 class="hero-title" id="hero-title">
+          <span class="line"><span>Every wall,</span></span>
+          <span class="line"><span>finished</span></span>
+          <span class="line"><span>by hand.</span></span>
+        </h1>
+        <hr class="hero-rule">
+        <p class="hero-lede">Interior design, special paint effects and artworks for homes, hotels, offices and palaces, from Manama, Doha and Manila since 1994.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#contact">Start a project</a>
+          <a class="text-link" href="#finishes">See the finishes</a>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <div class="arch arch-2x3">
+          <svg class="scene" viewBox="0 0 600 900" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <defs>
+              <linearGradient id="sc-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B4CEC8"/><stop offset="0.56" stop-color="#E7E3D4"/><stop offset="0.66" stop-color="#F1DEB8"/></linearGradient>
+              <linearGradient id="sc-sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7BA69D"/><stop offset="1" stop-color="#1D3D36"/></linearGradient>
+              <radialGradient id="sc-glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#FFF5DA" stop-opacity="0.95"/><stop offset="1" stop-color="#FFF5DA" stop-opacity="0"/></radialGradient>
+              <filter id="sc-paint" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter>
+            </defs>
+            <g class="sc-sky"><rect x="-60" y="-160" width="720" height="840" fill="url(#sc-sky)"/></g>
+            <g class="sc-sun"><circle cx="372" cy="468" r="96" fill="url(#sc-glow)"/><circle cx="372" cy="468" r="30" fill="#F7E8C2"/></g>
+            <g class="sc-shore"><path d="M-60 560 C 40 540, 110 527, 190 535 C 260 542, 300 529, 360 533 C 430 537, 520 547, 660 555 L 660 590 L -60 590 Z" fill="#86A99F"/></g>
+            <g class="sc-sea">
+              <rect x="-60" y="552" width="720" height="460" fill="url(#sc-sea)"/>
+              <g stroke="#F3E6C4" stroke-linecap="round" opacity="0.6"><path d="M352 574 H392" stroke-width="3"/><path d="M342 592 H402" stroke-width="2.4"/><path d="M356 612 H388" stroke-width="2"/><path d="M338 636 H406" stroke-width="1.6"/></g>
+              <g stroke="#E6F0EC" stroke-opacity="0.25" stroke-width="1.2"><path d="M40 664 H140"/><path d="M230 708 H300"/><path d="M430 726 H540"/><path d="M90 770 H170"/></g>
+            </g>
+            <g class="sc-boat">
+              <path d="M150 652 L250 652 L236 668 L164 668 Z" fill="#17302A"/>
+              <path d="M198 650 L198 548 L248 642 Z" fill="#F4EEDF"/>
+              <path d="M192 650 L192 570 L157 642 Z" fill="#E4DAC3"/>
+              <path d="M195 652 V538" stroke="#17302A" stroke-width="2.5"/>
+            </g>
+            <g class="sc-palms" fill="none" stroke="#17302A" stroke-linecap="round" filter="url(#sc-paint)">
+              <path d="M522 990 C 512 830, 490 700, 470 590" stroke-width="13"/>
+              <path d="M470 590 Q 410 545 350 572" stroke-width="8"/><path d="M470 590 Q 430 576 386 626" stroke-width="7"/>
+              <path d="M470 590 Q 520 535 592 552" stroke-width="8"/><path d="M470 590 Q 530 586 576 642" stroke-width="7"/>
+              <path d="M470 590 Q 458 530 488 498" stroke-width="7"/><path d="M470 590 Q 440 548 418 516" stroke-width="6"/>
+              <path d="M58 990 C 68 870, 86 784, 102 722" stroke-width="9"/>
+              <path d="M102 722 Q 60 694 22 716" stroke-width="6"/><path d="M102 722 Q 146 688 190 706" stroke-width="6"/>
+              <path d="M102 722 Q 98 686 120 662" stroke-width="5"/><path d="M102 722 Q 70 708 52 746" stroke-width="5"/>
+            </g>
+            <g class="sc-sill"><rect x="-60" y="862" width="720" height="80" fill="#DAD8CE"/><rect x="-60" y="862" width="720" height="3" fill="#F7F6F1"/></g>
+          </svg>
+        </div>
+        <span class="arch-outline"></span>
+        <span class="arch-sill"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statement -->
+  <section class="statement" id="about" aria-labelledby="about-title">
+    <div class="container">
+      <h2 id="about-title">A design studio and a finishing workshop under one roof, since 1994.</h2>
+      <div class="statement-body">
+        <p>The studio plans the space, sets the colour scheme and draws every detail. The workshop then applies the faux finishes, murals and artworks that make each room its own.</p>
+        <p>We work with you at every stage, from looking at a potential site to placing the final artwork. Furniture, curtains and upholstery come from our sister company, Chateau Furniture, so walls and fabrics can be designed to match.</p>
+      </div>
+      <figure class="pull">
+        <blockquote><p>“Form, function and technology can work hand in hand.”</p></blockquote>
+        <figcaption>Daaij Bauchale, Managing Director</figcaption>
+      </figure>
+      <dl class="facts">
+        <div><dt>Founded</dt><dd>1994</dd></div>
+        <div><dt>Offices</dt><dd>Manama, Doha, Manila</dd></div>
+        <div><dt>Sister company</dt><dd>Chateau Furniture</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Signature: one wall, six finishes, laid coat by coat as you scroll -->
+  <section class="finishes" id="finishes" aria-labelledby="finishes-title">
+    <div class="finishes-inner">
+      <div class="finishes-copy">
+        <h2 id="finishes-title">One wall, six finishes</h2>
+        <p class="finishes-intro"><span class="motion-only">Scroll to lay each finish over the last. </span>Every one is mixed and applied by hand, on site.</p>
+        <ul class="finish-captions">
+          <li class="finish-caption"><h3>Lime plaster</h3><p>The base coat: a breathable lime render, trowelled by hand so the surface keeps a soft movement.</p></li>
+          <li class="finish-caption"><h3>Venetian stucco</h3><p>Thin layers of tinted stucco, burnished until the wall takes on the depth and sheen of polished stone.</p></li>
+          <li class="finish-caption"><h3>Marble effect</h3><p>Veining painted in glazes over a pale ground, for columns, panels and feature walls where real stone is too heavy or too costly.</p></li>
+          <li class="finish-caption"><h3>Gold leaf and metallics</h3><p>Leaf laid square by square over a red bole, then softly aged so the ground shows at the edges.</p></li>
+          <li class="finish-caption"><h3>Fabric-matched finish</h3><p>Colour and texture matched to the room's curtains and upholstery, with an optional stencilled pattern in the same tones.</p></li>
+          <li class="finish-caption"><h3>Murals and trompe l'oeil</h3><p>Painted scenes and architectural illusions, from a single arch on a feature wall to a full ceiling.</p></li>
+        </ul>
+        <div class="finish-meta">
+          <p class="finish-count" aria-hidden="true"><span class="fc-now">1</span> of 6</p>
+          <div class="finish-nav" role="group" aria-label="Jump to a finish">
+            <button class="swatch tex-plaster is-active" type="button" data-i="0" aria-label="Lime plaster" aria-pressed="true"></button>
+            <button class="swatch tex-stucco" type="button" data-i="1" aria-label="Venetian stucco" aria-pressed="false"></button>
+            <button class="swatch tex-marble" type="button" data-i="2" aria-label="Marble effect" aria-pressed="false"></button>
+            <button class="swatch tex-gold" type="button" data-i="3" aria-label="Gold leaf and metallics" aria-pressed="false"></button>
+            <button class="swatch tex-linen" type="button" data-i="4" aria-label="Fabric-matched finish" aria-pressed="false"></button>
+            <button class="swatch tex-mural" type="button" data-i="5" aria-label="Murals and trompe l'oeil" aria-pressed="false"></button>
+          </div>
+        </div>
+      </div>
+      <div class="finish-stage" aria-hidden="true">
+        <div class="finish-wall">
+          <figure class="coat-wrap"><div class="coat arch-3x4 tex-plaster"></div><figcaption>Lime plaster</figcaption></figure>
+          <figure class="coat-wrap"><div class="coat arch-3x4 tex-stucco"></div><figcaption>Venetian stucco</figcaption></figure>
+          <figure class="coat-wrap"><div class="coat arch-3x4 tex-marble"></div><figcaption>Marble effect</figcaption></figure>
+          <figure class="coat-wrap"><div class="coat arch-3x4 tex-gold"></div><figcaption>Gold leaf</figcaption></figure>
+          <figure class="coat-wrap"><div class="coat arch-3x4 tex-linen"></div><figcaption>Fabric-matched</figcaption></figure>
+          <figure class="coat-wrap"><div class="coat arch-3x4 tex-mural"></div><figcaption>Mural</figcaption></figure>
+        </div>
+        <span class="arch-outline"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="services" aria-labelledby="services-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="services-title">What the studio does</h2>
+        <p>Full interior design for new builds and renovations, carried through to the finishes and the furniture.</p>
+      </div>
+      <div class="service-groups">
+        <section class="service-group" aria-labelledby="sg-plan">
+          <h3 id="sg-plan">Plan</h3>
+          <p class="group-intro">Before anything is drawn.</p>
+          <ul>
+            <li><h4>Strategic consulting</h4><p>Working out what the space needs to do, and for whom.</p></li>
+            <li><h4>Space planning</h4><p>Layouts that make the most of every square metre.</p></li>
+            <li><h4>Budget development</h4><p>Costs set early and tracked through the project.</p></li>
+          </ul>
+        </section>
+        <section class="service-group" aria-labelledby="sg-design">
+          <h3 id="sg-design">Design</h3>
+          <p class="group-intro">What the room will look and feel like.</p>
+          <ul>
+            <li><h4>Colour analysis</h4><p>A scheme built around the light, the use of the room and the finishes chosen.</p></li>
+            <li><h4>Colour-rendered perspectives</h4><p>Painted views of the room so you can see it before work starts.</p></li>
+            <li><h4>Theme and concept</h4><p>One idea carried through every room, from the entrance to the majlis.</p></li>
+            <li><h4>Construction drawings</h4><p>Detailed drawings your contractor can build from.</p></li>
+          </ul>
+        </section>
+        <section class="service-group" aria-labelledby="sg-deliver">
+          <h3 id="sg-deliver">Deliver</h3>
+          <p class="group-intro">From site to handover.</p>
+          <ul>
+            <li><h4>Project management</h4><p>One team responsible for the works, start to finish.</p></li>
+            <li><h4>Paint effects and artworks</h4><p>Faux finishes, murals and art applied by our own artisans.</p></li>
+            <li><h4>Custom furnishings</h4><p>Furniture, curtains and upholstery made with Chateau Furniture.</p></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process: a real sequence, so it is numbered -->
+  <section class="process" aria-labelledby="process-title">
+    <div class="container process-grid">
+      <h2 id="process-title">From site visit to the last painting on the wall</h2>
+      <div class="process-track">
+        <svg class="process-line" viewBox="0 0 2 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><line x1="1" y1="0" x2="1" y2="100" pathLength="1"></line></svg>
+        <ol class="process-steps">
+          <li class="step"><span class="step-n" aria-hidden="true">1</span><h3>Site assessment</h3><p>We visit the site with you and look at what it needs, before you commit to it.</p></li>
+          <li class="step"><span class="step-n" aria-hidden="true">2</span><h3>Concept and colour</h3><p>Theme, layout and colour scheme, shown in colour-rendered perspectives.</p></li>
+          <li class="step"><span class="step-n" aria-hidden="true">3</span><h3>Drawings and budget</h3><p>Construction drawings and a budget you approve before work starts.</p></li>
+          <li class="step"><span class="step-n" aria-hidden="true">4</span><h3>Build and finish</h3><p>We manage the works and our artisans apply the special finishes on site.</p></li>
+          <li class="step"><span class="step-n" aria-hidden="true">5</span><h3>Artwork placement</h3><p>Murals painted, furniture delivered and artworks hung in their final positions.</p></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sectors -->
+  <section class="sectors" aria-labelledby="sectors-title">
+    <div class="container sectors-head">
+      <h2 id="sectors-title">Rooms we design and finish</h2>
+      <p>Hotels, palaces, villas, restaurants and clubs; corporate offices, museums, exhibition centres, public institutions and retail stores. Across Bahrain, Qatar and the Philippines.</p>
+    </div>
+    <ul class="sector-row sector-row--a" aria-hidden="true">
+      <li>Hotels <span class="star"></span></li><li>Palaces <span class="star"></span></li><li>Villas <span class="star"></span></li><li>Restaurants <span class="star"></span></li><li>Clubs <span class="star"></span></li>
+      <li>Hotels <span class="star"></span></li><li>Palaces <span class="star"></span></li><li>Villas <span class="star"></span></li><li>Restaurants <span class="star"></span></li><li>Clubs <span class="star"></span></li>
+    </ul>
+    <ul class="sector-row sector-row--b" aria-hidden="true">
+      <li>Corporate offices <span class="star"></span></li><li>Museums <span class="star"></span></li><li>Exhibition centres <span class="star"></span></li><li>Public institutions <span class="star"></span></li><li>Retail stores <span class="star"></span></li>
+      <li>Corporate offices <span class="star"></span></li><li>Museums <span class="star"></span></li><li>Exhibition centres <span class="star"></span></li><li>Public institutions <span class="star"></span></li><li>Retail stores <span class="star"></span></li>
+    </ul>
+  </section>
+
+  <!-- Clients -->
+  <section class="clients" id="clients" aria-labelledby="clients-title">
+    <div class="container">
+      <h2 id="clients-title">Clients include</h2>
+      <p class="clients-note">A few of the hotels, developers, insurers and public bodies we've designed for.</p>
+      <ul class="client-list">
+        <li>Gulf Hotel</li>
+        <li>House of Travel</li>
+        <li>Durrat Khaleej Al Bahrain</li>
+        <li>Takaful International</li>
+        <li>Economic Development Board</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Portfolio (placeholder frames) -->
+  <section class="portfolio" id="portfolio" aria-labelledby="portfolio-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="portfolio-title">Selected rooms</h2>
+        <p>Illustrated sample rooms in this concept. Replace them with Maison project photography before launch.</p>
+      </div>
+      <div class="frames">
+        <figure class="frame">
+          <div class="frame-media arch-2x3"><div class="frame-inner tex-stucco" aria-hidden="true"></div>
+            <svg class="room" viewBox="0 0 400 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+              <defs>
+                <linearGradient id="v1-floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D8D2C4"/><stop offset="1" stop-color="#F1EDE4"/></linearGradient>
+                <radialGradient id="v1-glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#FFE7B0" stop-opacity="0.55"/><stop offset="1" stop-color="#FFE7B0" stop-opacity="0"/></radialGradient>
+                <linearGradient id="v1-mirror" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.24"/><stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.04"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0.16"/></linearGradient>
+              </defs>
+              <circle cx="66" cy="252" r="74" fill="url(#v1-glow)"/><circle cx="334" cy="252" r="74" fill="url(#v1-glow)"/>
+              <rect x="62" y="236" width="8" height="32" rx="4" fill="#C9A55A"/><rect x="330" y="236" width="8" height="32" rx="4" fill="#C9A55A"/>
+              <circle cx="200" cy="246" r="80" fill="url(#v1-mirror)" stroke="#C9A55A" stroke-width="4"/>
+              <rect x="0" y="466" width="400" height="140" fill="url(#v1-floor)"/>
+              <rect x="0" y="462" width="400" height="4" fill="#C9A55A"/>
+              <ellipse cx="200" cy="476" rx="112" ry="6" fill="#1B2420" opacity="0.18"/>
+              <path d="M124 404 L134 468 M276 404 L266 468" stroke="#C9A55A" stroke-width="3" fill="none"/>
+              <path d="M130 440 H270" stroke="#C9A55A" stroke-width="2"/>
+              <rect x="104" y="392" width="192" height="12" fill="#F2EEE5"/><rect x="104" y="402" width="192" height="2" fill="#CFC8B8"/>
+              <g stroke="#E8E2D2" stroke-width="2" fill="none" stroke-linecap="round"><path d="M200 340 C 196 300, 176 270, 148 244"/><path d="M200 340 C 206 296, 228 262, 260 236"/><path d="M200 340 C 200 300, 204 268, 202 226"/><path d="M188 286 C 178 278, 170 276, 160 278"/><path d="M214 280 C 226 272, 236 270, 246 272"/></g>
+              <g fill="#E8E2D2"><circle cx="150" cy="246" r="4"/><circle cx="162" cy="258" r="3"/><circle cx="258" cy="238" r="4"/><circle cx="244" cy="250" r="3"/><circle cx="202" cy="228" r="4"/><circle cx="204" cy="248" r="3"/><circle cx="160" cy="278" r="3"/><circle cx="246" cy="272" r="3"/></g>
+              <path d="M186 392 C 177 372, 180 352, 192 344 L192 336 L208 336 L208 344 C 220 352, 223 372, 214 392 Z" fill="#EFEAE0"/>
+              <rect x="236" y="380" width="40" height="12" fill="#B8975A"/><rect x="240" y="372" width="32" height="8" fill="#E8E2D2"/>
+            </svg>
+          </div>
+          <figcaption><strong>Hotel lobby</strong>Venetian stucco feature wall</figcaption>
+        </figure>
+        <figure class="frame">
+          <div class="frame-media arch-2x3"><div class="frame-inner tex-gold" aria-hidden="true"></div>
+            <svg class="room" viewBox="0 0 400 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+              <defs>
+                <radialGradient id="v2-glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#FFE2A6" stop-opacity="0.7"/><stop offset="1" stop-color="#FFE2A6" stop-opacity="0"/></radialGradient>
+              </defs>
+              <circle cx="200" cy="160" r="84" fill="url(#v2-glow)"/>
+              <path d="M200 -20 V122" stroke="#3A2A12" stroke-width="2"/>
+              <path d="M184 122 L216 122 L222 138 L222 178 L216 192 L184 192 L178 178 L178 138 Z" fill="#3A2A12" opacity="0.9"/>
+              <rect x="188" y="140" width="24" height="36" fill="#FFE2A6" opacity="0.92"/>
+              <path d="M200 192 V204" stroke="#3A2A12" stroke-width="2"/>
+              <g fill="#E9E0CC" stroke="#CDBF9F" stroke-width="1.5">
+                <rect x="-14" y="372" width="66" height="58" rx="14"/><rect x="56" y="372" width="66" height="58" rx="14"/><rect x="126" y="372" width="66" height="58" rx="14"/>
+                <rect x="208" y="372" width="66" height="58" rx="14"/><rect x="278" y="372" width="66" height="58" rx="14"/><rect x="348" y="372" width="66" height="58" rx="14"/>
+              </g>
+              <rect x="-10" y="426" width="420" height="44" fill="#F1EADB"/><rect x="-10" y="466" width="420" height="6" fill="#CDBF9F"/>
+              <rect x="0" y="472" width="400" height="140" fill="#D8CDB6"/>
+              <path d="M44 500 L356 500 L404 606 L-4 606 Z" fill="#7A3B2A"/>
+              <path d="M58 508 L342 508 L384 600 L16 600 Z" fill="none" stroke="#C9A55A" stroke-width="2"/>
+              <ellipse cx="200" cy="560" rx="70" ry="8" fill="#1B2420" opacity="0.25"/>
+              <path d="M176 558 L224 558 L214 530 L186 530 Z" fill="#5A3B1A"/>
+              <ellipse cx="200" cy="528" rx="66" ry="12" fill="#B8975A"/><ellipse cx="200" cy="526" rx="60" ry="9" fill="#D9BC72"/>
+              <path d="M192 522 C 188 508, 190 496, 196 490 L196 482 L206 482 L206 490 C 214 496, 214 508, 210 522 Z" fill="#8C6A2A"/>
+              <path d="M207 500 C 218 494, 224 486, 232 478" stroke="#8C6A2A" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <circle cx="201" cy="478" r="4" fill="#8C6A2A"/>
+              <rect x="160" y="514" width="11" height="9" rx="2" fill="#F4EEDF"/><rect x="230" y="514" width="11" height="9" rx="2" fill="#F4EEDF"/>
+            </svg>
+          </div>
+          <figcaption><strong>Villa majlis</strong>Gilded walls under lantern light</figcaption>
+        </figure>
+        <figure class="frame">
+          <div class="frame-media arch-2x3"><div class="frame-inner tex-linen" aria-hidden="true"></div>
+            <svg class="room" viewBox="0 0 400 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+              <defs>
+                <linearGradient id="v3-wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8E6B4B"/><stop offset="1" stop-color="#A88461"/></linearGradient>
+                <radialGradient id="v3-glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#FFF0CF" stop-opacity="0.6"/><stop offset="1" stop-color="#FFF0CF" stop-opacity="0"/></radialGradient>
+              </defs>
+              <circle cx="304" cy="226" r="80" fill="url(#v3-glow)"/>
+              <rect x="133" y="157" width="144" height="116" fill="#1B2420" opacity="0.14"/>
+              <rect x="128" y="150" width="144" height="116" fill="#F4F1EA"/><rect x="140" y="162" width="120" height="92" fill="#E8E3D6"/>
+              <path d="M176 254 V206 A24 24 0 0 1 224 206 V254 Z" fill="#9CC0B8"/>
+              <circle cx="209" cy="214" r="6" fill="#F1DEB8"/>
+              <path d="M176 254 V232 H224 V254 Z" fill="#2C5148"/>
+              <rect x="0" y="462" width="400" height="8" fill="#F1EDE4"/>
+              <rect x="0" y="470" width="400" height="140" fill="url(#v3-wood)"/>
+              <g stroke="#6B4E33" stroke-opacity="0.45" stroke-width="1"><path d="M0 500 H400"/><path d="M0 536 H400"/><path d="M0 578 H400"/></g>
+              <ellipse cx="200" cy="540" rx="176" ry="34" fill="#E9E3D6"/>
+              <ellipse cx="200" cy="474" rx="152" ry="7" fill="#1B2420" opacity="0.22"/>
+              <rect x="70" y="448" width="6" height="20" fill="#3A2A1A"/><rect x="324" y="448" width="6" height="20" fill="#3A2A1A"/>
+              <rect x="58" y="352" width="284" height="64" rx="16" fill="#EDEAE2"/>
+              <rect x="50" y="404" width="300" height="46" rx="14" fill="#F4F2EC"/>
+              <rect x="40" y="380" width="34" height="72" rx="14" fill="#E3DFD4"/><rect x="326" y="380" width="34" height="72" rx="14" fill="#E3DFD4"/>
+              <rect x="92" y="372" width="54" height="46" rx="10" fill="#17302A" transform="rotate(-6 119 395)"/>
+              <rect x="254" y="372" width="54" height="46" rx="10" fill="#C9A55A" transform="rotate(6 281 395)"/>
+              <g transform="translate(-14 0)"><ellipse cx="374" cy="468" rx="18" ry="4" fill="#3A2A1A"/>
+              <path d="M374 468 V252 C 374 216, 346 198, 318 202" stroke="#3A2A1A" stroke-width="3" fill="none"/>
+              <path d="M296 204 A22 16 0 0 1 340 204 Z" fill="#F3EEE1"/></g>
+              <g transform="translate(18 0)"><path d="M10 468 L46 468 L42 432 L14 432 Z" fill="#E9E3D6"/>
+              <g fill="#2F5A50"><ellipse cx="22" cy="404" rx="8" ry="26" transform="rotate(-20 22 404)"/><ellipse cx="38" cy="398" rx="8" ry="28" transform="rotate(14 38 398)"/><ellipse cx="29" cy="390" rx="7" ry="30"/></g></g>
+            </svg>
+          </div>
+          <figcaption><strong>Private residence</strong>Wall finish matched to the upholstery</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Offices -->
+  <section class="offices" id="offices" aria-labelledby="offices-title">
+    <div class="container">
+      <h2 id="offices-title">Visit one of our offices</h2>
+      <div class="office-grid">
+        <article class="office">
+          <h3>Bahrain</h3>
+          <p class="office-role">Head office</p>
+          <address>Office 103, First Floor<br>Ferrari Centre, Adliya<br>PO Box 15019, Kingdom of Bahrain</address>
+          <p><a href="tel:+97317715919">+973 1771 5919</a><br><a href="mailto:info@maisoninteriors.com">info@maisoninteriors.com</a></p>
+        </article>
+        <article class="office">
+          <h3>Qatar</h3>
+          <p class="office-role">Doha</p>
+          <address>Al Jufairi Centre<br>PO Box 6589<br>Doha, Qatar</address>
+          <p><a href="tel:+9744442090">+974 444 2090</a><br><a href="mailto:maisonqatar@qatar.net.qa">maisonqatar@qatar.net.qa</a></p>
+        </article>
+        <article class="office">
+          <h3>Philippines</h3>
+          <p class="office-role">Manila</p>
+          <address>3/F JS Contractor Bldg.<br>423 Magallanes St., Intramuros<br>Manila 1099</address>
+          <p><a href="tel:+6325211650">+63 2 521 1650</a><br><a href="mailto:maison_design@jscon.com.ph">maison_design@jscon.com.ph</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact (demo only: does not send) -->
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="container contact-grid">
+      <div>
+        <h2 id="contact-title">Tell us about the space</h2>
+        <p class="contact-intro">Share the room, the city and roughly when you'd like to start. We'll reply by email or phone.</p>
+      </div>
+      <form class="form" id="enquiry" novalidate>
+        <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+        <div class="field"><label for="f-phone">Contact number</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
+        <div class="field field--wide"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field field--wide"><label for="f-message">Message</label><textarea id="f-message" name="message" required></textarea></div>
+        <div class="form-actions">
+          <button class="btn" type="submit">Send enquiry</button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <a class="wordmark" href="#top" aria-label="Maison Interiors, back to top"><span class="wm-main">Maison</span><span class="wm-sub">Interiors</span></a>
+    <div class="footer-links">
+      <a href="https://www.instagram.com/maisoninteriorsbh/" rel="noopener">Instagram: @maisoninteriorsbh</a>
+      <span>Furniture, curtains and upholstery by Chateau Furniture, our sister company</span>
+    </div>
+    <p class="footer-note">Concept homepage prepared for discussion. Company name, services, client names and contact details are taken from maisoninteriors.com and public sources. Paint-effect images are generated placeholders, not photographs of Maison projects.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  var root = document.documentElement;
+
+  /* ---------- 1. Paint-effect textures, drawn as SVG ---------- */
+  var W = 1600, H = 1000;
+  function svgURL(svg) { return 'url("data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg) + '")'; }
+  function svg(inner) { return "<svg xmlns='http://www.w3.org/2000/svg' width='" + W + "' height='" + H + "' viewBox='0 0 " + W + " " + H + "'>" + inner + "</svg>"; }
+
+  function plaster(base, seed) {
+    return svg(
+      "<filter id='p' x='0' y='0' width='100%' height='100%' color-interpolation-filters='sRGB'>" +
+        "<feTurbulence type='fractalNoise' baseFrequency='0.009 0.013' numOctaves='5' seed='" + seed + "' result='n'/>" +
+        "<feDiffuseLighting in='n' surfaceScale='1.6' lighting-color='#ffffff' result='lit'><feDistantLight azimuth='235' elevation='55'/></feDiffuseLighting>" +
+        "<feComponentTransfer in='lit' result='lit2'><feFuncR type='linear' slope='0.5' intercept='0.56'/><feFuncG type='linear' slope='0.5' intercept='0.56'/><feFuncB type='linear' slope='0.5' intercept='0.56'/></feComponentTransfer>" +
+        "<feBlend in='SourceGraphic' in2='lit2' mode='multiply' result='base'/>" +
+        "<feTurbulence type='fractalNoise' baseFrequency='0.0022' numOctaves='3' seed='" + (seed + 4) + "' result='c'/>" +
+        "<feColorMatrix in='c' type='matrix' values='0 0 0 0 0.6  0 0 0 0 0.64  0 0 0 0 0.6  1.0 0 0 0 -0.52' result='cloud'/>" +
+        "<feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' seed='" + (seed + 9) + "' result='g'/>" +
+        "<feColorMatrix in='g' type='matrix' values='0 0 0 0 0.36  0 0 0 0 0.39  0 0 0 0 0.36  0.4 0 0 0 -0.19' result='grain'/>" +
+        "<feMerge><feMergeNode in='base'/><feMergeNode in='cloud'/><feMergeNode in='grain'/></feMerge>" +
+      "</filter>" +
+      "<rect width='" + W + "' height='" + H + "' fill='" + base + "' filter='url(#p)'/>"
+    );
+  }
+
+  var stucco = svg(
+    "<filter id='s' x='0' y='0' width='100%' height='100%' color-interpolation-filters='sRGB'>" +
+      "<feTurbulence type='fractalNoise' baseFrequency='0.0035' numOctaves='5' seed='11' result='a'/>" +
+      "<feColorMatrix in='a' type='matrix' values='0 0 0 0 0.40  0 0 0 0 0.60  0 0 0 0 0.54  2.4 0 0 0 -1.12' result='light'/>" +
+      "<feTurbulence type='fractalNoise' baseFrequency='0.005' numOctaves='4' seed='29' result='b'/>" +
+      "<feColorMatrix in='b' type='matrix' values='0 0 0 0 0.07  0 0 0 0 0.15  0 0 0 0 0.13  2.4 0 0 0 -1.08' result='dark'/>" +
+      "<feTurbulence type='fractalNoise' baseFrequency='0.0025 0.012' numOctaves='3' seed='3' result='c'/>" +
+      "<feColorMatrix in='c' type='matrix' values='0 0 0 0 0.85  0 0 0 0 0.93  0 0 0 0 0.9  1.0 0 0 0 -0.58' result='streak'/>" +
+      "<feMerge><feMergeNode in='SourceGraphic'/><feMergeNode in='dark'/><feMergeNode in='light'/><feMergeNode in='streak'/></feMerge>" +
+    "</filter>" +
+    "<rect width='" + W + "' height='" + H + "' fill='#2D5248' filter='url(#s)'/>"
+  );
+
+  var marble = svg(
+    "<defs>" +
+      "<filter id='cloud' x='0' y='0' width='100%' height='100%' color-interpolation-filters='sRGB'>" +
+        "<feTurbulence type='fractalNoise' baseFrequency='0.0025' numOctaves='4' seed='8' result='a'/>" +
+        "<feColorMatrix in='a' type='matrix' values='0 0 0 0 0.72  0 0 0 0 0.75  0 0 0 0 0.71  1.4 0 0 0 -0.62' result='c'/>" +
+        "<feMerge><feMergeNode in='SourceGraphic'/><feMergeNode in='c'/></feMerge>" +
+      "</filter>" +
+      "<filter id='wig' x='-20%' y='-30%' width='140%' height='160%'>" +
+        "<feTurbulence type='fractalNoise' baseFrequency='0.003' numOctaves='4' seed='21' result='n'/>" +
+        "<feDisplacementMap in='SourceGraphic' in2='n' scale='170' xChannelSelector='R' yChannelSelector='G' result='d'/>" +
+        "<feTurbulence type='fractalNoise' baseFrequency='0.035' numOctaves='2' seed='5' result='f'/>" +
+        "<feDisplacementMap in='d' in2='f' scale='7' xChannelSelector='R' yChannelSelector='G'/>" +
+      "</filter>" +
+      "<filter id='soft' x='-10%' y='-10%' width='120%' height='120%'><feGaussianBlur stdDeviation='4'/></filter>" +
+    "</defs>" +
+    "<rect width='" + W + "' height='" + H + "' fill='#EDECE7' filter='url(#cloud)'/>" +
+    "<g filter='url(#wig)' fill='none' stroke='#55605A' stroke-linecap='round'>" +
+      "<path d='M-200 900 C 400 760, 800 820, 1800 260' stroke-width='16' stroke-opacity='0.13' filter='url(#soft)'/>" +
+      "<path d='M-200 820 C 300 700, 700 760, 1800 180' stroke-width='3' stroke-opacity='0.72'/>" +
+      "<path d='M-200 1040 C 400 860, 900 900, 1800 420' stroke-width='1.6' stroke-opacity='0.55'/>" +
+      "<path d='M-200 560 C 500 520, 800 380, 1800 -60' stroke-width='2.2' stroke-opacity='0.6'/>" +
+      "<path d='M200 1100 C 600 820, 1100 760, 1800 640' stroke-width='1' stroke-opacity='0.5'/>" +
+      "<path d='M-200 300 C 300 260, 900 160, 1400 -100' stroke-width='1.2' stroke-opacity='0.45'/>" +
+      "<path d='M520 770 C 640 640, 700 600, 820 420' stroke-width='1.1' stroke-opacity='0.5'/>" +
+      "<path d='M1000 560 C 1080 700, 1160 760, 1320 820' stroke-width='1' stroke-opacity='0.45'/>" +
+      "<path d='M260 500 C 360 600, 420 640, 600 660' stroke-width='0.9' stroke-opacity='0.4'/>" +
+    "</g>"
+  );
+
+  var gold = svg(
+    "<defs>" +
+      "<linearGradient id='g' x1='0' y1='0' x2='1' y2='0.65'><stop offset='0' stop-color='#9A742E'/><stop offset='0.3' stop-color='#D7B96E'/><stop offset='0.52' stop-color='#B38C3C'/><stop offset='0.78' stop-color='#E0C47A'/><stop offset='1' stop-color='#8C6828'/></linearGradient>" +
+      "<pattern id='sq' width='96' height='96' patternUnits='userSpaceOnUse'><path d='M96 0 H0 V96' fill='none' stroke='#5E4417' stroke-opacity='0.24' stroke-width='1.4'/></pattern>" +
+      "<filter id='bole' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='0.011' numOctaves='4' seed='5'/><feColorMatrix type='matrix' values='0 0 0 0 0.44  0 0 0 0 0.2  0 0 0 0 0.12  6 0 0 0 -4.05'/></filter>" +
+      "<filter id='crackle' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='2' seed='9'/><feColorMatrix type='matrix' values='0 0 0 0 0.3  0 0 0 0 0.2  0 0 0 0 0.05  1.2 0 0 0 -0.5'/></filter>" +
+      "<radialGradient id='sheen' cx='0.3' cy='0.22' r='0.75'><stop offset='0' stop-color='#ffffff' stop-opacity='0.32'/><stop offset='1' stop-color='#ffffff' stop-opacity='0'/></radialGradient>" +
+    "</defs>" +
+    "<rect width='" + W + "' height='" + H + "' fill='url(#g)'/>" +
+    "<rect width='" + W + "' height='" + H + "' fill='url(#sq)'/>" +
+    "<rect width='" + W + "' height='" + H + "' filter='url(#crackle)' opacity='0.45'/>" +
+    "<rect width='" + W + "' height='" + H + "' filter='url(#bole)'/>" +
+    "<rect width='" + W + "' height='" + H + "' fill='url(#sheen)'/>"
+  );
+
+  var linen = svg(
+    "<defs>" +
+      "<pattern id='star' width='120' height='120' patternUnits='userSpaceOnUse'><g fill='none' stroke='#7E6649' stroke-opacity='0.42' stroke-width='1.6'><rect x='38' y='38' width='44' height='44'/><rect x='38' y='38' width='44' height='44' transform='rotate(45 60 60)'/><path d='M60 0 V29 M60 91 V120 M0 60 H29 M91 60 H120'/></g></pattern>" +
+      "<filter id='weave' x='0' y='0' width='100%' height='100%' color-interpolation-filters='sRGB'>" +
+        "<feTurbulence type='fractalNoise' baseFrequency='0.9 0.012' numOctaves='2' seed='2' result='h'/>" +
+        "<feColorMatrix in='h' type='matrix' values='0 0 0 0 1  0 0 0 0 0.97  0 0 0 0 0.92  1.3 0 0 0 -0.6' result='hl'/>" +
+        "<feTurbulence type='fractalNoise' baseFrequency='0.012 0.9' numOctaves='2' seed='6' result='v'/>" +
+        "<feColorMatrix in='v' type='matrix' values='0 0 0 0 0.25  0 0 0 0 0.2  0 0 0 0 0.15  1.3 0 0 0 -0.58' result='vl'/>" +
+        "<feMerge><feMergeNode in='SourceGraphic'/><feMergeNode in='vl'/><feMergeNode in='hl'/></feMerge>" +
+      "</filter>" +
+    "</defs>" +
+    "<rect width='" + W + "' height='" + H + "' fill='#B49B7D' filter='url(#weave)'/>" +
+    "<rect width='" + W + "' height='" + H + "' fill='url(#star)'/>"
+  );
+
+  var mural = svg(
+    "<defs>" +
+      "<linearGradient id='sky' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#A9C7C0'/><stop offset='0.6' stop-color='#E2DCC8'/><stop offset='0.7' stop-color='#ECD8AF'/></linearGradient>" +
+      "<linearGradient id='sea' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#6F9D94'/><stop offset='1' stop-color='#2C5148'/></linearGradient>" +
+      "<filter id='paint' x='-5%' y='-5%' width='110%' height='110%'><feTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='3' seed='4' result='n'/><feDisplacementMap in='SourceGraphic' in2='n' scale='9' xChannelSelector='R' yChannelSelector='G'/></filter>" +
+      "<filter id='wall' x='0' y='0' width='100%' height='100%' color-interpolation-filters='sRGB'><feTurbulence type='fractalNoise' baseFrequency='0.006 0.016' numOctaves='4' seed='12' result='n'/><feDiffuseLighting in='n' surfaceScale='2' lighting-color='#ffffff' result='lit'><feDistantLight azimuth='235' elevation='55'/></feDiffuseLighting><feComponentTransfer in='lit' result='l2'><feFuncR type='linear' slope='0.5' intercept='0.56'/><feFuncG type='linear' slope='0.5' intercept='0.56'/><feFuncB type='linear' slope='0.5' intercept='0.56'/></feComponentTransfer><feBlend in='SourceGraphic' in2='l2' mode='multiply'/></filter>" +
+      "<clipPath id='opening'><path d='M520 1000 V430 A280 280 0 0 1 1080 430 V1000 Z'/></clipPath>" +
+    "</defs>" +
+    "<rect width='" + W + "' height='" + H + "' fill='#E4E5DF' filter='url(#wall)'/>" +
+    "<g clip-path='url(#opening)'><g filter='url(#paint)'>" +
+      "<rect x='480' y='100' width='640' height='920' fill='url(#sky)'/>" +
+      "<circle cx='905' cy='610' r='42' fill='#F4E6BF' opacity='0.9'/>" +
+      "<path d='M480 668 C 600 650 690 648 800 662 L 800 676 L 480 680 Z' fill='#5C8378' opacity='0.75'/>" +
+      "<path d='M480 676 Q 760 664 1120 674 V1020 H480 Z' fill='url(#sea)'/>" +
+      "<path d='M560 780 L 690 780 L 672 800 L 578 800 Z' fill='#21403A'/>" +
+      "<path d='M628 778 L 628 652 L 690 768 Z' fill='#F2EBDA'/>" +
+      "<path d='M622 778 L 622 676 L 578 770 Z' fill='#E3D9C1'/>" +
+      "<path d='M625 780 V 640' stroke='#21403A' stroke-width='3'/>" +
+      "<g fill='none' stroke='#22433B' stroke-linecap='round'>" +
+        "<path d='M1052 1010 C 1044 870 1012 730 992 620' stroke-width='15'/>" +
+        "<path d='M992 620 Q 930 572 872 600' stroke-width='9'/><path d='M992 620 Q 952 600 900 650' stroke-width='8'/>" +
+        "<path d='M992 620 Q 1040 566 1104 584' stroke-width='9'/><path d='M992 620 Q 1050 610 1092 664' stroke-width='8'/>" +
+        "<path d='M992 620 Q 980 560 1010 530' stroke-width='8'/><path d='M992 620 Q 960 580 938 548' stroke-width='7'/>" +
+        "<path d='M548 1010 C 556 920 572 830 590 760' stroke-width='11'/>" +
+        "<path d='M590 760 Q 546 730 512 752' stroke-width='7'/><path d='M590 760 Q 630 724 672 742' stroke-width='7'/><path d='M590 760 Q 586 722 606 700' stroke-width='6'/>" +
+      "</g>" +
+    "</g></g>" +
+    "<path d='M520 1000 V430 A280 280 0 0 1 1080 430 V1000' fill='none' stroke='#5F675F' stroke-opacity='0.32' stroke-width='22'/>" +
+    "<path d='M490 1000 V430 A310 310 0 0 1 1110 430 V1000' fill='none' stroke='#C5C8BE' stroke-width='24'/>" +
+    "<path d='M478 1000 V430 A322 322 0 0 1 1122 430 V1000' fill='none' stroke='#F2F3ED' stroke-width='3'/>" +
+    "<path d='M776 104 L 824 104 L 815 156 L 785 156 Z' fill='#D3D5CC' stroke='#A9ADA2' stroke-width='2'/>" +
+    "<rect x='464' y='944' width='672' height='56' fill='#C8C3B3'/><rect x='464' y='944' width='672' height='5' fill='#F0EEE6'/>"
+  );
+
+  var textures = {
+    plaster: plaster('#F0F0EB', 7),
+    stucco: stucco,
+    marble: marble,
+    gold: gold,
+    linen: linen,
+    mural: mural
+  };
+  Object.keys(textures).forEach(function (k) {
+    root.style.setProperty('--tex-' + k, svgURL(textures[k]));
+  });
+
+
+  /* ---------- 2. Header, menu, form ---------- */
+  var header = document.getElementById('site-header');
+  function onScroll() { header.classList.toggle('is-scrolled', window.scrollY > 40); }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  var toggle = document.querySelector('.menu-toggle');
+  var nav = document.getElementById('site-nav');
+  function setMenu(open) {
+    toggle.setAttribute('aria-expanded', String(open));
+    header.classList.toggle('menu-open', open);
+    toggle.textContent = open ? 'Close' : 'Menu';
+  }
+  toggle.addEventListener('click', function () { setMenu(toggle.getAttribute('aria-expanded') !== 'true'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && header.classList.contains('menu-open')) { setMenu(false); toggle.focus(); } });
+
+  var form = document.getElementById('enquiry');
+  var status = document.getElementById('form-status');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var missing = Array.prototype.find.call(form.elements, function (el) { return el.willValidate && !el.checkValidity(); });
+    if (missing) {
+      var label = form.querySelector('label[for="' + missing.id + '"]');
+      status.textContent = (label ? label.textContent : 'This field') + (missing.type === 'email' && missing.value ? ' needs a valid address, like name@example.com.' : ' is required.');
+      missing.focus();
+      return;
+    }
+    status.textContent = 'This concept page doesn’t send messages. To reach Maison Interiors, email info@maisoninteriors.com or call +973 1771 5919.';
+  });
+
+  /* ---------- 3. Motion (GSAP + ScrollTrigger) ---------- */
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !window.gsap || !window.ScrollTrigger) {
+    root.classList.remove('intro-pending');
+    return;
+  }
+  root.classList.add('motion-ok');
+  gsap.registerPlugin(ScrollTrigger);
+
+  // 3a. The one load moment: the arch opens from the sill up, the scene settles, the words rise
+  var intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  intro
+    .fromTo('.hero-art .arch', { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease: 'power3.inOut' }, 0)
+    .from('.hero-art .scene', { scale: 1.18, transformOrigin: '50% 75%', duration: 2.4 }, 0.15)
+    .from('.hero-art .arch-outline', { autoAlpha: 0, y: 24, duration: 1.4 }, 0.8)
+    .from('.hero-art .arch-sill', { scaleX: 0, duration: 1.2, ease: 'power2.inOut' }, 0.2)
+    .from('.hero-title .line > span', { yPercent: 112, duration: 1.15, stagger: 0.12 }, 0.45)
+    .from('.hero-rule', { scaleX: 0, transformOrigin: 'left center', duration: 1 }, 0.95)
+    .from('.hero-lede, .hero-actions', { y: 16, autoAlpha: 0, duration: 0.9, stagger: 0.1 }, 1.05);
+  root.classList.remove('intro-pending');
+
+  // 3b. Hero parallax: each painted layer at its own depth, far layers slow, near layers fast
+  var heroST = function () { return { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.6 }; };
+  [['.sc-sky', 70], ['.sc-sun', 120], ['.sc-shore', 46], ['.sc-sea', 22], ['.sc-palms', -80]].forEach(function (pair) {
+    gsap.to(pair[0], { y: pair[1], ease: 'none', scrollTrigger: heroST() });
+  });
+  gsap.to('.sc-boat', { x: 60, y: 18, ease: 'none', scrollTrigger: heroST() });
+  gsap.to('.hero-art', { y: -50, ease: 'none', scrollTrigger: heroST() });
+  gsap.to('.hero-copy', { y: -24, ease: 'none', scrollTrigger: heroST() });
+
+  // 3c. Signature: the finishing wall, pinned; each scroll step trowels a new coat over the last
+  var HIDDEN = 'polygon(0% 0%, 0% 0%, -22% 100%, -22% 100%)';
+  var SHOWN  = 'polygon(0% 0%, 122% 0%, 100% 100%, -22% 100%)';
+  var coats = gsap.utils.toArray('.coat');
+  var captions = gsap.utils.toArray('.finish-caption');
+  gsap.set(coats.slice(1), { clipPath: HIDDEN });
+  gsap.set(captions.slice(1), { autoAlpha: 0, y: 24 });
+
+  // Each finish: a 1-unit trowel sweep, then a 1-unit hold so the caption can be read
+  var LEAD = 0.6, STEP = 2;
+  var counter = document.querySelector('.fc-now');
+  var swatches = gsap.utils.toArray('.swatch');
+  var wallTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.finishes',
+      start: 'top top',
+      end: function () { return '+=' + Math.round((coats.length - 1) * window.innerHeight * 1.15); },
+      pin: true,
+      scrub: 0.6,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      onUpdate: function () {
+        var t = wallTl.time(), cur = 0;
+        for (var n = 1; n < coats.length; n++) { if (t >= LEAD + (n - 1) * STEP + 0.45) cur = n; }
+        var label = String(cur + 1);
+        if (counter && counter.textContent !== label) {
+          counter.textContent = label;
+          swatches.forEach(function (b, bi) { b.classList.toggle('is-active', bi === cur); b.setAttribute('aria-pressed', String(bi === cur)); });
+        }
+      }
+    }
+  });
+  coats.slice(1).forEach(function (coat, k) {
+    var at = LEAD + k * STEP;
+    wallTl
+      .fromTo(coat, { clipPath: HIDDEN, scale: 1.04 }, { clipPath: SHOWN, scale: 1, duration: 1, ease: 'none' }, at)
+      .to(captions[k], { autoAlpha: 0, y: -20, duration: 0.25 }, at + 0.2)
+      .to(captions[k + 1], { autoAlpha: 1, y: 0, duration: 0.3 }, at + 0.45);
+  });
+  var total = LEAD + (coats.length - 1) * STEP;
+  wallTl.set({}, {}, total);
+  // Swatches jump straight to a finish, scrolling to the point where its caption is fully shown
+  swatches.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var st = wallTl.scrollTrigger, i = parseInt(btn.getAttribute('data-i'), 10) || 0;
+      var t = i === 0 ? 0 : LEAD + (i - 1) * STEP + 1.1;
+      window.scrollTo({ top: Math.round(st.start + (st.end - st.start) * (t / total)), behavior: 'smooth' });
+    });
+  });
+
+  // 3d. Process: a gold line draws down as you read; each step fills when reached
+  gsap.fromTo('.process-line line', { strokeDashoffset: 1 }, {
+    strokeDashoffset: 0, ease: 'none',
+    scrollTrigger: { trigger: '.process-track', start: 'top 70%', end: 'bottom 55%', scrub: true }
+  });
+  gsap.utils.toArray('.step').forEach(function (step) {
+    ScrollTrigger.create({ trigger: step, start: 'top 62%', toggleClass: { targets: step, className: 'is-reached' } });
+  });
+
+  // 3e. Sectors: two lines drift in opposite directions with the scroll
+  var sectorsST = function () { return { trigger: '.sectors', start: 'top bottom', end: 'bottom top', scrub: 0.6 }; };
+  gsap.fromTo('.sector-row--a', { xPercent: 0 }, { xPercent: -30, ease: 'none', scrollTrigger: sectorsST() });
+  gsap.fromTo('.sector-row--b', { xPercent: -30 }, { xPercent: 0, ease: 'none', scrollTrigger: sectorsST() });
+
+  // 3f. Portfolio: wall and furniture drift at different depths inside each arch
+  gsap.utils.toArray('.frame').forEach(function (frame) {
+    var st = function () { return { trigger: frame, start: 'top bottom', end: 'bottom top', scrub: 0.6 }; };
+    gsap.fromTo(frame.querySelector('.frame-inner'), { yPercent: -7 }, { yPercent: 7, ease: 'none', scrollTrigger: st() });
+    gsap.fromTo(frame.querySelector('.room'), { yPercent: 3 }, { yPercent: -3, ease: 'none', scrollTrigger: st() });
+  });
+
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(function () { ScrollTrigger.refresh(); }); }
+  window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+})();
+</script>
+</body>
+</html>
