@@ -63,7 +63,7 @@
   }
   svg { display: block; }
   a { color: inherit; }
-  h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; font-optical-sizing: auto; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 400; line-height: 1.15; margin: 0; text-wrap: balance; font-optical-sizing: auto; }
   p { margin: 0; text-wrap: pretty; }
   ::selection { background: var(--gold); color: var(--green-deep); }
   :focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
@@ -107,7 +107,9 @@
   .tex-mural { background-position: 48.5% 50%; }  /* the bay between the two painted columns, with the gondolier */
 
   /* ---------- Header ---------- */
-  .site-header { position: fixed; inset: 0 0 auto 0; z-index: 50; }
+  .site-header { position: fixed; inset: 0 0 auto 0; z-index: 50; transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .site-header.is-scrolled { transform: translateY(calc(-1 * var(--note-h, 0px))); }
+  @media (prefers-reduced-motion: reduce) { .site-header { transition: none; } }
   .concept-note {
     background: var(--limewash); color: var(--stone);
     font-size: 0.875rem; line-height: 1.45; text-align: center; padding: 8px var(--gutter);
@@ -129,7 +131,7 @@
   .site-nav a:hover { background-size: 100% 1px; }
   .wordmark { justify-self: center; display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--green); line-height: 1; }
   .wordmark .wm-main { font-family: var(--display); font-size: 1.95rem; font-weight: 500; letter-spacing: 0; }
-  .wordmark .wm-sub { font-size: 0.8125rem; letter-spacing: 0.28em; margin-top: 6px; padding-left: 0.32em; color: var(--gold-text); }
+  .wordmark .wm-sub { font-size: 0.875rem; letter-spacing: 0.26em; margin-top: 6px; padding-left: 0.32em; color: var(--gold-text); }
   .nav-right { justify-self: end; display: flex; align-items: center; gap: 20px; }
   .menu-toggle { display: none; }
 
@@ -275,7 +277,7 @@
     max-width: calc(100% - 28px); padding: 9px 14px 10px; background: var(--porcelain); color: var(--green);
     box-shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.5);
   }
-  .tt-no { flex: none; font-size: 0.8125rem; color: var(--gold-text); font-variant-numeric: tabular-nums; }
+  .tt-no { flex: none; font-size: 0.875rem; color: var(--gold-text); font-variant-numeric: tabular-nums; }
   .tt-name { font-family: var(--display); font-size: 1.125rem; line-height: 1.15; }
 
   /* ---------- Services ---------- */
@@ -313,13 +315,15 @@
   .step p { max-width: 32em; color: var(--stone); }
 
   /* ---------- Sectors ---------- */
-  .sectors { padding: var(--section-y) 0 calc(var(--section-y) * 0.8); overflow: hidden; }
-  .sectors-head { text-align: center; max-width: 40em; margin: 0 auto clamp(40px, 5vw, 72px); }
-  .sectors-head h2 { font-size: var(--t-xl); color: var(--green); margin-bottom: 14px; }
+  .sectors { padding: var(--section-y) 0 calc(var(--section-y) * 0.8); }
+  .sectors-head { text-align: center; max-width: 40em; margin: 0 auto clamp(44px, 5vw, 76px); }
+  .sectors-head h2 { font-size: var(--t-xl); color: var(--green); margin-bottom: 12px; }
   .sectors-head p { color: var(--stone); }
-  .sector-row { display: flex; align-items: center; gap: 0.55em; width: max-content; list-style: none; margin: 0; padding: 0; font-family: var(--display); font-size: clamp(2.4rem, 6vw, 5.4rem); line-height: 1.2; color: var(--green); white-space: nowrap; }
-  .sector-row li { display: flex; align-items: center; gap: 0.55em; }
-  .sector-row--b { font-style: italic; color: var(--gold-text); }
+  .sector-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 6vw, 112px); max-width: 980px; margin: 0 auto; }
+  .sector-group h3 { font-family: var(--body); font-weight: 500; font-size: var(--t-sm); line-height: 1.4; color: var(--gold-text); padding-bottom: 14px; border-bottom: 1px solid var(--gold); }
+  .sector-list { list-style: none; margin: 0; padding: 0; }
+  .sector-list li { font-family: var(--display); font-size: clamp(1.75rem, 2.8vw, 2.5rem); line-height: 1.2; color: var(--green); padding: 14px 0 16px; border-bottom: 1px solid var(--hair); }
+  .sector-group--b .sector-list li { font-style: italic; color: var(--gold-text); }
 
   /* ---------- Clients ---------- */
   .clients { padding: calc(var(--section-y) * 0.6) 0 var(--section-y); text-align: center; }
@@ -449,6 +453,7 @@
   @media (max-width: 600px) {
     .hero-lede { font-size: 1.1875rem; }
     .service-groups { grid-template-columns: 1fr; }
+    .sector-groups { grid-template-columns: 1fr; }
     .finishes h2 { font-size: 2rem; }
     .finish-caption h3 { font-size: 1.5rem; }
     .frames { grid-template-columns: 1fr; }
@@ -645,18 +650,22 @@
 
   <!-- Sectors -->
   <section class="sectors" aria-labelledby="sectors-title">
-    <div class="container sectors-head">
-      <h2 id="sectors-title">Rooms we design and finish</h2>
-      <p>Hotels, palaces, villas, restaurants and clubs; corporate offices, museums, exhibition centres, public institutions and retail stores. Across Bahrain, Qatar and the Philippines.</p>
+    <div class="container">
+      <div class="sectors-head">
+        <h2 id="sectors-title">Rooms we design and finish</h2>
+        <p>Across Bahrain, Qatar and the Philippines.</p>
+      </div>
+      <div class="sector-groups">
+        <div class="sector-group">
+          <h3>Hospitality and residences</h3>
+          <ul class="sector-list"><li>Hotels</li><li>Palaces</li><li>Villas</li><li>Restaurants</li><li>Clubs</li></ul>
+        </div>
+        <div class="sector-group sector-group--b">
+          <h3>Business and public spaces</h3>
+          <ul class="sector-list"><li>Corporate offices</li><li>Museums</li><li>Exhibition centres</li><li>Public institutions</li><li>Retail stores</li></ul>
+        </div>
+      </div>
     </div>
-    <ul class="sector-row sector-row--a" aria-hidden="true">
-      <li>Hotels <span class="star"></span></li><li>Palaces <span class="star"></span></li><li>Villas <span class="star"></span></li><li>Restaurants <span class="star"></span></li><li>Clubs <span class="star"></span></li>
-      <li>Hotels <span class="star"></span></li><li>Palaces <span class="star"></span></li><li>Villas <span class="star"></span></li><li>Restaurants <span class="star"></span></li><li>Clubs <span class="star"></span></li>
-    </ul>
-    <ul class="sector-row sector-row--b" aria-hidden="true">
-      <li>Corporate offices <span class="star"></span></li><li>Museums <span class="star"></span></li><li>Exhibition centres <span class="star"></span></li><li>Public institutions <span class="star"></span></li><li>Retail stores <span class="star"></span></li>
-      <li>Corporate offices <span class="star"></span></li><li>Museums <span class="star"></span></li><li>Exhibition centres <span class="star"></span></li><li>Public institutions <span class="star"></span></li><li>Retail stores <span class="star"></span></li>
-    </ul>
   </section>
 
   <!-- Clients -->
@@ -829,7 +838,7 @@
       <a href="https://www.instagram.com/maisoninteriorsbh/" rel="noopener">Instagram: @maisoninteriorsbh</a>
       <span>Furniture, curtains and upholstery by Chateau Furniture, our sister company</span>
     </div>
-    <p class="footer-note">Concept homepage prepared for discussion. Company name, services, client names and contact details are taken from maisoninteriors.com and public sources. Paint-effect images are generated placeholders, not photographs of Maison projects.</p>
+    <p class="footer-note">Concept homepage prepared for discussion. Company name, services, client names and contact details are taken from maisoninteriors.com and public sources. The paint-effect swatches and room illustrations are generated placeholders; the trompe l'oeil mural is shown as it appears on maisoninteriors.com.</p>
   </div>
 </footer>
 
@@ -948,6 +957,10 @@
 
   /* ---------- 2. Header, menu, form ---------- */
   var header = document.getElementById('site-header');
+  var note = document.querySelector('.concept-note');
+  function setNoteH() { header.style.setProperty('--note-h', note.offsetHeight + 'px'); }
+  setNoteH();
+  window.addEventListener('resize', setNoteH);
   function onScroll() { header.classList.toggle('is-scrolled', window.scrollY > 40); }
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -1130,12 +1143,7 @@
     ScrollTrigger.create({ trigger: step, start: 'top 62%', toggleClass: { targets: step, className: 'is-reached' } });
   });
 
-  // 3e. Sectors: two lines drift in opposite directions with the scroll
-  var sectorsST = function () { return { trigger: '.sectors', start: 'top bottom', end: 'bottom top', scrub: 0.6 }; };
-  gsap.fromTo('.sector-row--a', { xPercent: 0 }, { xPercent: -30, ease: 'none', scrollTrigger: sectorsST() });
-  gsap.fromTo('.sector-row--b', { xPercent: -30 }, { xPercent: 0, ease: 'none', scrollTrigger: sectorsST() });
-
-  // 3f. Portfolio: wall and furniture drift at different depths inside each arch
+  // 3e. Portfolio: wall and furniture drift at different depths inside each arch
   gsap.utils.toArray('.frame').forEach(function (frame) {
     var st = function () { return { trigger: frame, start: 'top bottom', end: 'bottom top', scrub: 0.6 }; };
     gsap.fromTo(frame.querySelector('.frame-inner'), { yPercent: -7 }, { yPercent: 7, ease: 'none', scrollTrigger: st() });
