@@ -1080,7 +1080,19 @@
   var tagNo = document.querySelector('.tt-no'), tagName = document.querySelector('.tt-name');
   var names = captions.map(function (c) { return c.querySelector('h3').textContent; });
   var swatches = gsap.utils.toArray('.swatch');
+  // The counter, tag and swatches follow the wall itself (not the scroll), so they stay right while the scrub catches up
   var wallTl = gsap.timeline({
+    onUpdate: function () {
+      var t = wallTl.time(), cur = 0;
+      for (var n = 1; n < coats.length; n++) { if (t >= LEAD + (n - 1) * STEP + 0.45) cur = n; }
+      var label = String(cur + 1);
+      if (counter && counter.textContent !== label) {
+        counter.textContent = label;
+        tagNo.textContent = 'No. ' + label;
+        tagName.textContent = names[cur];
+        swatches.forEach(function (b, bi) { b.classList.toggle('is-active', bi === cur); b.setAttribute('aria-pressed', String(bi === cur)); });
+      }
+    },
     scrollTrigger: {
       trigger: '.finishes',
       start: 'top top',
@@ -1088,18 +1100,7 @@
       pin: true,
       scrub: 0.6,
       anticipatePin: 1,
-      invalidateOnRefresh: true,
-      onUpdate: function () {
-        var t = wallTl.time(), cur = 0;
-        for (var n = 1; n < coats.length; n++) { if (t >= LEAD + (n - 1) * STEP + 0.45) cur = n; }
-        var label = String(cur + 1);
-        if (counter && counter.textContent !== label) {
-          counter.textContent = label;
-          tagNo.textContent = 'No. ' + label;
-          tagName.textContent = names[cur];
-          swatches.forEach(function (b, bi) { b.classList.toggle('is-active', bi === cur); b.setAttribute('aria-pressed', String(bi === cur)); });
-        }
-      }
+      invalidateOnRefresh: true
     }
   });
   coats.slice(1).forEach(function (coat, k) {
