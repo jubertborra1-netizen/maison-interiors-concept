@@ -7,6 +7,7 @@
 <meta name="description" content="Concept homepage for Maison Interiors: interior design, special paint effects and artworks from Manama, Doha and Manila since 1994.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#F6F6F3">
+<link rel="preload" as="image" href="img/mural-venice.webp" type="image/webp" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
@@ -102,7 +103,7 @@
   .tex-marble  { background-color: #EAE9E3; background-image: var(--tex-marble); }
   .tex-gold    { background-color: #C2A055; background-image: var(--tex-gold); }
   .tex-linen   { background-color: #B49B7D; background-image: var(--tex-linen); }
-  .tex-mural   { background-color: #8FA9A4; background-image: url("https://maisoninteriors.com/img/art-14.jpg"); }
+  .tex-mural   { background-color: #8FA9A4; background-image: url("img/mural-venice.webp"); }
   [class*="tex-"] { background-size: cover; background-position: center; background-repeat: no-repeat; }
   .tex-mural { background-position: 48.5% 50%; }  /* the bay between the two painted columns, with the gondolier */
 
@@ -162,7 +163,11 @@
     box-shadow: 0 0 0 1px var(--gold), 0 0 0 5px #FBFAF6, 0 0 0 6px rgba(184, 151, 90, 0.55), 0 50px 90px -46px rgba(23, 48, 42, 0.6);
     transform-origin: 50% 50%;
   }
-  .painting-clip { position: relative; aspect-ratio: 3 / 1; overflow: hidden; background: #C9B79A; }
+  .painting-clip {
+    position: relative; aspect-ratio: 3 / 1; overflow: hidden;
+    background: linear-gradient(180deg, #A9C3C6 0%, #E9D7AE 42%, #3B6274 58%, #22465A 82%, #D8C9AC 100%);
+  }
+  .painting-img.is-missing { visibility: hidden; }
   .painting-move { position: absolute; left: -3%; right: -3%; top: -8%; height: 116%; transform-origin: 47% 62%; }
   .painting-img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; transform-origin: 50% 55%; }
   .hero-painting figcaption { margin-top: 18px; min-height: calc(var(--word-size) * 0.5); padding-right: calc(var(--word-size) * 3.5); font-size: var(--t-sm); line-height: 1.5; color: var(--stone); }
@@ -516,7 +521,8 @@
           <div class="frame-hold"><div class="painting-frame">
             <div class="painting-clip">
               <div class="painting-move">
-                <img class="painting-img" src="https://maisoninteriors.com/img/art-14.jpg" width="1200" height="400" fetchpriority="high"
+                <img class="painting-img" src="img/mural-venice.webp" width="1200" height="400" fetchpriority="high" decoding="async"
+                     onerror="if (!this.dataset.retry) { this.dataset.retry = '1'; this.src = 'https://maisoninteriors.com/img/art-14.jpg'; } else { this.classList.add('is-missing'); }"
                      alt="Trompe l'oeil mural: a Venetian canal with a gondolier, seen through painted stone arches and a balustrade">
               </div>
             </div>
