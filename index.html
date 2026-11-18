@@ -132,36 +132,62 @@
   .nav-right { justify-self: end; display: flex; align-items: center; gap: 20px; }
   .menu-toggle { display: none; }
 
-  /* ---------- Hero: a Maison mural, framed, with the words Sense and Presence ---------- */
-  .hero { position: relative; overflow: hidden; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; padding: calc(var(--header-h) + 32px) 0 44px; }
-  .hero-words { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-  .word {
-    position: absolute; font-family: var(--display); font-style: italic; font-weight: 400;
-    font-size: clamp(6rem, 19vw, 19rem); line-height: 0.8; letter-spacing: -0.03em;
-    color: #E3E3DB; white-space: nowrap;
+  /* ---------- Hero: a mural in a gilt-edged frame; the words Sense and Presence sit behind it, gilded ---------- */
+  @property --sheen { syntax: '<percentage>'; inherits: true; initial-value: 115%; }
+  .hero {
+    --word-size: clamp(4.25rem, 10.5vw, 11rem);
+    position: relative; overflow: hidden; min-height: 100vh; min-height: 100svh; display: flex; align-items: center;
+    padding: calc(var(--header-h) + 20px) 0 clamp(20px, 3vh, 40px);
   }
-  .word-sense { left: -1.5vw; top: calc(var(--header-h) - 8px); }
-  .word-presence { right: -2.5vw; bottom: -0.06em; }
-  .hero-inner { position: relative; z-index: 1; width: 100%; }
-  .hero-head { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(28px, 4vw, 72px); align-items: end; margin-bottom: clamp(26px, 3.2vw, 44px); }
-  .hero-title { font-size: clamp(2.6rem, 5vw, 5rem); line-height: 1.04; letter-spacing: -0.02em; color: var(--green); }
-  .hero-title .line { display: block; overflow: hidden; padding-bottom: 0.06em; margin-bottom: -0.03em; }
+  .hero-inner { position: relative; width: 100%; --pw: min(100%, max(640px, calc((100svh - 500px) * 3))); }
+  .hero-head { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 72px); align-items: start; margin-bottom: clamp(34px, 5.5vh, 56px); }
+  .hero-title { font-size: clamp(2.5rem, 4.4vw, 4.6rem); line-height: 1.04; letter-spacing: -0.02em; color: var(--green); }
+  .hero-title .line { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.05em; }
   .hero-title .line > span { display: inline-block; }
-  .hero-lede { max-width: 27em; color: var(--ink); }
-  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 26px; margin-top: 24px; }
+  .hero-side { justify-self: end; max-width: 30em; padding-top: 0.5em; }
+  .hero-lede { color: var(--ink); }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 26px; margin-top: 22px; }
 
   .hero-painting { margin: 0; }
+  .painting-stage, .hero-painting figcaption { width: var(--pw); margin-left: auto; margin-right: auto; }
+  .painting-stage { position: relative; }
+  .frame-hold { position: relative; z-index: 1; transform-origin: 50% 50%; }
   .painting-frame {
-    position: relative; margin: 0 auto;
-    width: min(100%, calc((100vh - 380px) * 3)); min-width: min(100%, 620px);
+    position: relative; z-index: 1; margin: 0 auto;
+    width: 100%;
     padding: 10px; background: #FBFAF6;
-    box-shadow: 0 0 0 1px var(--gold), 0 44px 90px -44px rgba(23, 48, 42, 0.55);
+    box-shadow: 0 0 0 1px var(--gold), 0 0 0 5px #FBFAF6, 0 0 0 6px rgba(184, 151, 90, 0.55), 0 50px 90px -46px rgba(23, 48, 42, 0.6);
     transform-origin: 50% 50%;
   }
   .painting-clip { position: relative; aspect-ratio: 3 / 1; overflow: hidden; background: #C9B79A; }
-  .painting-move { position: absolute; left: 0; right: 0; top: -8%; height: 116%; }
+  .painting-move { position: absolute; left: -3%; right: -3%; top: -8%; height: 116%; transform-origin: 47% 62%; }
   .painting-img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; transform-origin: 50% 55%; }
-  .hero-painting figcaption { text-align: center; margin-top: 14px; font-size: var(--t-sm); color: var(--stone); }
+  .hero-painting figcaption { margin-top: 18px; min-height: calc(var(--word-size) * 0.5); padding-right: 52%; font-size: var(--t-sm); line-height: 1.5; color: var(--stone); }
+
+  /* The words: a hairline outline, then gold leaf laid over it. Sense stands on the frame; Presence hangs below it */
+  .word {
+    position: absolute; z-index: 0; pointer-events: none;
+    font-family: var(--display); font-style: italic; font-weight: 400;
+    font-size: var(--word-size); line-height: 1; letter-spacing: -0.025em; white-space: nowrap;
+  }
+  .word-sense { left: -0.05em; bottom: calc(100% - 0.32em); }
+  .word-presence { right: -0.04em; top: calc(100% - 0.12em); }
+  .word-in { position: relative; display: block; }
+  .w-line { display: block; color: transparent; -webkit-text-stroke: 1px rgba(184, 151, 90, 0.7); }
+  .w-gild {
+    position: absolute; inset: 0; color: transparent;
+    background-image: linear-gradient(100deg, rgba(255,250,235,0) 38%, rgba(255,250,235,0.75) 50%, rgba(255,250,235,0) 62%), var(--tex-gold);
+    background-color: #C2A055;
+    background-size: 260% 100%, cover; background-position: var(--sheen) 0, center; background-repeat: no-repeat;
+    -webkit-background-clip: text; background-clip: text;
+  }
+  .sheen-live .w-gild { transition: --sheen 1.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+
+  .hero-cue { display: none; }
+  .motion-ok .hero-cue { display: block; position: absolute; left: 50%; bottom: 14px; width: 1px; height: 46px; overflow: hidden; background: rgba(184, 151, 90, 0.25); animation: cue-in 1s 2.4s both; }
+  @keyframes cue-in { from { opacity: 0; } }
+  .motion-ok .hero-cue::after { content: ''; position: absolute; inset: 0; background: var(--gold); transform-origin: 50% 0; animation: cue 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+  @keyframes cue { 0% { transform: scaleY(0); transform-origin: 50% 0; } 45% { transform: scaleY(1); transform-origin: 50% 0; } 55% { transform: scaleY(1); transform-origin: 50% 100%; } 100% { transform: scaleY(0); transform-origin: 50% 100%; } }
 
   .arch-outline {
     position: absolute; inset: -16px -16px 0 -16px; pointer-events: none;
@@ -171,8 +197,8 @@
 
   /* Intro guard */
   .intro-pending .hero-title .line > span,
-  .intro-pending .hero-lede, .intro-pending .hero-actions,
-  .intro-pending .painting-frame, .intro-pending .hero-words, .intro-pending .hero-painting figcaption { visibility: hidden; }
+  .intro-pending .hero-lede, .intro-pending .hero-actions, .intro-pending .hero-cue,
+  .intro-pending .painting-frame, .intro-pending .word, .intro-pending .hero-painting figcaption { visibility: hidden; }
 
   /* ---------- Statement ---------- */
   .statement { padding: var(--section-y) 0; text-align: center; }
@@ -359,13 +385,15 @@
     .site-nav ul { flex-direction: column; gap: 0; }
     .site-nav a { display: block; padding: 14px 0; font-family: var(--display); font-size: 1.5rem; border-bottom: 1px solid var(--hair); background: none; }
 
-    .hero { padding-top: calc(var(--header-h) + 28px); align-items: start; }
-    .hero-head { grid-template-columns: 1fr; gap: 18px; }
-    .painting-frame { width: 100%; min-width: 0; padding: 8px; }
+    .hero { padding-top: calc(var(--header-h) + 24px); padding-bottom: 22vw; align-items: start; }
+    .hero-head { grid-template-columns: 1fr; gap: 18px; margin-bottom: 18vw; }
+    .hero-side { justify-self: start; padding-top: 0; }
+    .painting-stage, .hero-painting figcaption { width: 100%; }
+    .painting-frame { padding: 8px; box-shadow: 0 0 0 1px var(--gold), 0 40px 70px -40px rgba(23, 48, 42, 0.6); }
     .painting-clip { aspect-ratio: 4 / 3; }
     .painting-img { object-position: 66% 50%; }
-    .word { font-size: 28vw; }
-    .word-sense { top: calc(var(--header-h) + 4px); }
+    .hero { --word-size: 25vw; }
+    .hero-painting figcaption { margin-top: calc(var(--word-size) * 0.62); min-height: 0; padding-right: 0; font-size: 0.9375rem; line-height: 1.45; }
 
     .statement-body, .section-head, .process-grid, .contact-grid { grid-template-columns: 1fr; }
     .facts { grid-template-columns: 1fr; }
@@ -440,12 +468,8 @@
 
 <main id="main">
 
-  <!-- Hero: one of Maison's painted murals, framed, between the words Sense and Presence -->
+  <!-- Hero: a painted mural in a gilt-edged frame, with the words Sense and Presence set behind it -->
   <section class="hero" id="top" aria-labelledby="hero-title">
-    <div class="hero-words" aria-hidden="true">
-      <span class="word word-sense">Sense</span>
-      <span class="word word-presence">Presence</span>
-    </div>
     <div class="container hero-inner">
       <div class="hero-head">
         <h1 class="hero-title" id="hero-title">
@@ -461,17 +485,22 @@
         </div>
       </div>
       <figure class="hero-painting">
-        <div class="painting-frame">
-          <div class="painting-clip">
-            <div class="painting-move">
-              <img class="painting-img" src="https://maisoninteriors.com/img/art-14.jpg" width="1200" height="400" fetchpriority="high"
-                   alt="Trompe l'oeil mural: a Venetian canal with a gondolier, seen through painted stone arches and a balustrade">
+        <div class="painting-stage">
+          <span class="word word-sense" aria-hidden="true"><span class="word-in"><span class="w-line">Sense</span><span class="w-gild">Sense</span></span></span>
+          <div class="frame-hold"><div class="painting-frame">
+            <div class="painting-clip">
+              <div class="painting-move">
+                <img class="painting-img" src="https://maisoninteriors.com/img/art-14.jpg" width="1200" height="400" fetchpriority="high"
+                     alt="Trompe l'oeil mural: a Venetian canal with a gondolier, seen through painted stone arches and a balustrade">
+              </div>
             </div>
-          </div>
+          </div></div>
+          <span class="word word-presence" aria-hidden="true"><span class="word-in"><span class="w-line">Presence</span><span class="w-gild">Presence</span></span></span>
         </div>
-        <figcaption>Trompe l'oeil mural, from Maison's Special Art Effects portfolio</figcaption>
+        <figcaption><span>Trompe l'oeil mural, as shown on Maison's Special Art Effects page</span></figcaption>
       </figure>
     </div>
+    <span class="hero-cue" aria-hidden="true"></span>
   </section>
 
   <!-- Statement -->
@@ -969,47 +998,84 @@
   root.classList.add('motion-ok');
   gsap.registerPlugin(ScrollTrigger);
 
-  // 3a. The one load moment: the mural opens from the centre like curtains, the words drift in, the headline rises
-  var intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  // 3a. The one load moment: the mural opens from the centre like curtains, the words rise from behind the frame,
+  //     then gold leaf is laid over their outlines and a band of light crosses it
+  var heroEl = document.querySelector('.hero');
+  var frame = document.querySelector('.painting-frame');
+  var intro = gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: function () { heroEl.classList.add('sheen-live'); } });
   intro
-    .from('.painting-frame', { autoAlpha: 0, scale: 0.97, duration: 0.9 }, 0)
+    .from(frame, { autoAlpha: 0, scale: 0.97, duration: 0.9 }, 0)
     .fromTo('.painting-clip', { clipPath: 'inset(0% 50% 0% 50%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease: 'power3.inOut' }, 0.25)
     .from('.painting-img', { scale: 1.3, duration: 2.6 }, 0.25)
-    .from('.word-sense', { xPercent: -25, autoAlpha: 0, duration: 2 }, 0.3)
-    .from('.word-presence', { xPercent: 25, autoAlpha: 0, duration: 2 }, 0.45)
-    .from('.hero-title .line > span', { yPercent: 112, duration: 1.1, stagger: 0.12 }, 0.55)
-    .from('.hero-lede, .hero-actions, .hero-painting figcaption', { y: 16, autoAlpha: 0, duration: 0.9, stagger: 0.1 }, 1.1);
+    .from('.hero-title .line > span', { yPercent: 112, duration: 1.1, stagger: 0.12 }, 0.45)
+    .from('.hero-lede, .hero-actions, .hero-painting figcaption span', { y: 16, autoAlpha: 0, duration: 0.9, stagger: 0.1 }, 1)
+    .from('.word-sense .word-in', { yPercent: 78, duration: 1.5, ease: 'power3.inOut' }, 0.85)
+    .from('.word-presence .word-in', { yPercent: -78, duration: 1.5, ease: 'power3.inOut' }, 1)
+    .fromTo('.w-gild', { clipPath: 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.5, ease: 'power2.inOut', stagger: 0.22 }, 1.75)
+    .fromTo(heroEl, { '--sheen': '115%' }, { '--sheen': '-15%', duration: 1.7, ease: 'power2.inOut' }, 2.9);
   root.classList.remove('intro-pending');
 
-  // 3b. Hero on scroll. Wide screens: the hero holds while the mural grows to the width of the screen,
-  //     the words part to either side and the headline steps back. Narrow screens: a lighter parallax.
-  var frame = document.querySelector('.painting-frame');
-  var heroEl = document.querySelector('.hero');
+  // 3b. Hero on scroll. Wide screens: the hero holds while the mural grows and settles under the header,
+  //     the view pushes in towards the gondola, and the gilded words ride the frame's edges as they part.
+  //     Narrow screens: a lighter parallax.
   function offsetWithin(el, ancestor) {
     var y = 0, node = el;
     while (node && node !== ancestor) { y += node.offsetTop; node = node.offsetParent; }
     return y;
   }
+  var hold = document.querySelector('.frame-hold');
   if (window.matchMedia('(min-width: 901px)').matches) {
+    var capH = function () { return document.querySelector('.word-sense').offsetHeight * 0.74; };
+    var grow = function () {
+      var byW = (window.innerWidth * 0.94) / hold.offsetWidth;
+      var byH = (window.innerHeight - header.offsetHeight - capH() * 2 - 20) / hold.offsetHeight;
+      return Math.max(1, Math.min(byW, byH, 1.5));
+    };
+    var lift = function () {
+      var centre = header.offsetHeight + (window.innerHeight - header.offsetHeight) / 2;
+      return centre - (offsetWithin(hold, heroEl) + hold.offsetHeight / 2);
+    };
+    var edgeY = function (dir) { return function () { return lift() + dir * (grow() - 1) * hold.offsetHeight / 2; }; };
+    var edgeX = function (dir) { return function () { return dir * (grow() - 1) * hold.offsetWidth / 2; }; };
     var heroTl = gsap.timeline({
-      scrollTrigger: { trigger: heroEl, start: 'top top', end: '+=90%', pin: true, scrub: 0.8, anticipatePin: 1, invalidateOnRefresh: true }
+      scrollTrigger: { trigger: heroEl, start: 'top top', end: '+=100%', pin: true, scrub: 0.8, anticipatePin: 1, invalidateOnRefresh: true }
     });
     heroTl
-      .to('.hero-head', { y: -70, autoAlpha: 0, ease: 'none', duration: 0.6 }, 0)
-      .to('.hero-painting figcaption', { autoAlpha: 0, ease: 'none', duration: 0.3 }, 0)
-      .to('.word-sense', { xPercent: -38, ease: 'none', duration: 1 }, 0)
-      .to('.word-presence', { xPercent: 38, ease: 'none', duration: 1 }, 0)
-      .to(frame, {
-        scale: function () { return Math.min((window.innerWidth * 0.96) / frame.offsetWidth, 1.45); },
-        y: function () { return window.innerHeight / 2 - (offsetWithin(frame, heroEl) + frame.offsetHeight / 2); },
-        ease: 'none', duration: 1
-      }, 0)
-      .to('.painting-move', { yPercent: -6, ease: 'none', duration: 1 }, 0);
+      .to('.hero-title', { y: -60, autoAlpha: 0, ease: 'none', duration: 0.45 }, 0)
+      .to('.hero-side', { y: -40, autoAlpha: 0, ease: 'none', duration: 0.45 }, 0.05)
+      .to('.hero-painting figcaption, .hero-cue', { autoAlpha: 0, ease: 'none', duration: 0.2 }, 0)
+      .to(hold, { scale: grow, y: lift, ease: 'none', duration: 1 }, 0)
+      .to('.painting-move', { scale: 1.1, yPercent: -4, ease: 'none', duration: 1 }, 0)
+      .to('.word-sense', { x: edgeX(-1), y: edgeY(-1), ease: 'none', duration: 1 }, 0)
+      .to('.word-presence', { x: edgeX(1), y: edgeY(1), ease: 'none', duration: 1 }, 0)
+      .to({}, { duration: 0.25 });
   } else {
     var lightST = function () { return { trigger: heroEl, start: 'top top', end: 'bottom top', scrub: 0.6 }; };
     gsap.fromTo('.painting-move', { yPercent: -5 }, { yPercent: 5, ease: 'none', scrollTrigger: lightST() });
-    gsap.to('.word-sense', { xPercent: -20, ease: 'none', scrollTrigger: lightST() });
-    gsap.to('.word-presence', { xPercent: 20, ease: 'none', scrollTrigger: lightST() });
+    gsap.to('.word-sense', { xPercent: -16, ease: 'none', scrollTrigger: lightST() });
+    gsap.to('.word-presence', { xPercent: 16, ease: 'none', scrollTrigger: lightST() });
+  }
+
+  // Pointer (mouse only): the painting shifts inside its frame, the frame tilts a touch toward the cursor,
+  // the words drift behind it and the light on the gold follows across
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    gsap.set(frame, { transformPerspective: 1600 });
+    var follow = function (el, prop, dur) { return gsap.quickTo(el, prop, { duration: dur || 1.2, ease: 'power3' }); };
+    var img = document.querySelector('.painting-img');
+    var imgX = follow(img, 'x'), imgY = follow(img, 'y');
+    var tiltX = follow(frame, 'rotationX', 1.4), tiltY = follow(frame, 'rotationY', 1.4);
+    var drift = gsap.utils.toArray('.word-in').map(function (w) { return [follow(w, 'x', 1.6), follow(w, 'y', 1.6)]; });
+    var lean = function (nx, ny) {
+      imgX(-nx * 24); imgY(-ny * 8);
+      tiltY(nx * 2.4); tiltX(-ny * 1.6);
+      drift.forEach(function (q) { q[0](nx * 26); q[1](ny * 10); });
+    };
+    heroEl.addEventListener('pointermove', function (e) {
+      var nx = e.clientX / window.innerWidth - 0.5, ny = e.clientY / window.innerHeight - 0.5;
+      lean(nx, ny);
+      if (heroEl.classList.contains('sheen-live')) heroEl.style.setProperty('--sheen', (80 - (nx + 0.5) * 60).toFixed(1) + '%');
+    });
+    heroEl.addEventListener('pointerleave', function () { lean(0, 0); });
   }
 
   // 3c. Signature: the finishing wall, pinned; each scroll step trowels a new coat over the last
