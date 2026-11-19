@@ -135,7 +135,7 @@
   .nav-right { justify-self: end; display: flex; align-items: center; gap: 20px; }
   .menu-toggle { display: none; }
 
-  /* ---------- Hero: a tower on the Gulf at dusk. Choose a floor and fly in through the glass ---------- */
+  /* ---------- Hero: a residential tower at dusk. Choose a floor, watch it light up, and zoom in through the glass ---------- */
   :root { --blue: #1E63E9; --blue-hi: #3B7BFF; }
   body { overflow-x: clip; }
   .pill {
@@ -155,26 +155,40 @@
   }
   .pill-glass:hover { background: rgba(255, 255, 255, 0.26); }
   .glass {
-    background: linear-gradient(160deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.08)), rgba(28, 24, 52, 0.16);
-    text-shadow: 0 1px 10px rgba(20, 16, 40, 0.25);
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.07)), rgba(24, 28, 44, 0.24);
+    text-shadow: 0 1px 10px rgba(12, 14, 28, 0.3);
     -webkit-backdrop-filter: blur(22px) saturate(150%); backdrop-filter: blur(22px) saturate(150%);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.30), 0 30px 60px -30px rgba(20, 16, 40, 0.55);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28), 0 30px 60px -30px rgba(8, 10, 24, 0.7);
     border-radius: 22px; color: #fff;
   }
   @supports not ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) {
-    .glass, .pill-glass { background: rgba(38, 34, 58, 0.72); }
+    .glass, .pill-glass { background: rgba(30, 34, 52, 0.78); }
   }
 
   .tower {
     position: relative; height: 100vh; height: 100svh; min-height: 560px; overflow: hidden;
-    background: linear-gradient(180deg, #2A3F6B 0%, #7F8DB0 34%, #E7A57A 52%, #C98B74 56%, #3D5577 70%, #18273E 100%);
+    background: linear-gradient(180deg, #4E5873 0%, #3A4259 45%, #1F2433 100%);
     color: #fff; isolation: isolate;
   }
-  .tower-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-  .tower:not(.gl-ready) .tower-canvas { opacity: 0; }
-  .tower-canvas { transition: opacity 0.9s ease; }
 
-  /* The room you fly into */
+  /* The photograph and the floor that lights up sit on one stage, so they move together when you zoom in */
+  .tw-stage { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; opacity: 0; transition: opacity 0.9s ease; }
+  .tower.photo-ready .tw-stage { opacity: 1; }
+  .tw-photo { position: absolute; inset: 0; width: 100%; height: 100%; display: block; max-width: none; user-select: none; -webkit-user-drag: none; }
+  .tw-lit-wrap { position: absolute; inset: 0; filter: drop-shadow(0 0 14px rgba(255, 196, 120, 0.55)); opacity: 0; transition: opacity 0.35s ease; pointer-events: none; }
+  .tower.has-floor .tw-lit-wrap { opacity: 1; }
+  .tw-lit, .tw-warm { clip-path: var(--floor, polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%)); transition: clip-path 0.32s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .tw-lit { filter: brightness(1.85) saturate(1.2) contrast(1.04); }
+  .tw-warm { position: absolute; inset: 0; mix-blend-mode: screen;
+    background: linear-gradient(180deg, rgba(255, 214, 150, 0.16), rgba(255, 186, 110, 0.32) 55%, rgba(255, 226, 180, 0.5)); }
+  .tw-fade { position: absolute; left: 0; right: 0; bottom: 0; height: 42%; pointer-events: none;
+    background: linear-gradient(180deg, rgba(31, 36, 51, 0), rgba(31, 36, 51, 0.55) 60%, #1F2433); display: none; }
+  .tower.is-portrait .tw-fade { display: block; }
+  .tw-shade { position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(90deg, rgba(14, 16, 28, 0) 45%, rgba(14, 16, 28, 0.28) 100%), linear-gradient(180deg, rgba(14, 16, 28, 0.32) 0%, rgba(14, 16, 28, 0) 26%); }
+  .tower.is-portrait .tw-shade { background: linear-gradient(180deg, rgba(14, 16, 28, 0.35) 0%, rgba(14, 16, 28, 0) 22%); }
+
+  /* The room you arrive in */
   .tower-room { position: absolute; inset: 0; opacity: 0; visibility: hidden; z-index: 1; background: #1a140f; }
   .tower-room.is-on { visibility: visible; }
   .room-img {
@@ -185,24 +199,25 @@
   .room-shade { position: absolute; inset: 0; pointer-events: none;
     background: linear-gradient(180deg, rgba(10, 8, 6, 0.45) 0%, rgba(10, 8, 6, 0) 22%, rgba(10, 8, 6, 0) 66%, rgba(10, 8, 6, 0.55) 100%); }
   .tower-flash { position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0;
-    background: radial-gradient(ellipse at 50% 50%, rgba(255, 236, 205, 0.95), rgba(255, 214, 160, 0.55) 45%, rgba(255, 200, 140, 0) 75%); }
+    background: radial-gradient(ellipse at 50% 50%, rgba(255, 236, 205, 0.9), rgba(255, 214, 160, 0.5) 45%, rgba(255, 200, 140, 0) 75%); }
 
   /* Overlay UI */
   .tower-ui { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
   .tower-ui > * { pointer-events: auto; }
   .tower h1 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .tower [hidden] { display: none !important; }
+  .tw-hit { position: absolute; inset: 0; }
 
   .floor-card {
     position: absolute; right: clamp(20px, 5vw, 84px); top: 50%; transform: translateY(-42%);
-    width: min(384px, 36vw); padding: 26px 26px 24px;
+    width: min(384px, 34vw); padding: 26px 26px 24px;
     transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
   .tower.is-inside .floor-card, .tower.is-flying .floor-card { opacity: 0; transform: translateY(-42%) translateX(24px); pointer-events: none; }
   .fc-title { font-family: var(--display); font-size: clamp(1.9rem, 2.6vw, 2.5rem); line-height: 1.02; letter-spacing: -0.01em; }
-  .fc-help { margin-top: 12px; font-size: 0.9375rem; line-height: 1.5; color: rgba(255, 255, 255, 0.86); }
+  .fc-help { margin-top: 12px; font-size: 0.9375rem; line-height: 1.5; color: rgba(255, 255, 255, 0.88); }
   .fc-level { display: flex; align-items: flex-end; gap: 12px; margin-top: 22px; }
-  .fc-level-l { font-size: 0.875rem; color: rgba(255, 255, 255, 0.8); padding-bottom: 10px; }
+  .fc-level-l { font-size: 0.875rem; color: rgba(255, 255, 255, 0.82); padding-bottom: 10px; }
   .fc-n { font-family: var(--display); font-size: 3.6rem; line-height: 0.9; font-variant-numeric: lining-nums tabular-nums; min-width: 1.15em; }
   .fc-step { display: flex; flex-direction: column; gap: 4px; margin-left: auto; }
   .fc-step button {
@@ -214,7 +229,7 @@
   .fc-step button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
   .fc-step svg { width: 12px; height: 12px; }
   .fc-zone { margin-top: 12px; font-size: 1.0625rem; font-weight: 600; }
-  .fc-desc { margin-top: 4px; font-size: 0.9375rem; line-height: 1.5; color: rgba(255, 255, 255, 0.88); min-height: 3em; }
+  .fc-desc { margin-top: 4px; font-size: 0.9375rem; line-height: 1.5; color: rgba(255, 255, 255, 0.9); min-height: 3em; }
   .fc-zones { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
   .fc-zones button {
     font: 500 0.8125rem/1 var(--body); color: #fff; cursor: pointer;
@@ -242,11 +257,11 @@
   .rp-nav { display: flex; gap: 8px; margin-top: 14px; }
   .rp-nav .pill { min-height: 36px; padding: 0 14px; font-size: 0.875rem; }
   .rp-credit { margin-top: 10px; font-size: 0.75rem; line-height: 1.4; color: rgba(255, 255, 255, 0.7); }
+  .rp-credit a, .tw-credit a { color: inherit; }
 
   .spots { position: absolute; inset: 0; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0s 0.2s; }
   .tower.is-inside .spots { opacity: 1; visibility: visible; transition: opacity 0.5s ease 0.35s; }
   .spot { position: absolute; transform: translate(-14px, -50%); pointer-events: auto; }
-  .spot[hidden] { display: none; }
   .spot-btn {
     display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: 0;
     padding: 7px 13px 7px 8px; border-radius: 999px; color: #fff; font: 500 0.8125rem/1 var(--body);
@@ -259,24 +274,24 @@
   .spot-dot::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.6); animation: spot-ping 2.4s ease-out infinite; }
   @keyframes spot-ping { 0% { transform: scale(0.6); opacity: 0.9; } 80%, 100% { transform: scale(1.5); opacity: 0; } }
   .spot-note { position: absolute; left: 0; top: calc(100% + 8px); width: 250px; padding: 12px 14px; border-radius: 14px; font-size: 0.875rem; line-height: 1.45; }
-  .spot-note[hidden] { display: none; }
   .spot.flip-x { transform: translate(calc(-100% + 14px), -50%); }
   .spot.flip-x .spot-btn { flex-direction: row-reverse; padding: 7px 8px 7px 13px; }
   .spot.flip-x .spot-note { left: auto; right: 0; }
   .spot.flip-y .spot-note { top: auto; bottom: calc(100% + 8px); }
 
-  .tower-cue { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); font-size: 0.8125rem; color: rgba(255, 255, 255, 0.78); letter-spacing: 0.02em; transition: opacity 0.4s; }
-  .tower.is-inside .tower-cue, .tower.is-flying .tower-cue { opacity: 0; }
+  .tower-cue { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); font-size: 0.8125rem; color: rgba(255, 255, 255, 0.8); letter-spacing: 0.02em; transition: opacity 0.4s; }
+  .tw-credit { position: absolute; left: var(--gutter); bottom: 16px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.66); transition: opacity 0.4s; }
+  .tower.is-inside .tower-cue, .tower.is-flying .tower-cue, .tower.is-inside .tw-credit, .tower.is-flying .tw-credit { opacity: 0; pointer-events: none; }
 
-  /* The header sits over the tower in white, as on the reference: wordmark centred, the blue pill on the right */
-  .on-tower .site-header:not(.is-scrolled):not(.menu-open) .concept-note { background: rgba(14, 18, 34, 0.38); color: rgba(255, 255, 255, 0.86); border-bottom-color: rgba(255, 255, 255, 0.14); }
+  /* The header sits over the tower in white: wordmark centred, the blue pill on the right */
+  .on-tower .site-header:not(.is-scrolled):not(.menu-open) .concept-note { background: rgba(14, 18, 34, 0.42); color: rgba(255, 255, 255, 0.88); border-bottom-color: rgba(255, 255, 255, 0.14); }
   .on-tower .site-header:not(.is-scrolled):not(.menu-open) .wordmark,
   .on-tower .site-header:not(.is-scrolled):not(.menu-open) .wordmark .wm-sub,
   .on-tower .site-header:not(.is-scrolled):not(.menu-open) .site-nav a { color: #fff; }
   .on-tower .site-header:not(.is-scrolled):not(.menu-open) .wordmark .wm-sub { color: rgba(255, 255, 255, 0.9); }
   .on-tower .site-header:not(.is-scrolled):not(.menu-open) .site-nav a { background-image: linear-gradient(#fff, #fff); }
   .on-tower .site-header:not(.is-scrolled):not(.menu-open) .menu-toggle { color: #fff; border-color: rgba(255, 255, 255, 0.8); }
-  .on-tower .site-header:not(.is-scrolled):not(.menu-open) .nav-bar { text-shadow: 0 1px 12px rgba(10, 14, 30, 0.35); }
+  .on-tower .site-header:not(.is-scrolled):not(.menu-open) .nav-bar { text-shadow: 0 1px 12px rgba(10, 14, 30, 0.45); }
   .inside-room .site-nav { visibility: hidden; }
 
   @media (max-width: 900px) {
@@ -297,14 +312,14 @@
     .fc-zones::-webkit-scrollbar { display: none; }
     .fc-zones button { flex: none; }
     .fc-enter { margin-top: 12px; }
-    .tower-cue { display: none; }
+    .tower-cue, .tw-credit { display: none; }
     .room-panel { left: 12px; right: 12px; bottom: 12px; max-width: none; padding: 14px 16px 16px; }
     .rp-chips { display: flex; }
     .spot-note { width: min(250px, 70vw); }
   }
   @media (prefers-reduced-motion: reduce) {
     .spot-dot::after { animation: none; }
-    .floor-card, .room-panel, .spots, .back-pill { transition: none; }
+    .floor-card, .room-panel, .spots, .back-pill, .tw-lit, .tw-warm, .tw-stage { transition: none; }
   }
 
   /* ---------- Statement ---------- */
@@ -593,10 +608,19 @@
 
 <main id="main">
 
-  <!-- Hero: a tower on the Gulf at dusk. Pick a floor and fly in through the glass to see how Maison finishes that space -->
+  <!-- Hero: a residential tower at dusk. Pick a floor, watch it light up, and zoom in through the glass to see how Maison finishes that space -->
   <section class="tower" id="top" aria-labelledby="tower-title">
     <h1 id="tower-title">Maison Interiors: interior design, fit-out and special paint effects for hotels, offices and homes in Doha, Manama and Manila</h1>
-    <canvas class="tower-canvas" aria-hidden="true"></canvas>
+
+    <div class="tw-stage" aria-hidden="true">
+      <img class="tw-photo" alt="" decoding="async" fetchpriority="high">
+      <div class="tw-lit-wrap">
+        <img class="tw-photo tw-lit" alt="" decoding="async">
+        <span class="tw-warm"></span>
+      </div>
+      <div class="tw-fade"></div>
+    </div>
+    <div class="tw-shade" aria-hidden="true"></div>
 
     <div class="tower-room" aria-hidden="true">
       <img class="room-img" alt="" decoding="async">
@@ -606,26 +630,28 @@
     <div class="tower-flash" aria-hidden="true"></div>
 
     <div class="tower-ui">
+      <div class="tw-hit" aria-hidden="true"></div>
+
       <div class="floor-card glass" role="group" aria-labelledby="fc-title">
         <p class="fc-title" id="fc-title">Choose your floor</p>
-        <p class="fc-help">Move along the tower to light a floor. Select it to fly in through the glass.</p>
+        <p class="fc-help">Move along the tower to light a floor. Select it to step in through the glass.</p>
         <div class="fc-level">
           <span class="fc-level-l">Level</span>
-          <span class="fc-n" aria-live="polite">14</span>
+          <span class="fc-n" aria-live="polite">26</span>
           <div class="fc-step">
             <button type="button" class="fc-up" aria-label="One floor up"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 8 L6 4 L10 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             <button type="button" class="fc-down" aria-label="One floor down"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4 L6 8 L10 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           </div>
         </div>
         <p class="fc-zone">Residences</p>
-        <p class="fc-desc">Family homes with Gulf views: timber panelling, upholstery and lighting, planned together.</p>
+        <p class="fc-desc">Timber panelling, upholstery and lighting, planned together for each home.</p>
         <div class="fc-zones" role="group" aria-label="Jump to a type of space">
           <button type="button" data-zone="0" aria-pressed="false">Hotel</button>
           <button type="button" data-zone="1" aria-pressed="false">Offices</button>
           <button type="button" data-zone="2" aria-pressed="true">Residences</button>
           <button type="button" data-zone="3" aria-pressed="false">Penthouse</button>
         </div>
-        <button type="button" class="pill fc-enter">Enter level 14</button>
+        <button type="button" class="pill fc-enter">Enter level 26</button>
       </div>
 
       <button type="button" class="pill pill-glass back-pill" tabindex="-1"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M9 2 L4 7 L9 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to the tower</button>
@@ -633,9 +659,9 @@
       <div class="spots"></div>
 
       <div class="room-panel glass" aria-live="polite">
-        <p class="rp-level">Level 14</p>
+        <p class="rp-level">Level 26</p>
         <p class="rp-name">Residences</p>
-        <p class="rp-line">Family homes with Gulf views</p>
+        <p class="rp-line">Family homes with views</p>
         <div class="rp-chips"></div>
         <div class="rp-nav">
           <button type="button" class="pill pill-glass rp-prev" tabindex="-1">Floor below</button>
@@ -644,6 +670,7 @@
         <p class="rp-credit">Photograph from Unsplash, standing in for Maison's own project photography.</p>
       </div>
 
+      <p class="tw-credit">Tower photograph: <a href="https://unsplash.com/photos/PQLfzW8z9lY">Felipe Souza, Unsplash</a>. Placeholder for a Maison project.</p>
       <p class="tower-cue" aria-hidden="true">Scroll for the studio</p>
     </div>
   </section>
@@ -965,287 +992,22 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script>
-/* Maison tower scene: a raymarched tower on the Gulf at dusk, drawn live in WebGL2.
-   No images or libraries. The camera can fly to any floor. */
-(function () {
-  var FH = 3.5, Y0 = 7.0, NF = 30, A = 13.5, B = 9.5;
-
-  var FRAG = [
-    '#version 300 es',
-    'precision highp float;',
-    'uniform vec2 uRes; uniform float uTime;',
-    'uniform vec3 uPos; uniform vec3 uTgt; uniform float uTan;',
-    'uniform float uHover; uniform float uGlow; uniform float uInside;',
-    'out vec4 o;',
-    'const float FH = ' + FH.toFixed(2) + ';',
-    'const float Y0 = ' + Y0.toFixed(2) + ';',
-    'const float NF = ' + NF.toFixed(1) + ';',
-    'const vec2 AB = vec2(' + A.toFixed(1) + ', ' + B.toFixed(1) + ');',
-    'const vec3 SUN = normalize(vec3(0.80, 0.075, -0.60));',
-    'const vec3 WARM = vec3(1.0, 0.62, 0.33);',
-    'float h21(vec2 p){ vec3 q = fract(vec3(p.xyx) * 0.1031); q += dot(q, q.yzx + 33.33); return fract((q.x + q.y) * q.z); }',
-    'float h11(float p){ p = fract(p * 0.1031); p *= p + 33.33; p *= p + p; return fract(p); }',
-    'float vn(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f); return mix(mix(h21(i), h21(i + vec2(1, 0)), f.x), mix(h21(i + vec2(0, 1)), h21(i + vec2(1, 1)), f.x), f.y); }',
-    'float fbm(vec2 p){ return 0.5 * vn(p) + 0.28 * vn(p * 2.1 + 3.1) + 0.14 * vn(p * 4.3 + 7.7); }',
-    // balcony depth around the plan, shifting floor by floor so the edges flow
-    'float balc(float th, float i){ return 1.9 + 1.35 * sin(2.0 * th + i * 0.33 + 0.6) + 0.5 * sin(3.0 * th - i * 0.21); }',
-    'float ell(vec2 p, vec2 r){ float k = length(p / r); return (k - 1.0) * min(r.x, r.y); }',
-    'float slab(vec3 p, float i){',
-    '  float dy = abs(p.y - (Y0 + i * FH)) - 0.24;',
-    '  float th = atan(p.z / AB.y, p.x / AB.x);',
-    '  float g = (i >= NF - 0.5) ? 1.0 : balc(th, i);',
-    '  float dh = ell(p.xz, AB + g);',
-    '  vec2 w = vec2(dy, dh);',
-    '  return min(max(w.x, w.y), 0.0) + length(max(w, 0.0)) - 0.08;',
-    '}',
-    'float rail(vec3 p, float i){',
-    '  if (i >= NF - 0.5) return 1e5;',
-    '  float y0 = Y0 + i * FH + 0.24;',
-    '  float dy = abs(p.y - (y0 + 0.55)) - 0.55;',
-    '  float th = atan(p.z / AB.y, p.x / AB.x);',
-    '  float dh = abs(ell(p.xz, AB + balc(th, i) - 0.12)) - 0.04;',
-    '  return max(dy, dh);',
-    '}',
-    'vec2 map(vec3 p){',
-    '  float top = Y0 + NF * FH;',
-    '  float core = max(ell(p.xz, AB), max(Y0 - p.y, p.y - top));',
-    '  vec2 r = vec2(core, 1.0);',
-    '  float fi = clamp(floor((p.y - Y0) / FH), 0.0, NF);',
-    '  float s = min(slab(p, fi), slab(p, min(fi + 1.0, NF)));',
-    '  if (s < r.x) r = vec2(s, 2.0);',
-    '  float rl = rail(p, fi);',
-    '  if (rl < r.x) r = vec2(rl, 1.2);',
-    // rooftop pavilion and crown
-    '  float roof = max(ell(p.xz, AB * 0.62), abs(p.y - (top + 2.2)) - 2.2);',
-    '  if (roof < r.x) r = vec2(roof, 1.0);',
-    '  float crown = max(ell(p.xz, AB * 0.8), abs(p.y - (top + 4.9)) - 0.35);',
-    '  if (crown < r.x) r = vec2(crown, 2.0);',
-    // podium: a low glass lobby under a white canopy
-    '  float pod = max(ell(p.xz, vec2(22.0, 17.0)), abs(p.y - 3.4) - 3.4);',
-    '  if (pod < r.x) r = vec2(pod, 1.5);',
-    '  float can = max(ell(p.xz, vec2(25.0, 20.0)), abs(p.y - 6.9) - 0.35);',
-    '  if (can < r.x) r = vec2(can, 2.0);',
-    // the island: a promenade around the podium
-    '  vec2 q = p.xz - vec2(0.0, 6.0);',
-    '  float isl = max(p.y - 0.9, ell(q, vec2(40.0, 31.0)));',
-    '  if (isl < r.x) r = vec2(isl, 4.0);',
-    '  return r;',
-    '}',
-    'vec3 nrm(vec3 p){ const vec2 k = vec2(1.0, -1.0); float e = 0.015;',
-    '  return normalize(k.xyy * map(p + k.xyy * e).x + k.yyx * map(p + k.yyx * e).x + k.yxy * map(p + k.yxy * e).x + k.xxx * map(p + k.xxx * e).x); }',
-    // bounding cylinders: rays that miss the tower and the island skip the march entirely
-    'vec2 bcyl(vec3 ro, vec3 rd, vec2 c, float r, float y0, float y1){',
-    '  vec2 o = ro.xz - c, d = rd.xz;',
-    '  float a = dot(d, d), b = dot(o, d), k = dot(o, o) - r * r;',
-    '  float t0 = -1e5, t1 = 1e5;',
-    '  if (a > 1e-7) { float h = b * b - a * k; if (h < 0.0) return vec2(1e9, -1e9); h = sqrt(h); t0 = (-b - h) / a; t1 = (-b + h) / a; }',
-    '  else if (k > 0.0) return vec2(1e9, -1e9);',
-    '  if (abs(rd.y) > 1e-7) { float ta = (y0 - ro.y) / rd.y, tb = (y1 - ro.y) / rd.y; t0 = max(t0, min(ta, tb)); t1 = min(t1, max(ta, tb)); }',
-    '  else if (ro.y < y0 || ro.y > y1) return vec2(1e9, -1e9);',
-    '  return vec2(t0, t1);',
-    '}',
-    'vec2 march(vec3 ro, vec3 rd, float tmax, int n){',
-    '  vec2 b1 = bcyl(ro, rd, vec2(0.0), 22.5, -0.5, Y0 + NF * FH + 6.0);',
-    '  vec2 b2 = bcyl(ro, rd, vec2(0.0, 6.0), 41.0, -0.5, 1.2);',
-    '  bool h1 = b1.x <= b1.y && b1.y > 0.0, h2 = b2.x <= b2.y && b2.y > 0.0;',
-    '  if (!h1 && !h2) return vec2(tmax, -1.0);',
-    '  float ts = min(h1 ? b1.x : 1e9, h2 ? b2.x : 1e9), te = max(h1 ? b1.y : -1e9, h2 ? b2.y : -1e9);',
-    '  tmax = min(tmax, te + 0.5);',
-    '  float t = max(ts - 0.5, 0.0); float m = -1.0;',
-    '  for (int i = 0; i < 150; i++) {',
-    '    if (i >= n) break;',
-    '    vec2 h = map(ro + rd * t);',
-    '    if (h.x < 0.0015 * t + 0.008) { m = h.y; break; }',
-    '    t += h.x * 0.8;',
-    '    if (t > tmax) break;',
-    '  }',
-    '  return vec2(t, m);',
-    '}',
-    'vec3 skyline(vec3 rd, vec3 c){',
-    '  float az = atan(rd.x, -rd.z);',
-    '  if (az > -1.15 && az < 0.25) {',
-    '    float cell = floor(az * 55.0 + 0.6 * sin(az * 31.0));',
-    '    float cell2 = floor(az * 140.0);',
-    '    float hh = 0.002 + (pow(h11(cell + 3.0), 3.0) * 0.032 + pow(h11(cell2 + 9.0), 4.0) * 0.012) * smoothstep(-1.15, -0.7, az) * smoothstep(0.25, -0.1, az);',
-    '    if (rd.y < hh && rd.y > -0.002) {',
-    '      vec3 b = mix(vec3(0.30, 0.32, 0.46), c, 0.62);',
-    '      float w = step(0.93, h21(vec2(floor(az * 1100.0), floor(rd.y * 1600.0))));',
-    '      b += WARM * w * 0.25;',
-    '      return b;',
-    '    }',
-    '  }',
-    '  return c;',
-    '}',
-    'vec3 sky(vec3 rd){',
-    '  float el = rd.y;',
-    '  vec3 zen = vec3(0.10, 0.20, 0.42);',
-    '  vec3 mid = vec3(0.40, 0.52, 0.74);',
-    '  vec3 hor = vec3(1.0, 0.60, 0.38);',
-    '  float sd = max(dot(rd, SUN), 0.0);',
-    '  hor = mix(hor, vec3(1.0, 0.48, 0.26), pow(sd, 3.0));',
-    '  float h = max(el, 0.0);',
-    '  vec3 c = mix(hor, mid, smoothstep(0.0, 0.22, h));',
-    '  c = mix(c, zen, smoothstep(0.18, 0.75, h));',
-    '  c += vec3(1.0, 0.55, 0.28) * pow(sd, 10.0) * 0.55 + vec3(1.0, 0.78, 0.5) * pow(sd, 120.0) * 0.9;',
-    '  c += vec3(1.0, 0.92, 0.75) * smoothstep(0.99975, 0.99992, sd) * 2.2;',
-    // a few soft clouds lit from below
-    '  float az = atan(rd.x, -rd.z);',
-    '  float cn = fbm(vec2(az * 2.2, el * 26.0) + vec2(1.7, 0.0)) * smoothstep(0.015, 0.06, el) * smoothstep(0.32, 0.12, el);',
-    '  vec3 cc = mix(vec3(0.95, 0.62, 0.48), vec3(0.62, 0.58, 0.70), smoothstep(0.03, 0.2, el));',
-    '  c = mix(c, cc, smoothstep(0.52, 0.78, cn) * 0.45);',
-    '  if (el < 0.0) c = hor * 0.92;',
-    '  return c;',
-    '}',
-    'vec3 skyFull(vec3 rd){ return skyline(rd, sky(rd)); }',
-    'vec3 shade(vec3 p, vec3 rd, float m, bool cheap){',
-    '  vec3 n = nrm(p);',
-    '  vec3 skyc = sky(reflect(rd, n));',
-    '  float dif = max(dot(n, SUN), 0.0);',
-    '  vec3 amb = mix(vec3(0.30, 0.27, 0.27), vec3(0.55, 0.62, 0.80), n.y * 0.5 + 0.5);',
-    '  float ao = 1.0;',
-    '  if (!cheap) { ao = 0.0; float w = 1.0; for (int i = 1; i <= 4; i++) { float d = 0.35 * float(i); ao += w * (d - map(p + n * d).x); w *= 0.6; } ao = clamp(1.0 - ao * 0.55, 0.15, 1.0); }',
-    '  float fl = floor((p.y - Y0) / FH);',
-    '  float hov = (1.0 - step(0.5, abs(fl - uHover))) * uGlow;',
-    '  float hovSlab = (1.0 - step(0.5, abs(floor((p.y - Y0) / FH + 0.5) - uHover - 0.0))) * uGlow;',
-    '  vec3 col;',
-    '  if (m > 1.1 && m < 1.3) {',
-    '    float fres = 0.08 + 0.92 * pow(1.0 - abs(dot(-rd, n)), 3.0);',
-    '    col = mix(vec3(0.10, 0.14, 0.17), skyc * 0.75, fres) + hovSlab * vec3(1.0, 0.86, 0.6) * 0.6;',
-    '  } else if (m < 1.25) {',
-    // curtain wall: reflections of the sky, mullions, warm rooms behind
-    '    float th = atan(p.z / AB.y, p.x / AB.x);',
-    '    float cx = (th / 6.2831853 + 0.5) * 40.0;',
-    '    vec2 cell = vec2(floor(cx), fl);',
-    '    float lit = step(0.66, h21(cell + 7.0)) * (0.4 + 0.6 * h21(cell + 13.0)) * (0.65 + 0.35 * smoothstep(0.1, 0.9, fract(fl)));',
-    '    float mu = smoothstep(0.0, 0.07, fract(cx)) * smoothstep(1.0, 0.93, fract(cx));',
-    '    float fres = 0.05 + 0.95 * pow(1.0 - max(dot(-rd, n), 0.0), 4.0);',
-    '    vec3 room = WARM * lit * 1.7 + vec3(0.012, 0.016, 0.026);',
-    '    col = mix(room, skyc * 0.55, clamp(fres * 0.75 + 0.2, 0.0, 1.0));',
-    '    col *= mix(0.35, 1.0, mu);',
-    '    col = mix(col, vec3(1.0, 0.84, 0.56) * 2.6 + col * 0.3, hov * 0.9);',
-    '  } else if (m < 1.75) {',
-    '    col = mix(WARM * 0.9, skyc * 0.6, 0.35) + vec3(0.02);',
-    '  } else if (m < 2.5) {',
-    // white slab edges, lit by the low sun and by the rooms below them
-    '    vec3 alb = vec3(0.90, 0.88, 0.84);',
-    '    float front = max(dot(n, normalize(vec3(-0.3, 0.25, 1.0))), 0.0);',
-    '    col = alb * (amb * 1.35 * ao + vec3(1.0, 0.70, 0.48) * dif * 1.4 + vec3(1.0, 0.78, 0.66) * front * 0.75);',
-    '    if (n.y < -0.5) col += WARM * 0.38 * step(0.58, h21(vec2(floor((atan(p.z / AB.y, p.x / AB.x) / 6.2831853 + 0.5) * 40.0), fl + 1.0)));',
-    '    col += hovSlab * vec3(1.0, 0.86, 0.62) * 0.55;',
-    '  } else {',
-    // promenade stone, with a ring of lamps
-    '    vec3 alb = vec3(0.80, 0.74, 0.66);',
-    '    vec2 qq = p.xz - vec2(0.0, 6.0);',
-    '    float ee = ell(qq, vec2(40.0, 31.0));',
-    '    float green = smoothstep(-14.0, -12.5, ee) * smoothstep(-5.5, -7.0, ee) * (0.75 + 0.25 * vn(p.xz * 0.35));',
-    '    alb = mix(alb, vec3(0.16, 0.24, 0.16), green);',
-    '    col = alb * (amb * 1.15 * ao + vec3(1.0, 0.72, 0.5) * dif * 0.9);',
-    '    vec2 q = p.xz - vec2(0.0, 6.0);',
-    '    float e = ell(q, vec2(40.0, 31.0));',
-    '    float ang = atan(q.y, q.x);',
-    '    float lamp = smoothstep(-2.8, -2.0, e) * smoothstep(-1.2, -2.0, e) * smoothstep(0.86, 0.97, fract(ang * 14.0));',
-    '    col += WARM * lamp * 3.0;',
-    '  }',
-    '  return col;',
-    '}',
-    'float seaH(vec2 q){ return 0.06 * sin(q.x * 0.21 + q.y * 0.07 + uTime * 0.7) + 0.045 * sin(q.y * 0.33 - uTime * 0.55 + q.x * 0.13) + 0.02 * sin((q.x * 0.8 + q.y) * 0.9 + uTime * 1.2) + 0.01 * sin((q.x - q.y * 1.7) * 1.9 - uTime * 1.6); }',
-    'void main(){',
-    '  vec2 uv = (2.0 * gl_FragCoord.xy - uRes) / uRes.y;',
-    '  vec3 ro = uPos;',
-    '  vec3 f = normalize(uTgt - uPos);',
-    '  vec3 rr = normalize(cross(f, vec3(0.0, 1.0, 0.0)));',
-    '  vec3 uu = cross(rr, f);',
-    '  vec3 rd = normalize(f + uTan * (uv.x * rr + uv.y * uu));',
-    '  float tSea = rd.y < 0.0 ? -ro.y / rd.y : 1e5;',
-    '  float tmax = min(tSea, 900.0);',
-    '  vec2 hit = march(ro, rd, tmax, 140);',
-    '  vec3 col;',
-    '  float t = hit.x;',
-    '  if (hit.y > 0.0) {',
-    '    col = shade(ro + rd * t, rd, hit.y, false);',
-    '  } else if (rd.y < 0.0) {',
-    '    t = tSea;',
-    '    vec3 p = ro + rd * t;',
-    '    float e = 0.12; float damp = exp(-t * 0.016);',
-    '    float h0 = seaH(p.xz);',
-    '    vec3 n = normalize(vec3(-(seaH(p.xz + vec2(e, 0.0)) - h0) / e * damp, 1.0, -(seaH(p.xz + vec2(0.0, e)) - h0) / e * damp));',
-    '    vec3 rf = reflect(rd, n);',
-    '    float fres = 0.02 + 0.98 * pow(1.0 - max(dot(-rd, n), 0.0), 5.0);',
-    '    vec3 refl;',
-    '    vec2 h2 = march(p + n * 0.05, rf, 300.0, 56);',
-    '    if (h2.y > 0.0) refl = shade(p + n * 0.05 + rf * h2.x, rf, h2.y, true); else refl = skyFull(rf);',
-    '    vec3 deep = vec3(0.045, 0.11, 0.19);',
-    '    col = mix(deep, refl, clamp(fres + 0.3, 0.0, 1.0));',
-    '    col += vec3(1.0, 0.75, 0.45) * pow(max(dot(rf, SUN), 0.0), 300.0) * 1.6;',
-    '  } else {',
-    '    col = skyFull(rd);',
-    '  }',
-    // haze toward the horizon
-    '  if (hit.y > 0.0 || rd.y < 0.0) { vec3 hz = sky(normalize(vec3(rd.x, 0.012, rd.z))); col = mix(col, hz, 1.0 - exp(-t * 0.0007)); }',
-    // tone and finish
-    '  col = 1.0 - exp(-col * 1.35);',
-    '  vec2 sv = gl_FragCoord.xy / uRes; col *= 0.86 + 0.14 * pow(16.0 * sv.x * sv.y * (1.0 - sv.x) * (1.0 - sv.y), 0.18);',
-    '  col += (h21(gl_FragCoord.xy + fract(uTime)) - 0.5) / 255.0;',
-    '  o = vec4(col, 1.0);',
-    '}'
-  ].join('\n');
-
-  var VERT = '#version 300 es\nin vec2 a; void main(){ gl_Position = vec4(a, 0.0, 1.0); }';
-
-  function Scene(canvas) {
-    var gl = canvas.getContext('webgl2', { antialias: false, alpha: false, powerPreference: 'high-performance', preserveDrawingBuffer: false });
-    if (!gl) throw new Error('webgl2');
-    function sh(type, src) {
-      var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
-      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
-      return s;
-    }
-    var prog = gl.createProgram();
-    gl.attachShader(prog, sh(gl.VERTEX_SHADER, VERT));
-    gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FRAG));
-    gl.linkProgram(prog);
-    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
-    gl.useProgram(prog);
-    var buf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
-    var loc = gl.getAttribLocation(prog, 'a');
-    gl.enableVertexAttribArray(loc);
-    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-    var U = {};
-    ['uRes', 'uTime', 'uPos', 'uTgt', 'uTan', 'uHover', 'uGlow', 'uInside'].forEach(function (n) { U[n] = gl.getUniformLocation(prog, n); });
-    this.gl = gl; this.U = U; this.canvas = canvas;
-  }
-  Scene.prototype.draw = function (cam, t, hover, glow) {
-    var gl = this.gl, U = this.U, c = this.canvas;
-    gl.viewport(0, 0, c.width, c.height);
-    gl.uniform2f(U.uRes, c.width, c.height);
-    gl.uniform1f(U.uTime, t);
-    gl.uniform3f(U.uPos, cam.pos[0], cam.pos[1], cam.pos[2]);
-    gl.uniform3f(U.uTgt, cam.tgt[0], cam.tgt[1], cam.tgt[2]);
-    gl.uniform1f(U.uTan, cam.tan);
-    gl.uniform1f(U.uHover, hover);
-    gl.uniform1f(U.uGlow, glow);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
-  };
-
-  window.MaisonTower = { Scene: Scene, FH: FH, Y0: Y0, NF: NF, A: A, B: B };
-})();
-/* Tower hero: choose a floor, fly in through the glass, look around the room */
+/* Tower hero: choose a floor on the photograph, see it light up, zoom in through the glass, look around the room */
 (function () {
   'use strict';
   var sec = document.querySelector('.tower');
   if (!sec) return;
-  var T = window.MaisonTower;
   var root = document.documentElement;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var canvas = sec.querySelector('.tower-canvas');
+  var stage = sec.querySelector('.tw-stage');
+  var photos = sec.querySelectorAll('.tw-photo');
+  var litWrap = sec.querySelector('.tw-lit-wrap');
+  var hit = sec.querySelector('.tw-hit');
   var room = sec.querySelector('.tower-room');
   var imgs = sec.querySelectorAll('.room-img');
   var flash = sec.querySelector('.tower-flash');
   var card = sec.querySelector('.floor-card');
   var fcN = sec.querySelector('.fc-n'), fcZone = sec.querySelector('.fc-zone'), fcDesc = sec.querySelector('.fc-desc');
-  var fcHelp = sec.querySelector('.fc-help');
   var enterBtn = sec.querySelector('.fc-enter');
   var zoneBtns = Array.prototype.slice.call(sec.querySelectorAll('.fc-zones button'));
   var backBtn = sec.querySelector('.back-pill');
@@ -1254,10 +1016,19 @@
   var rpLevel = panel.querySelector('.rp-level'), rpName = panel.querySelector('.rp-name'), rpLine = panel.querySelector('.rp-line');
   var rpChips = panel.querySelector('.rp-chips');
   var rpPrev = panel.querySelector('.rp-prev'), rpNext = panel.querySelector('.rp-next');
+  var header = document.getElementById('site-header');
 
   var U = 'https://images.unsplash.com/';
+  // The tower: a 16:9 photograph. LINES are the floor slabs, top to bottom, as a percentage of the photo's height;
+  // the band between two lines is one level, counting down from level 30 at the top
+  var PHOTO = 'photo-1678080334785-d49fc98bede3', AR = 16 / 9, CX = 54.5;
+  var LINES = [20.7, 27.7, 33.6, 39.6, 46.3, 52.2, 58.5, 64.9, 71.0, 77.0, 83.0, 89.4, 95.5, 101.6];
+  var TOP = 30, LOW = TOP - (LINES.length - 2);
+  function band(level) { return TOP - level; }
+  function edges(b) { return { l: b <= 1 ? 39.2 : 38.3, r: 70.6 }; }
+
   var ZONES = [
-    { name: 'Hotel', from: 1, to: 4, rep: 2, line: 'Lobby, lounges and suites',
+    { name: 'Hotel', from: LOW, to: 20, rep: 19, line: 'Lobby, lounges and suites',
       desc: 'Plaster mouldings, marble floors and furniture made in our own workshop.',
       img: 'photo-1742844552700-3926862c5311', w: 2000, h: 1314, fx: 0.5, fy: 0.45,
       spots: [
@@ -1265,7 +1036,7 @@
         { x: 24, y: 67, t: 'Centre table', d: 'Made to measure in our workshop, scaled to the lobby so it holds its own under a high ceiling.' },
         { x: 46, y: 86, t: 'Marble floor', d: 'A bordered pattern, set out from the centre of the room so the joints line up with the windows.' }
       ] },
-    { name: 'Offices', from: 5, to: 12, rep: 9, line: 'Boardrooms and workplaces',
+    { name: 'Offices', from: 21, to: 23, rep: 22, line: 'Boardrooms and workplaces',
       desc: 'Feature walls, coffered ceilings and made-to-measure joinery for corporate floors.',
       img: 'photo-1790213306585-0b1417e681a0', w: 2000, h: 1125, fx: 0.5, fy: 0.5,
       spots: [
@@ -1273,7 +1044,7 @@
         { x: 49, y: 42, t: 'Feature wall', d: 'Real stone, or Maison’s marble-effect paint, finished on site around a commissioned artwork.' },
         { x: 38, y: 76, t: 'Boardroom table', d: 'Made to measure, with power and data built into the centre.' }
       ] },
-    { name: 'Residences', from: 13, to: 24, rep: 14, line: 'Family homes with Gulf views',
+    { name: 'Residences', from: 24, to: 28, rep: 26, line: 'Family homes with views',
       desc: 'Timber panelling, upholstery and lighting, planned together for each home.',
       img: 'photo-1751806524609-ce4550a4aae6', w: 2000, h: 1377, fx: 0.5, fy: 0.55,
       spots: [
@@ -1281,7 +1052,7 @@
         { x: 55, y: 71, t: 'Sofa and cushions', d: 'Upholstered by Chateau Furniture to fit the room, in fabrics chosen with you.' },
         { x: 31, y: 86, t: 'Dining table', d: 'Solid walnut, made to measure in our workshop.' }
       ] },
-    { name: 'Penthouse', from: 25, to: 30, rep: 27, line: 'Reception rooms and majlis',
+    { name: 'Penthouse', from: 29, to: TOP, rep: 30, line: 'Reception rooms and majlis',
       desc: 'Crystal lighting, marble walls and commissioned art for the top floors.',
       img: 'photo-1758448755778-90ebf4d0f1e7', w: 2000, h: 1125, fx: 0.5, fy: 0.5,
       spots: [
@@ -1290,22 +1061,63 @@
         { x: 34, y: 78, t: 'Modular sofa', d: 'Upholstered by Chateau Furniture, with cushions in a woven pattern.' }
       ] }
   ];
-  var NL = T ? T.NF : 30;
   function zoneOf(level) { for (var i = 0; i < ZONES.length; i++) if (level >= ZONES[i].from && level <= ZONES[i].to) return i; return 2; }
+  function dpr() { return Math.min(window.devicePixelRatio || 1, 2); }
   function imgURL(z) {
-    var w = Math.min(2400, Math.max(800, Math.ceil(window.innerWidth * Math.min(window.devicePixelRatio || 1, 2) / 200) * 200));
+    var w = Math.min(2400, Math.max(800, Math.ceil(window.innerWidth * dpr() / 200) * 200));
     return U + z.img + '?w=' + w + '&q=72&auto=format&fit=crop';
   }
   var preloaded = {};
   function preload(i) { if (preloaded[i]) return; preloaded[i] = new Image(); preloaded[i].src = imgURL(ZONES[i]); }
 
-  var level = 14;          // the floor shown on the card
+  var level = 26;
   var state = 'tower';     // tower | flying | inside | returning
-  var curImg = 0;          // which of the two room images is showing
+  var curImg = 0;
+  var W = 1, H = 1, box = { x: 0, y: 0, w: 1, h: 1 }, portrait = false;
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function smooth(a, b, x) { var t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); }
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+  /* ---------- Framing the photograph ---------- */
+  function layout() {
+    W = sec.clientWidth; H = sec.clientHeight;
+    portrait = W / H < 1.05;
+    sec.classList.toggle('is-portrait', portrait);
+    var w, h, x, y;
+    if (!portrait) {
+      // Fill the screen, a touch closer than the photo, with the tower left of centre so the card has the right
+      w = Math.max(W, H * AR) * 1.22; h = w / AR;
+      x = clamp((W / H >= 1.4 ? 0.4 : 0.36) * W - CX / 100 * w, W - w, 0);
+      y = clamp(-0.06 * H, H - h, 0);
+    } else {
+      // Phones: the whole width of the tower, under the header, fading into the card below
+      w = W / 0.4; h = w / AR;
+      x = W / 2 - CX / 100 * w;
+      y = header.offsetHeight - 0.16 * h;
+    }
+    box = { x: x, y: y, w: w, h: h };
+    stage.style.width = w + 'px'; stage.style.height = h + 'px';
+    if (state === 'tower') stage.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+    var want = Math.min(3600, Math.ceil(w * dpr() / 400) * 400);
+    if (!photos[0].dataset.w || +photos[0].dataset.w < want) {
+      var src = U + PHOTO + '?w=' + want + '&q=80&auto=format';
+      Array.prototype.forEach.call(photos, function (p) { p.src = src; p.dataset.w = want; });
+    }
+    if (state === 'inside') layoutSpots();
+  }
+  photos[0].addEventListener('load', function () { sec.classList.add('photo-ready'); });
+
+  function lightFloor() {
+    var b = band(level), e = edges(b);
+    litWrap.style.setProperty('--floor', 'polygon(' + e.l + '% ' + LINES[b] + '%, ' + e.r + '% ' + LINES[b] + '%, ' + e.r + '% ' + LINES[b + 1] + '%, ' + e.l + '% ' + LINES[b + 1] + '%)');
+    sec.classList.add('has-floor');
+  }
 
   /* ---------- Card ---------- */
   function setLevel(l, quiet) {
-    l = Math.max(1, Math.min(NL, l));
+    l = clamp(l, LOW, TOP);
     level = l;
     var zi = zoneOf(l), z = ZONES[zi];
     fcN.textContent = String(l);
@@ -1313,7 +1125,7 @@
     fcDesc.textContent = z.desc;
     enterBtn.textContent = 'Enter level ' + l;
     zoneBtns.forEach(function (b, i) { b.setAttribute('aria-pressed', String(i === zi)); });
-    hoverFloor = l - 1; glowTarget = 1; kick();
+    lightFloor();
     if (!quiet) preload(zi);
   }
   zoneBtns.forEach(function (b, i) { b.addEventListener('click', function () { setLevel(ZONES[i].rep); }); });
@@ -1325,151 +1137,32 @@
   });
   enterBtn.addEventListener('click', function () { enter(); });
 
-  /* ---------- Scene ---------- */
-  var scene = null, gl = false;
-  try { if (T) { scene = new T.Scene(canvas); gl = true; } } catch (err) { scene = null; }
-  if (!gl) { sec.classList.add('no-gl'); fcHelp.textContent = 'Pick a space, then step inside to see how Maison finishes it.'; }
-
-  var cam = { pos: [0, 0, 0], tgt: [0, 0, 0], tan: 0.36 };
-  var base = null;
-  var hoverFloor = level - 1, glow = 0, glowTarget = 1;
-  var scale = 1, maxScale = 1, deltas = [], lastNow = 0;
-  var running = false, raf = 0, idleTimer = 0, flight = null;
-  var W = 1, H = 1;
-
-  function v3(a) { return [a[0], a[1], a[2]]; }
-  function lerp(a, b, t) { return a + (b - a) * t; }
-  function lerp3(a, b, t) { return [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)]; }
-  function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }
-  function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
-  function cross(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }
-  function norm(a) { var l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; }
-  function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
-  function smooth(a, b, x) { var t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); }
-
-  function baseCam() {
-    var a = W / H;
-    if (a >= 1.05) {
-      var shift = Math.min(1, (a - 1.05) / 0.7);
-      return { pos: [-52, 66, 250], tgt: [lerp(18, 34, shift), 57, 0], tan: 0.40 };
+  // Pointer: light the floor under the cursor; click it to step in. On touch, the first tap lights it, the second goes in
+  function floorAt(cx, cy) {
+    var r = sec.getBoundingClientRect();
+    var ix = (cx - r.left - box.x) / box.w * 100, iy = (cy - r.top - box.y) / box.h * 100;
+    for (var b = 0; b < LINES.length - 1; b++) {
+      var e = edges(b);
+      if (iy >= LINES[b] && iy < LINES[b + 1] && ix >= e.l - 1.5 && ix <= e.r + 1.5) return TOP - b;
     }
-    return { pos: [-30, 60, 390], tgt: [0, 12, 0], tan: 0.42 };
+    return 0;
   }
-  // Where the camera ends up, a few metres off the glass of floor f
-  function facadeCam(f, from) {
-    var d = norm([from.pos[0], 0, from.pos[2]]);
-    var r = 1 / Math.sqrt(Math.pow(d[0] / T.A, 2) + Math.pow(d[2] / T.B, 2));
-    var y = T.Y0 + f * T.FH + T.FH * 0.55;
-    var face = [d[0] * r, y, d[2] * r];
-    return { pos: [face[0] + d[0] * 15, y + 0.4, face[2] + d[2] * 15], tgt: [face[0] - d[0] * 12, y - 0.2, face[2] - d[2] * 12], tan: from.tan * 0.92 };
-  }
-  function project(p, c) {
-    var f = norm(sub(c.tgt, c.pos)), r = norm(cross(f, [0, 1, 0])), u = cross(r, f);
-    var v = sub(p, c.pos), z = dot(v, f);
-    var ux = dot(v, r) / (z * c.tan), uy = dot(v, u) / (z * c.tan);
-    return [(ux * H + W) / 2, (H - uy * H) / 2];
-  }
-  var bands = [];
-  function computeBands() {
-    bands = [];
-    if (!base || !T) return;
-    var f = norm(sub(base.tgt, base.pos)), r = norm(cross(f, [0, 1, 0]));
-    var ext = Math.sqrt(Math.pow(T.A * r[0], 2) + Math.pow(T.B * r[2], 2)) + 3.2;
-    for (var i = 0; i < NL; i++) {
-      var y0 = T.Y0 + i * T.FH, y1 = y0 + T.FH, ym = (y0 + y1) / 2;
-      var top = project([0, y1, 0], base)[1], bot = project([0, y0, 0], base)[1];
-      var L = project([-r[0] * ext, ym, -r[2] * ext], base)[0], R = project([r[0] * ext, ym, r[2] * ext], base)[0];
-      bands.push({ top: Math.min(top, bot), bot: Math.max(top, bot), l: Math.min(L, R), r: Math.max(L, R) });
-    }
-  }
-  function floorAt(x, y) {
-    for (var i = 0; i < bands.length; i++) {
-      var b = bands[i];
-      if (y >= b.top - 1 && y <= b.bot + 1 && x >= b.l - 10 && x <= b.r + 10) return i;
-    }
-    return -1;
-  }
-
-  function size() {
-    W = sec.clientWidth; H = sec.clientHeight;
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var px = W * H * dpr * dpr;
-    var budget = W < 900 ? 520000 : 1100000;
-    maxScale = Math.min(dpr, Math.sqrt(budget / (W * H)));
-    if (!scale || scale > maxScale) scale = maxScale;
-    applyScale();
-    base = baseCam();
-    if (state === 'tower') { cam = { pos: v3(base.pos), tgt: v3(base.tgt), tan: base.tan }; }
-    computeBands();
-    if (state === 'inside') layoutSpots();
-    kick();
-  }
-  function applyScale() {
-    canvas.width = Math.max(2, Math.round(W * scale));
-    canvas.height = Math.max(2, Math.round(H * scale));
-  }
-
-  function draw(now) {
-    if (!scene) return;
-    scene.draw(cam, reduce ? 4 : now / 1000, hoverFloor, glow);
-  }
-  function loop(now) {
-    raf = 0;
-    if (!running) return;
-    if (flight) flight.step(now);
-    glow += (glowTarget - glow) * (reduce ? 1 : 0.14);
-    draw(now);
-    if (!sec.classList.contains('gl-ready')) sec.classList.add('gl-ready');
-    // Keep the frame rate up by drawing fewer pixels on slower devices
-    if (lastNow) {
-      deltas.push(now - lastNow);
-      if (deltas.length >= 24) {
-        deltas.sort(function (a, b) { return a - b; });
-        var med = deltas[12]; deltas = [];
-        if (med > 30 && scale > 0.35) { scale = Math.max(0.35, scale * 0.82); applyScale(); }
-        else if (med < 17 && scale < maxScale) { scale = Math.min(maxScale, scale * 1.08); applyScale(); }
-      }
-    }
-    var busy = flight || Math.abs(glowTarget - glow) > 0.01;
-    if (busy) { lastNow = now; raf = requestAnimationFrame(loop); }
-    else if (!reduce) { lastNow = 0; idleTimer = setTimeout(function () { idleTimer = 0; if (running && !raf) raf = requestAnimationFrame(loop); }, 80); }
-  }
-  function kick() {
-    if (!scene || !running) return;
-    if (idleTimer) { clearTimeout(idleTimer); idleTimer = 0; }
-    if (!raf) raf = requestAnimationFrame(loop);
-  }
-  function setRunning(on) {
-    on = on && !!scene && state !== 'inside' && !document.hidden;
-    if (on === running) return;
-    running = on;
-    if (on) kick(); else { if (raf) cancelAnimationFrame(raf); raf = 0; if (idleTimer) clearTimeout(idleTimer); idleTimer = 0; lastNow = 0; }
-  }
-  var inView = true;
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (es) { inView = es[0].isIntersecting; setRunning(inView); }, { threshold: 0 }).observe(sec);
-  }
-  document.addEventListener('visibilitychange', function () { setRunning(inView); });
-
-  // Pointer: light the floor under the cursor; click it to fly in
-  var touchArmed = -1;
-  canvas.addEventListener('pointermove', function (e) {
+  var armed = 0;
+  hit.addEventListener('pointermove', function (e) {
     if (state !== 'tower' || e.pointerType === 'touch') return;
-    var rect = sec.getBoundingClientRect();
-    var f = floorAt(e.clientX - rect.left, e.clientY - rect.top);
-    canvas.style.cursor = f >= 0 ? 'pointer' : '';
-    if (f >= 0 && f + 1 !== level) setLevel(f + 1, true);
+    var l = floorAt(e.clientX, e.clientY);
+    hit.style.cursor = l ? 'pointer' : '';
+    if (l && l !== level) setLevel(l, true);
   });
-  canvas.addEventListener('click', function (e) {
+  hit.addEventListener('click', function (e) {
     if (state !== 'tower') return;
-    var rect = sec.getBoundingClientRect();
-    var f = floorAt(e.clientX - rect.left, e.clientY - rect.top);
-    if (f < 0) return;
+    var l = floorAt(e.clientX, e.clientY);
+    if (!l) return;
     if (e.pointerType === 'touch' || (e.sourceCapabilities && e.sourceCapabilities.firesTouchEvents)) {
-      if (touchArmed === f) { enter(); touchArmed = -1; } else { touchArmed = f; setLevel(f + 1); }
+      if (armed === l) { armed = 0; enter(); } else { armed = l; setLevel(l); }
       return;
     }
-    setLevel(f + 1); enter();
+    setLevel(l); enter();
   });
 
   /* ---------- Room ---------- */
@@ -1516,7 +1209,7 @@
     var w = room.clientWidth || W, h = room.clientHeight || H;
     var s = Math.max(w / iw, h / ih), dw = iw * s, dh = ih * s;
     var ox = (w - dw) * z.fx, oy = (h - dh) * z.fy;
-    var head = document.getElementById('site-header').offsetHeight;
+    var head = header.offsetHeight;
     var pr = panel.getBoundingClientRect(), rr = room.getBoundingClientRect();
     var pL = pr.left - rr.left - 20, pR = pr.right - rr.left + 20, pT = pr.top - rr.top - 24;
     Array.prototype.forEach.call(spotsEl.children, function (wrap) {
@@ -1541,21 +1234,26 @@
     card.toggleAttribute('inert', inside);
   }
 
+  var anim = 0;
   function animate(dur, step, done) {
+    if (anim) cancelAnimationFrame(anim);
     var t0 = 0;
-    flight = {
-      step: function (now) {
-        if (!t0) t0 = now;
-        var p = Math.min(1, (now - t0) / dur);
-        step(p);
-        if (p >= 1) { flight = null; done(); }
-      }
+    var tick = function (now) {
+      if (!t0) t0 = now;
+      var p = Math.min(1, (now - t0) / dur);
+      step(p);
+      if (p < 1) anim = requestAnimationFrame(tick); else { anim = 0; done(); }
     };
-    if (scene && running) kick();
-    else {
-      var tick = function (now) { if (!flight) return; flight.step(now); if (flight) requestAnimationFrame(tick); };
-      requestAnimationFrame(tick);
-    }
+    anim = requestAnimationFrame(tick);
+  }
+  // Zoom the stage so the chosen floor grows toward the middle of the screen
+  var ZOOM = 5;
+  function zoomTo(k, pk) {
+    var b = band(level), e = edges(b);
+    var px = (e.l + e.r) / 200 * box.w, py = (LINES[b] + LINES[b + 1]) / 200 * box.h;
+    var s = Math.exp(Math.log(ZOOM) * k);
+    var x = lerp(box.x + px, W / 2, pk) - s * px, y = lerp(box.y + py, H / 2, pk) - s * py;
+    stage.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(' + s + ')';
   }
 
   function enter() {
@@ -1565,21 +1263,13 @@
     curImg = 0; imgs[1].style.opacity = '0'; imgs[0].style.opacity = '1';
     showZone(zi, 0);
     room.classList.add('is-on');
-    var start = { pos: v3(cam.pos), tgt: v3(cam.tgt), tan: cam.tan };
-    var end = gl ? facadeCam(level - 1, base) : start;
-    var f = norm(sub(start.tgt, start.pos)), r = norm(cross(f, [0, 1, 0]));
-    var ctrl = lerp3(start.pos, end.pos, 0.5); ctrl[0] += r[0] * 26; ctrl[2] += r[2] * 26; ctrl[1] += 10;
-    var dur = reduce || !gl ? 450 : 2400;
-    animate(dur, function (p) {
-      if (gl && !reduce) {
-        var e = ease(p), a = 1 - e;
-        cam.pos = [a * a * start.pos[0] + 2 * a * e * ctrl[0] + e * e * end.pos[0], a * a * start.pos[1] + 2 * a * e * ctrl[1] + e * e * end.pos[1], a * a * start.pos[2] + 2 * a * e * ctrl[2] + e * e * end.pos[2]];
-        cam.tgt = lerp3(start.tgt, end.tgt, Math.min(1, e * 1.15));
-        cam.tan = lerp(start.tan, end.tan, e);
-        var k = smooth(0.6, 0.94, p);
+    animate(reduce ? 450 : 1800, function (p) {
+      if (!reduce) {
+        zoomTo(Math.pow(p, 2.1), ease(Math.min(1, p * 1.2)));
+        var k = smooth(0.52, 0.92, p);
         room.style.opacity = String(k);
-        imgs[0].style.transform = 'scale(' + (1.24 - 0.24 * (1 - Math.pow(1 - k, 3))).toFixed(4) + ')';
-        flash.style.opacity = String((Math.exp(-Math.pow((p - 0.74) / 0.11, 2)) * 0.75).toFixed(3));
+        imgs[0].style.transform = 'scale(' + (1.22 - 0.22 * (1 - Math.pow(1 - k, 3))).toFixed(4) + ')';
+        flash.style.opacity = String((Math.exp(-Math.pow((p - 0.7) / 0.12, 2)) * 0.55).toFixed(3));
       } else {
         room.style.opacity = String(p); imgs[0].style.transform = '';
       }
@@ -1587,7 +1277,6 @@
       state = 'inside';
       flash.style.opacity = '0'; imgs[0].style.transform = '';
       sec.classList.remove('is-flying'); sec.classList.add('is-inside');
-      setRunning(false);
       setInteractive(true);
       layoutSpots();
       backBtn.focus({ preventScroll: true });
@@ -1600,25 +1289,21 @@
     sec.classList.remove('is-inside'); sec.classList.add('is-flying');
     setInteractive(false);
     if (openSpot) toggleSpot(openSpot);
-    setRunning(inView);
-    var from = gl ? facadeCam(level - 1, base) : null;
-    if (gl) { cam.pos = v3(from.pos); cam.tgt = v3(from.tgt); cam.tan = from.tan; }
-    var dur = reduce || !gl ? 400 : 1700;
     var im = imgs[curImg];
-    animate(dur, function (p) {
-      var k = 1 - smooth(0.0, 0.32, p);
-      room.style.opacity = String(k);
-      if (!reduce) im.style.transform = 'scale(' + (1 + 0.12 * p).toFixed(4) + ')';
-      if (gl && !reduce) {
-        var e = ease(p);
-        cam.pos = lerp3(from.pos, base.pos, e); cam.tgt = lerp3(from.tgt, base.tgt, e); cam.tan = lerp(from.tan, base.tan, e);
+    animate(reduce ? 400 : 1500, function (p) {
+      room.style.opacity = String(1 - smooth(0, 0.4, p));
+      if (!reduce) {
+        im.style.transform = 'scale(' + (1 + 0.12 * p).toFixed(4) + ')';
+        var q = 1 - ease(p);
+        zoomTo(q, q);
+      } else {
+        stage.style.transform = 'translate(' + box.x + 'px,' + box.y + 'px)';
       }
     }, function () {
-      if (gl) { cam.pos = v3(base.pos); cam.tgt = v3(base.tgt); cam.tan = base.tan; }
+      stage.style.transform = 'translate(' + box.x + 'px,' + box.y + 'px)';
       state = 'tower';
       room.classList.remove('is-on'); im.style.transform = '';
       sec.classList.remove('is-flying');
-      kick();
       enterBtn.focus({ preventScroll: true });
     });
   }
@@ -1629,7 +1314,7 @@
     if (state !== 'inside') return;
     var zi = zoneOf(level) + dir;
     if (zi < 0 || zi >= ZONES.length) return;
-    level = ZONES[zi].rep; setLevel(level, true);
+    setLevel(ZONES[zi].rep, true);
     var next = 1 - curImg, cur = imgs[curImg], nx = imgs[next];
     nx.style.transition = 'none'; nx.style.opacity = '0';
     curImg = next;
@@ -1650,11 +1335,9 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  window.addEventListener('resize', size);
-  size();
+  window.addEventListener('resize', layout);
+  layout();
   setLevel(level, true);
-  setRunning(true);
-  // Fetch the room for the level on the card once the tower is up, so the first fly-in lands on a loaded photo
   setTimeout(function () { preload(zoneOf(level)); }, 1200);
 })();
 </script>
