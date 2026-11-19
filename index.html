@@ -1148,6 +1148,7 @@
   var panel = sec.querySelector('.room-panel');
   var rpLevel = panel.querySelector('.rp-level'), rpName = panel.querySelector('.rp-name'), rpLine = panel.querySelector('.rp-line');
   var rpChips = panel.querySelector('.rp-chips');
+  var rpCredit = panel.querySelector('.rp-credit'), photoCredit = rpCredit.textContent;
   var rpPrev = panel.querySelector('.rp-prev'), rpNext = panel.querySelector('.rp-next');
   var header = document.getElementById('site-header');
 
@@ -1185,18 +1186,21 @@
         { x: 55, y: 71, t: 'Sofa and cushions', d: 'Upholstered by Chateau Furniture to fit the room, in fabrics chosen with you.' },
         { x: 31, y: 86, t: 'Dining table', d: 'Solid walnut, made to measure in our workshop.' }
       ] },
-    { name: 'Penthouse', from: 29, to: TOP, rep: 30, line: 'Reception rooms and majlis',
-      desc: 'Crystal lighting, marble walls and commissioned art for the top floors.',
-      img: 'photo-1758448755778-90ebf4d0f1e7', w: 2000, h: 1125, fx: 0.5, fy: 0.5,
+    { name: 'Penthouse', from: 29, to: TOP, rep: 30, line: 'Majlis and reception rooms, Doha',
+      desc: 'Gold leaf, mashrabiya and crystal light for the top floors of a Doha tower.',
+      // Drawn schematic until Maison's Doha office supplies project photographs
+      src: 'img/penthouse-schematic.svg', w: 2000, h: 1125, fx: 0.5, fy: 0.5,
+      credit: 'Concept schematic, a placeholder for photographs of Maison’s Doha projects.',
       spots: [
-        { x: 60, y: 22, t: 'Chandelier', d: 'Crystal rings, sized and hung to the height of the room.' },
-        { x: 71, y: 52, t: 'Marble wall', d: 'Book-matched stone with a brass inlay line, or the same look in Maison’s marble-effect paint.' },
-        { x: 34, y: 78, t: 'Modular sofa', d: 'Upholstered by Chateau Furniture, with cushions in a woven pattern.' }
+        { x: 50, y: 30.5, t: 'Gold-leaf ceiling', d: 'A coffered ceiling laid in gold leaf, square by square, with a crystal chandelier hung from the centre.' },
+        { x: 15, y: 46, t: 'Mashrabiya screen', d: 'A timber lattice that softens the light and screens the majlis from the hall.' },
+        { x: 56, y: 70, t: 'Majlis seating', d: 'Low seating on three sides, facing the bay, upholstered by Chateau Furniture.' }
       ] }
   ];
   function zoneOf(level) { for (var i = 0; i < ZONES.length; i++) if (level >= ZONES[i].from && level <= ZONES[i].to) return i; return 2; }
   function dpr() { return Math.min(window.devicePixelRatio || 1, 2); }
   function imgURL(z) {
+    if (z.src) return z.src;
     var w = Math.min(2400, Math.max(800, Math.ceil(window.innerWidth * dpr() / 200) * 200));
     return U + z.img + '?w=' + w + '&q=72&auto=format&fit=crop';
   }
@@ -1306,6 +1310,7 @@
     rpLevel.textContent = 'Level ' + level;
     rpName.textContent = z.name;
     rpLine.textContent = z.line;
+    rpCredit.textContent = z.credit || photoCredit;
     rpPrev.hidden = zi === 0; rpNext.hidden = zi === ZONES.length - 1;
     if (zi > 0) rpPrev.textContent = 'Down to ' + ZONES[zi - 1].name;
     if (zi < ZONES.length - 1) rpNext.textContent = 'Up to ' + ZONES[zi + 1].name;
