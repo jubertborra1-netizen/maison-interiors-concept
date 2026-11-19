@@ -445,8 +445,106 @@
   .sector-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 6vw, 112px); max-width: 980px; margin: 0 auto; }
   .sector-group h3 { font-family: var(--body); font-weight: 500; font-size: var(--t-sm); line-height: 1.4; color: var(--gold-text); padding-bottom: 14px; border-bottom: 1px solid var(--gold); }
   .sector-list { list-style: none; margin: 0; padding: 0; }
-  .sector-list li { font-family: var(--display); font-size: clamp(1.75rem, 2.8vw, 2.5rem); line-height: 1.2; color: var(--green); padding: 14px 0 16px; border-bottom: 1px solid var(--hair); }
-  .sector-group--b .sector-list li { font-style: italic; color: var(--gold-text); }
+  .sector-list li { border-bottom: 1px solid var(--hair); }
+  .sector-open {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%;
+    padding: 14px 0 16px; margin: 0; background: none; border: 0; border-radius: 0; text-align: left; cursor: pointer;
+    font-family: var(--display); font-weight: 400; font-size: clamp(1.75rem, 2.8vw, 2.5rem); line-height: 1.2; color: var(--green);
+  }
+  .sector-group--b .sector-open { font-style: italic; color: var(--gold-text); }
+  .sector-open:focus-visible { outline-offset: 2px; }
+  .so-plus { flex: none; position: relative; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--gold); transition: background-color 0.25s, border-color 0.25s; }
+  .so-plus::before, .so-plus::after { content: ''; position: absolute; left: 50%; top: 50%; width: 12px; height: 1.5px; background: var(--gold-text); transform: translate(-50%, -50%); transition: background-color 0.25s; }
+  .so-plus::after { transform: translate(-50%, -50%) rotate(90deg); }
+  .sector-open:hover .so-plus, .sector-open:focus-visible .so-plus { background: var(--green); border-color: var(--green); }
+  .sector-open:hover .so-plus::before, .sector-open:hover .so-plus::after,
+  .sector-open:focus-visible .so-plus::before, .sector-open:focus-visible .so-plus::after { background: var(--porcelain); }
+
+  /* Sector sheet: the work behind each room type. A side sheet on wide screens, a bottom sheet on phones */
+  html.ss-lock { overflow: hidden; }
+  html.ss-lock body { padding-right: var(--sbw, 0px); }
+  .sector-sheet {
+    position: fixed; inset: 0 0 0 auto; margin: 0; padding: 0; border: 0;
+    width: min(620px, 100vw); max-width: 100vw; height: 100dvh; max-height: 100dvh;
+    background: var(--porcelain); color: var(--ink); overflow: hidden;
+    box-shadow: -40px 0 80px -40px rgba(15, 33, 29, 0.55);
+  }
+  .sector-sheet::backdrop { background: rgba(15, 33, 29, 0.5); }
+  .sector-sheet [hidden] { display: none !important; }
+  .sector-sheet[open] { animation: ss-in 0.42s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .sector-sheet[open]::backdrop { animation: ss-fade 0.42s ease; }
+  .sector-sheet.is-closing { animation: ss-out 0.26s ease-in forwards; }
+  .sector-sheet.is-closing::backdrop { animation: ss-fade 0.26s ease-in reverse forwards; }
+  @keyframes ss-in { from { transform: translateX(100%); } }
+  @keyframes ss-out { to { transform: translateX(100%); } }
+  @keyframes ss-fade { from { opacity: 0; } }
+  .ss-panel { height: 100%; overflow-y: auto; overscroll-behavior: contain; padding: 0 clamp(24px, 4vw, 48px) 40px; }
+  .ss-top {
+    position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 18px 0 14px; margin-bottom: 28px; background: var(--porcelain); border-bottom: 1px solid var(--gold);
+  }
+  .ss-group { font-size: var(--t-sm); font-weight: 500; line-height: 1.4; color: var(--gold-text); }
+  .ss-close {
+    display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 0 0 12px; margin-right: -4px;
+    background: none; border: 0; cursor: pointer; font: 500 var(--t-sm)/1 var(--body); color: var(--green);
+  }
+  .ss-x { position: relative; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--gold); transition: background-color 0.2s; }
+  .ss-x::before, .ss-x::after { content: ''; position: absolute; left: 50%; top: 50%; width: 12px; height: 1.5px; background: var(--green); transform: translate(-50%, -50%) rotate(45deg); }
+  .ss-x::after { transform: translate(-50%, -50%) rotate(-45deg); }
+  .ss-close:hover .ss-x { background: var(--limewash); }
+  .ss-title { font-size: var(--t-2xl); line-height: 1.05; color: var(--green); }
+  .ss-title:focus { outline: none; }
+  .sector-sheet.is-b .ss-title { font-style: italic; color: var(--gold-text); }
+  .ss-intro { margin-top: 14px; max-width: 30em; color: var(--stone); }
+  .ss-photos { position: relative; margin-top: 32px; container-type: inline-size; }
+  .ss-strip { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .ss-strip::-webkit-scrollbar { display: none; }
+  .ss-shot { flex: 0 0 100%; margin: 0; scroll-snap-align: start; }
+  .ss-shot img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 1; object-fit: cover; background: var(--limewash); }
+  .ss-shot figcaption { display: flex; justify-content: space-between; gap: 16px; margin-top: 10px; font-size: var(--t-sm); line-height: 1.45; color: var(--stone); }
+  .ss-shot .ss-n { flex: none; color: var(--gold-text); font-variant-numeric: tabular-nums; }
+  .ss-pv {
+    position: absolute; top: calc(100cqw / 6); transform: translateY(-50%); display: grid; place-items: center;
+    width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; cursor: pointer;
+    background: rgba(246, 246, 243, 0.92); color: var(--green); box-shadow: 0 6px 18px -8px rgba(15, 33, 29, 0.6);
+    transition: opacity 0.2s;
+  }
+  .ss-pv svg { width: 16px; height: 16px; }
+  .ss-pv:disabled { opacity: 0; pointer-events: none; }
+  .ss-pv--prev { left: 10px; }
+  .ss-pv--next { right: 10px; }
+  .ss-list-title { margin: 36px 0 0; padding-bottom: 12px; border-bottom: 1px solid var(--hair); font-family: var(--body); font-weight: 500; font-size: var(--t-sm); line-height: 1.4; color: var(--gold-text); }
+  .ss-list { list-style: none; margin: 0; padding: 0; }
+  .ss-list li { padding: 16px 0 18px; border-bottom: 1px solid var(--hair); }
+  .ss-list strong { display: block; font-family: var(--display); font-weight: 500; font-size: 1.375rem; line-height: 1.25; color: var(--green); }
+  .ss-list span { display: block; margin-top: 4px; max-width: 34em; font-size: var(--t-sm); line-height: 1.5; color: var(--stone); }
+  .ss-note { margin-top: 22px; max-width: 34em; font-size: 0.9375rem; line-height: 1.55; font-style: italic; color: var(--gold-text); }
+  .ss-foot { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--gold); }
+  .ss-step { min-height: 44px; padding: 4px 0; margin: 0; background: none; border: 0; cursor: pointer; text-align: left; color: var(--green); font: inherit; }
+  .ss-step[data-dir="1"] { text-align: right; }
+  .ss-step span { display: block; font-size: var(--t-sm); line-height: 1.4; color: var(--stone); }
+  .ss-step b { display: block; font-family: var(--display); font-weight: 400; font-size: var(--t-lg); line-height: 1.2; }
+  .ss-step:hover b { text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 1px; text-underline-offset: 6px; }
+  .ss-cta { grid-column: 1 / -1; justify-self: start; }
+  @media (max-width: 600px) {
+    .sector-sheet {
+      inset: auto 0 0 0; width: 100%; height: auto; max-height: 92dvh; border-radius: 20px 20px 0 0;
+      box-shadow: 0 -30px 60px -30px rgba(15, 33, 29, 0.6);
+    }
+    .ss-panel { height: auto; max-height: 92dvh; padding: 0 22px 32px; }
+    .ss-top { padding-top: 14px; }
+    .sector-sheet[open] { animation-name: ss-up; }
+    .sector-sheet.is-closing { animation-name: ss-down; }
+    .ss-title { font-size: 2.5rem; }
+    .ss-step b { font-size: 1.375rem; }
+    .ss-cta { justify-self: stretch; }
+  }
+  @keyframes ss-up { from { transform: translateY(100%); } }
+  @keyframes ss-down { to { transform: translateY(100%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .sector-sheet[open], .sector-sheet[open]::backdrop, .sector-sheet.is-closing, .sector-sheet.is-closing::backdrop { animation: none; }
+    .ss-strip { scroll-behavior: auto; }
+  }
 
   /* ---------- Clients ---------- */
   .clients { padding: calc(var(--section-y) * 0.6) 0 var(--section-y); text-align: center; }
@@ -798,20 +896,57 @@
     <div class="container">
       <div class="sectors-head">
         <h2 id="sectors-title">Rooms we design and finish</h2>
-        <p>Across Bahrain, Qatar and the Philippines.</p>
+        <p>Across Bahrain, Qatar and the Philippines. Choose one to see work we've done in it.</p>
       </div>
       <div class="sector-groups">
         <div class="sector-group">
           <h3>Hospitality and residences</h3>
-          <ul class="sector-list"><li>Hotels</li><li>Palaces</li><li>Villas</li><li>Restaurants</li><li>Clubs</li></ul>
+          <ul class="sector-list">
+            <li><button type="button" class="sector-open" data-sector="hotels" aria-haspopup="dialog">Hotels<span class="so-plus" aria-hidden="true"></span></button></li>
+            <li><button type="button" class="sector-open" data-sector="palaces" aria-haspopup="dialog">Palaces<span class="so-plus" aria-hidden="true"></span></button></li>
+            <li><button type="button" class="sector-open" data-sector="villas" aria-haspopup="dialog">Villas<span class="so-plus" aria-hidden="true"></span></button></li>
+            <li><button type="button" class="sector-open" data-sector="restaurants" aria-haspopup="dialog">Restaurants<span class="so-plus" aria-hidden="true"></span></button></li>
+            <li><button type="button" class="sector-open" data-sector="clubs" aria-haspopup="dialog">Clubs<span class="so-plus" aria-hidden="true"></span></button></li>
+          </ul>
         </div>
         <div class="sector-group sector-group--b">
           <h3>Business and public spaces</h3>
-          <ul class="sector-list"><li>Corporate offices</li><li>Museums</li><li>Exhibition centres</li><li>Public institutions</li><li>Retail stores</li></ul>
+          <ul class="sector-list">
+            <li><button type="button" class="sector-open" data-sector="offices" aria-haspopup="dialog">Corporate offices<span class="so-plus" aria-hidden="true"></span></button></li>
+            <li><button type="button" class="sector-open" data-sector="museums" aria-haspopup="dialog">Museums<span class="so-plus" aria-hidden="true"></span></button></li>
+            <li><button type="button" class="sector-open" data-sector="exhibitions" aria-haspopup="dialog">Exhibition centres<span class="so-plus" aria-hidden="true"></span></button></li>
+            <li><button type="button" class="sector-open" data-sector="public" aria-haspopup="dialog">Public institutions<span class="so-plus" aria-hidden="true"></span></button></li>
+            <li><button type="button" class="sector-open" data-sector="retail" aria-haspopup="dialog">Retail stores<span class="so-plus" aria-hidden="true"></span></button></li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Sector sheet: filled from the list in the script below -->
+  <dialog class="sector-sheet" id="sector-sheet" aria-labelledby="ss-title">
+    <div class="ss-panel">
+      <div class="ss-top">
+        <p class="ss-group"></p>
+        <button type="button" class="ss-close">Close<span class="ss-x" aria-hidden="true"></span></button>
+      </div>
+      <h2 class="ss-title" id="ss-title" tabindex="-1"></h2>
+      <p class="ss-intro"></p>
+      <div class="ss-photos" hidden>
+        <div class="ss-strip" role="group" aria-label="Photographs"></div>
+        <button type="button" class="ss-pv ss-pv--prev" aria-label="Previous photograph"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><path d="M10 3 5 8l5 5"/></svg></button>
+        <button type="button" class="ss-pv ss-pv--next" aria-label="Next photograph"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><path d="m6 3 5 5-5 5"/></svg></button>
+      </div>
+      <h3 class="ss-list-title"></h3>
+      <ul class="ss-list"></ul>
+      <p class="ss-note"></p>
+      <div class="ss-foot">
+        <button type="button" class="ss-step" data-dir="-1"><span>Previous</span><b></b></button>
+        <button type="button" class="ss-step" data-dir="1"><span>Next</span><b></b></button>
+        <a class="pill ss-cta" href="#contact">Start a project</a>
+      </div>
+    </div>
+  </dialog>
 
   <!-- Clients -->
   <section class="clients" id="clients" aria-labelledby="clients-title">
@@ -1572,6 +1707,280 @@
 
   if (document.fonts && document.fonts.ready) { document.fonts.ready.then(function () { ScrollTrigger.refresh(); }); }
   window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+})();
+</script>
+<script>
+/* Sectors: each room type opens a sheet of the projects Maison has published for it */
+(function () {
+  'use strict';
+  var sheet = document.getElementById('sector-sheet');
+  if (!sheet || typeof sheet.showModal !== 'function') return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var IMG = 'https://maisoninteriors.com/img/';
+  var GROUPS = ['Hospitality and residences', 'Business and public spaces'];
+  var NOTE_PHOTOS = 'Concept note: projects are from the client list on Maison’s current website, and the photographs from its online portfolio.';
+  var NOTE_NONE = 'Concept note: projects are from the client list on Maison’s current website, which has no photographs for this sector yet. Add project photography here before launch.';
+
+  var S = [
+    { id: 'hotels', g: 0, name: 'Hotels',
+      intro: 'Restaurants, ballrooms, bars and health clubs inside working hotels.',
+      items: [
+        ['Sheraton Hotel', 'Al Safeer Restaurant and the Awali ballroom'],
+        ['Gulf Hotel', 'Men’s Health Club, phases one and two'],
+        ['Elite Hotel, Juffair', 'Cocoon bar and lounge'],
+        ['Gulf Cellar, Gulf Hotel', 'Showroom at the hotel']
+      ] },
+    { id: 'palaces', g: 0, name: 'Palaces',
+      intro: 'Formal rooms finished by hand, with gilding, decorative gypsum and paint effects.',
+      items: [['Royal Court', 'Various projects']],
+      note: 'Concept note: Maison’s current website names one palace client and shows no photographs of palace work. Add what Maison can share before launch.' },
+    { id: 'villas', g: 0, name: 'Villas',
+      intro: 'Private homes in Bahrain and Saudi Arabia, from 500 to 3,000 square metres.',
+      photos: [{ f: 'portfolio-5.jpg', alt: 'Lounge with a long grey sofa, patterned cushions and framed woven textiles along the wall', cap: 'A lounge from our portfolio' }],
+      items: [
+        ['Riffa Views', 'Various residences'],
+        ['Amwaj Islands', 'Various residences, including a private villa'],
+        ['Durrat Al Bahrain', 'Three residences'],
+        ['Dawani Group', 'Six-storey residence at Seef and ten-storey residence at Mahooz'],
+        ['A.A. Nass Group', 'Various residential projects'],
+        ['Private villas, Saudi Arabia', 'At Al Khobar Lakes and in Jeddah'],
+        ['Al Jabir Residential, Saudi Arabia', 'Residential project']
+      ] },
+    { id: 'restaurants', g: 0, name: 'Restaurants',
+      intro: 'Dining rooms, bars and chain outlets, in hotels and on the high street.',
+      items: [
+        ['Al Safeer Restaurant', 'Sheraton Hotel'],
+        ['Yum Yum Tree', 'Restaurant outlets for Gulf Consumer Corporation'],
+        ['Kabab-ji, Sanad', 'For Gulf Consumer Corporation'],
+        ['Lenotre', 'Al Ahli Complex, Seef'],
+        ['Hole-n-One Restaurant', 'Adliya'],
+        ['Cocoon bar and lounge', 'Elite Hotel, Juffair']
+      ] },
+    { id: 'clubs', g: 0, name: 'Clubs',
+      intro: 'Members’ clubs and health clubs, down to the library, cinema and spa.',
+      items: [
+        ['The Alumni Club', 'Multi-purpose hall, entrance hall, meeting room, restaurant, offices, library, cinema, VIP lounge, gym, spa, swimming pool, sports bar and the club majlis'],
+        ['Gulf Hotel Men’s Health Club', 'Phases one and two']
+      ] },
+    { id: 'offices', g: 1, name: 'Corporate offices',
+      intro: 'Head offices, branches and ticketing offices for airlines, banks, insurers and business groups.',
+      photos: [
+        { f: 'portfolio-1.jpg', alt: 'Open-plan office with a world map built from coloured blocks on the wall', cap: 'Open-plan office with a block-map wall' },
+        { f: 'portfolio-2.jpg', alt: 'Open office with red and white desks beside a glass-walled meeting room', cap: 'Open office and meeting room' },
+        { f: 'portfolio-3.jpg', alt: 'Reception desk and colourful breakout seating under an open ceiling', cap: 'Reception and breakout lounge' },
+        { f: 'portfolio-4.jpg', alt: 'Executive office with a dark wood desk, leather chairs and a white sofa', cap: 'Executive office' }
+      ],
+      items: [
+        ['Qatar Airways', 'Worldwide and Manama offices'],
+        ['KLM', 'Manama office'],
+        ['House of Travel', 'Ticketing office, Almoayyed Tower, Seef'],
+        ['Takaful International', 'Main office at Seef, and branches at West Riffa and Muharraq'],
+        ['Kuwait Finance House', 'Office'],
+        ['Bahrain Financial Harbour', 'H360 Business Centre'],
+        ['Banagas', 'Head office and training room'],
+        ['Motorola', 'Office at Seef'],
+        ['Kanoo Information Technology', 'Corporate office, Gudaibiya'],
+        ['Dawani Group', 'Five-storey office, Seef'],
+        ['Mena Telecom', 'Offices at NBB Tower and the GOSI Complex, and branches'],
+        ['Akhbar Al Khaleej and GDN', 'Office'],
+        ['Durrat Khaleej Al Bahrain', 'Office'],
+        ['Almoayyed International Group', 'Sitra office, and the Almoayyed Creative Agency studio in Riffa'],
+        ['Ferrari Centre', 'Main office'],
+        ['Koheeji Group', 'Seef Star project']
+      ] },
+    { id: 'museums', g: 1, name: 'Museums',
+      intro: 'Galleries and display rooms, where light and finish have to serve the exhibits.',
+      items: [],
+      related: [['Bahrain International Exhibition Centre', 'Convention centre and conference hall']],
+      note: 'Concept note: Maison lists museums among its specialisms, but its current website names no museum project. Add one here before launch.' },
+    { id: 'exhibitions', g: 1, name: 'Exhibition centres',
+      intro: 'Halls and conference rooms built for crowds and changing shows.',
+      items: [['Bahrain International Exhibition Centre', 'Convention centre and conference hall']] },
+    { id: 'public', g: 1, name: 'Public institutions',
+      intro: 'Rooms for public bodies, healthcare and places of worship.',
+      items: [
+        ['Royal Court', 'Various projects'],
+        ['United Nations Development Programme', 'Conference room, Manama'],
+        ['Economic Development Board', ''],
+        ['Bahrain Specialist Hospital', 'Insurance office'],
+        ['Joslin Diabetes Center', 'Optical showroom'],
+        ['Mosques', 'At Riffa and Saar']
+      ] },
+    { id: 'retail', g: 1, name: 'Retail stores',
+      intro: 'Boutiques, jewellers and car showrooms, from mall units to service centres.',
+      items: [
+        ['Lalla Eman', 'Fashion boutique, A’ali Mall'],
+        ['Argent Jewellery', 'Shop at Al Ali Complex'],
+        ['Gulf Cellar', 'Showroom at Gulf Hotel'],
+        ['Apple Centre, Hoora', 'For Almoayyed International Group'],
+        ['E.K. Kanoo Group', 'Volvo showroom, Kanoo Vehicle Leasing, and spare parts showrooms in Tubli'],
+        ['Mazda', 'Showroom and service centre, Salmabad'],
+        ['Geely', 'Showrooms in Sitra and Salmabad'],
+        ['Motorcity', 'BP Exide, Express Lube and Arad showrooms'],
+        ['The Makeup Manual', 'Salon and training school, Zinj']
+      ] }
+  ];
+
+  var root = document.documentElement;
+  var panel = sheet.querySelector('.ss-panel');
+  var groupEl = sheet.querySelector('.ss-group');
+  var titleEl = sheet.querySelector('.ss-title');
+  var introEl = sheet.querySelector('.ss-intro');
+  var photosEl = sheet.querySelector('.ss-photos');
+  var strip = sheet.querySelector('.ss-strip');
+  var pvPrev = sheet.querySelector('.ss-pv--prev'), pvNext = sheet.querySelector('.ss-pv--next');
+  var listTitle = sheet.querySelector('.ss-list-title');
+  var list = sheet.querySelector('.ss-list');
+  var noteEl = sheet.querySelector('.ss-note');
+  var steps = sheet.querySelectorAll('.ss-step');
+  var cta = sheet.querySelector('.ss-cta');
+  var openers = Array.prototype.slice.call(document.querySelectorAll('.sector-open'));
+  var current = 0, closeTimer = 0, returnFocus = true;
+
+  function make(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text) n.textContent = text;
+    return n;
+  }
+  function index(id) {
+    for (var i = 0; i < S.length; i++) if (S[i].id === id) return i;
+    return 0;
+  }
+
+  function shotWidth() { return strip.clientWidth + 16; }
+  function syncStrip() {
+    var n = strip.children.length;
+    var k = Math.round(strip.scrollLeft / shotWidth());
+    pvPrev.hidden = pvNext.hidden = n < 2;
+    pvPrev.disabled = k <= 0;
+    pvNext.disabled = k >= n - 1;
+  }
+  function numberShots() {
+    var shots = strip.children, n = shots.length;
+    if (!n) { photosEl.hidden = true; return; }
+    for (var i = 0; i < n; i++) {
+      var tag = shots[i].querySelector('.ss-n');
+      if (tag) tag.textContent = n > 1 ? (i + 1) + ' of ' + n : '';
+    }
+    syncStrip();
+  }
+
+  function render(i) {
+    var s = S[i];
+    current = i;
+    sheet.classList.toggle('is-b', s.g === 1);
+    groupEl.textContent = GROUPS[s.g];
+    titleEl.textContent = s.name;
+    introEl.textContent = s.intro;
+
+    strip.textContent = '';
+    var photos = s.photos || [];
+    photos.forEach(function (p, k) {
+      var fig = make('figure', 'ss-shot');
+      var img = make('img');
+      img.alt = p.alt;
+      img.width = 1200; img.height = 400;
+      img.decoding = 'async';
+      img.referrerPolicy = 'no-referrer';
+      if (k) img.loading = 'lazy';
+      img.addEventListener('error', function () { fig.remove(); numberShots(); });
+      img.src = IMG + p.f;
+      var cap = make('figcaption');
+      cap.appendChild(make('span', '', p.cap));
+      cap.appendChild(make('span', 'ss-n'));
+      fig.appendChild(img); fig.appendChild(cap);
+      strip.appendChild(fig);
+    });
+    photosEl.hidden = !photos.length;
+    strip.scrollLeft = 0;
+    numberShots();
+
+    var items = s.items.length ? s.items : (s.related || []);
+    listTitle.textContent = s.items.length ? 'Projects' : 'Closest published work';
+    list.textContent = '';
+    items.forEach(function (it) {
+      var li = make('li');
+      li.appendChild(make('strong', '', it[0]));
+      if (it[1]) li.appendChild(make('span', '', it[1]));
+      list.appendChild(li);
+    });
+    noteEl.textContent = s.note || (photos.length ? NOTE_PHOTOS : NOTE_NONE);
+
+    steps[0].querySelector('b').textContent = S[(i + S.length - 1) % S.length].name;
+    steps[1].querySelector('b').textContent = S[(i + 1) % S.length].name;
+    panel.scrollTop = 0;
+  }
+
+  function lock(on) {
+    if (on) {
+      root.style.setProperty('--sbw', Math.max(0, window.innerWidth - root.clientWidth) + 'px');
+      root.classList.add('ss-lock');
+    } else {
+      root.classList.remove('ss-lock');
+    }
+  }
+
+  function open(i) {
+    clearTimeout(closeTimer);
+    sheet.classList.remove('is-closing');
+    render(i);
+    if (!sheet.open) { lock(true); sheet.showModal(); }
+    titleEl.focus({ preventScroll: true });
+  }
+  function finish() {
+    clearTimeout(closeTimer);
+    sheet.classList.remove('is-closing');
+    if (sheet.open) sheet.close();
+  }
+  function close() {
+    if (!sheet.open || sheet.classList.contains('is-closing')) return;
+    if (reduce) { finish(); return; }
+    sheet.classList.add('is-closing');
+    closeTimer = setTimeout(finish, 260);
+  }
+
+  openers.forEach(function (btn) {
+    btn.addEventListener('click', function () { returnFocus = true; open(index(btn.getAttribute('data-sector'))); });
+  });
+  sheet.querySelector('.ss-close').addEventListener('click', close);
+  steps.forEach(function (b) {
+    b.addEventListener('click', function () {
+      open((current + Number(b.getAttribute('data-dir')) + S.length) % S.length);
+    });
+  });
+  pvPrev.addEventListener('click', function () { strip.scrollBy({ left: -shotWidth(), behavior: reduce ? 'auto' : 'smooth' }); });
+  pvNext.addEventListener('click', function () { strip.scrollBy({ left: shotWidth(), behavior: reduce ? 'auto' : 'smooth' }); });
+  strip.addEventListener('scroll', function () { window.requestAnimationFrame(syncStrip); }, { passive: true });
+
+  // Esc animates the close; keep the key from reaching the tower's own Esc handler
+  sheet.addEventListener('cancel', function (e) { e.preventDefault(); close(); });
+  sheet.addEventListener('keydown', function (e) { if (e.key === 'Escape') e.stopPropagation(); });
+
+  // A click on the dimmed page behind the sheet closes it (only when the press started there too)
+  var downOutside = false;
+  sheet.addEventListener('pointerdown', function (e) { downOutside = e.target === sheet; });
+  sheet.addEventListener('click', function (e) { if (e.target === sheet && downOutside) close(); });
+
+  sheet.addEventListener('close', function () {
+    lock(false);
+    if (!returnFocus) return;
+    var btn = openers[current] && openers[current].getAttribute('data-sector') === S[current].id
+      ? openers[current] : document.querySelector('.sector-open[data-sector="' + S[current].id + '"]');
+    if (btn) btn.focus({ preventScroll: true });
+  });
+
+  // "Start a project" closes the sheet and takes the visitor to the form
+  cta.addEventListener('click', function (e) {
+    var target = document.getElementById('contact');
+    if (!target) return;
+    e.preventDefault();
+    returnFocus = false;
+    finish();
+    target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    var field = document.getElementById('f-name');
+    if (field) field.focus({ preventScroll: true });
+  });
 })();
 </script>
 </body>
